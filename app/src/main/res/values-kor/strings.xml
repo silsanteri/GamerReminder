@@ -17,4 +17,9 @@
     <string name="notification">알림</string>
     <string name="notification_frequency">알림 빈도</string>
     <string name="notification_sound">알림 소리</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_notifications_min">15 min</string>
+    <string name="settings_notifications_max">120 min</string>
+    <string name="settings_notifications_frequency">Frequency</string>
 </resources>

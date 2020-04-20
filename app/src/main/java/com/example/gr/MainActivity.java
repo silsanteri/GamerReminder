@@ -1,6 +1,7 @@
 package com.example.gr;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,7 +16,7 @@ import com.example.gr.logic.MotivationalTextGenerator;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int REQUEST_CODE_SETTINGS = 1;
+    private static final int REQUEST_CODE_SETTINGS = 420;
 
     private MotivationalTextGenerator textGenerator;
 
@@ -47,14 +48,26 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
         switch (item.getItemId()) {
+            case R.id.menu_info:
+                startHistoryActivity();
+                break;
             case R.id.menu_settings:
                 // start SettingsActivity if settings icon clicked
                 startSettingsActivity();
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
 
+        return false;
+
+    }
+
+    private void startHistoryActivity() {
+        Intent historyIntent = new Intent(this, HistoryActivity.class);
+        startActivity(historyIntent);
     }
 
     private void startSettingsActivity() {
@@ -92,5 +105,47 @@ public class MainActivity extends AppCompatActivity {
         // todo
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // todo handle changes in settings
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

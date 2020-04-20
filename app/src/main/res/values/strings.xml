@@ -17,4 +17,12 @@
     <string name="notification">Notifications</string>
     <string name="notification_frequency">Notification Frequency</string>
     <string name="notification_sound">Notification Sound</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_sound">Sound</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_notifications_min">15 min</string>
+    <string name="settings_notifications_max">120 min</string>
+    <string name="settings_notifications_frequency">Frequency</string>
 </resources>
