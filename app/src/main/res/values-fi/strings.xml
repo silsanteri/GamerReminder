@@ -17,4 +17,9 @@
     <string name="notification">Ilmoitukset</string>
     <string name="notification_frequency">Ilmoitusten Aikaväli</string>
     <string name="notification_sound">Ilmoitusten Ääni</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_notifications_min">15 min</string>
+    <string name="settings_notifications_max">120 min</string>
+    <string name="settings_notifications_frequency">Frequency</string>
 </resources>

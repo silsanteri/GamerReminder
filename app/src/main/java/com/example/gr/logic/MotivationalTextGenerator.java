@@ -1,5 +1,6 @@
 package com.example.gr.logic;
 
+// AUTHOR ruslan
 
 import android.content.Context;
 
