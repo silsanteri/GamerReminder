@@ -1,0 +1,20 @@
+<resources>
+    <!-- ENGLISH -->
+    <!-- MAIN PAGE -->
+    <string name="app_name">Gamer Reminder</string>
+    <string name="game_mode">Game Mode</string>
+    <string name="add_exercise">Add Exercise</string>
+    <string name="add_drink">Add Drink</string>
+    <string name="add_calories">Add calories</string>
+    <string name="notification_next">Next Notification In: %1$sm %2$ss</string>
+    <!-- MAIN PAGE MOTIVATIONAL PHRASES -->
+    <!-- TODO: MAIN PAGE MOTIVATIONAL PHRASES -->
+    <string name="motivational_water">Water is important :)</string>
+    <string name="motivational_exercise">Exercise is important :)</string>
+    <!-- SETTINGS PAGE -->
+    <string name="settings">Settings</string>
+    <string name="language">Language</string>
+    <string name="notification">Notifications</string>
+    <string name="notification_frequency">Notification Frequency</string>
+    <string name="notification_sound">Notification Sound</string>
+</resources>

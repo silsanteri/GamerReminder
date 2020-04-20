@@ -1,0 +1,20 @@
+<resources>
+    <!-- KOREAN -->
+    <!-- MAIN PAGE -->
+    <string name="app_name">Gamer Reminder</string>
+    <string name="game_mode">게임 모드</string>
+    <string name="add_exercise">운동 첨가</string>
+    <string name="add_drink">음료 첨가</string>
+    <string name="add_calories">칼로리 첨가</string>
+    <string name="notification_next">다음 알림: %1$s %2$s</string>
+    <!-- MAIN PAGE MOTIVATIONAL PHRASES -->
+    <!-- TODO: MAIN PAGE MOTIVATIONAL PHRASES -->
+    <string name="motivational_water">물을 마신 거 중요합니다 :)</string>
+    <string name="motivational_exercise">운동을 중요합니다 :)</string>
+    <!-- SETTINGS PAGE -->
+    <string name="settings">설정</string>
+    <string name="language">언어</string>
+    <string name="notification">알림</string>
+    <string name="notification_frequency">알림 빈도</string>
+    <string name="notification_sound">알림 소리</string>
+</resources>

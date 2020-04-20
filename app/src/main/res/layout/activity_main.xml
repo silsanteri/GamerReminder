@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_add_block"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_game_mode"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:onClick="activateGameMode"
+        android:padding="40dp"
+        android:text="@string/game_mode"
+        app:cornerRadius="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline_mode" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_add_exercise"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:onClick="addExercise"
+        android:padding="15dp"
+        android:text="@string/add_exercise"
+        app:cornerRadius="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline_add_block" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_add_drink"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:onClick="addDrink"
+        android:padding="15dp"
+        android:text="@string/add_drink"
+        app:cornerRadius="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_add_exercise" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_add_calories"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:onClick="addDrink"
+        android:padding="15dp"
+        android:text="@string/add_calories"
+        app:cornerRadius="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_add_drink" />
+
+    <TextView
+        android:id="@+id/txt_motivational"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text=""
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_add_calories" />
+
+    <TextView
+        android:id="@+id/txt_notification_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/notification_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

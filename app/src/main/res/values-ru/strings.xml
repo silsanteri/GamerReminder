@@ -1,0 +1,20 @@
+<resources>
+    <!-- RUSSIAN -->
+    <!-- MAIN PAGE -->
+    <string name="app_name">Gamer Reminder</string>
+    <string name="game_mode">Режим игры</string>
+    <string name="add_exercise">Добавить упражнения</string>
+    <string name="add_drink">Добавить напиток</string>
+    <string name="notification_next">Следующее уведомление через: %1$sм %2$sс</string>
+    <string name="add_calories">Добавить калории</string>
+    <!-- MAIN PAGE MOTIVATIONAL PHRASES -->
+    <!-- TODO: MAIN PAGE MOTIVATIONAL PHRASES -->
+    <string name="motivational_water">Вода - это важно :)</string>
+    <string name="motivational_exercise">Упражнения - это важно :)</string>
+    <!-- SETTINGS PAGE -->
+    <string name="settings">Настройки</string>
+    <string name="language">Язык</string>
+    <string name="notification">Уведомления</string>
+    <string name="notification_frequency">Частота уведомлений</string>
+    <string name="notification_sound">Звук уведомлений</string>
+</resources>

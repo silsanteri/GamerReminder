@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="motivational">
+        <item>Water Helps to Maximize Physical Performance</item>
+        <item>Hydration Has a Major Effect on Energy Levels and Brain Function</item>
+        <item>Drinking Water May Help to Prevent and Treat Headaches</item>
+        <item>Drinking More Water May Help Relieve Constipation</item>
+        <item>Drinking Water May Help Treat Kidney Stones</item>
+        <item>Water Helps Prevent Hangovers</item>
+        <item>Drinking More Water Can Help With Weight Loss</item>
+    </string-array>
+</resources>

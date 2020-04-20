@@ -1,0 +1,20 @@
+<resources>
+    <!-- FINNISH -->
+    <!-- MAIN PAGE -->
+    <string name="app_name">Gamer Reminder</string>
+    <string name="game_mode">Pelitila</string>
+    <string name="add_exercise">Lisää Liikunta</string>
+    <string name="add_drink">Lisää Juoma</string>
+    <string name="add_calories">Add calories</string>
+    <string name="notification_next">Seuraava Ilmoitus: %1$sm %2$ss</string>
+    <!-- MAIN PAGE MOTIVATIONAL PHRASES -->
+    <!-- TODO: MAIN PAGE MOTIVATIONAL PHRASES -->
+    <string name="motivational_water">Vesi on tärkeää :)</string>
+    <string name="motivational_exercise">Liikunta on tärkeää :)</string>
+    <!-- SETTINGS PAGE -->
+    <string name="settings">Asetukset</string>
+    <string name="language">Kieli</string>
+    <string name="notification">Ilmoitukset</string>
+    <string name="notification_frequency">Ilmoitusten Aikaväli</string>
+    <string name="notification_sound">Ilmoitusten Ääni</string>
+</resources>
