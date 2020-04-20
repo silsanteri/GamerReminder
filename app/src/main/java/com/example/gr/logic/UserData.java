@@ -2,6 +2,7 @@ package com.example.gr.logic;
 
 // AUTHOR @silsanteri
 
+
     public class UserData {
         private Water water;
         private Food food;
