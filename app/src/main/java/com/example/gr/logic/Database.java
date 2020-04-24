@@ -15,12 +15,12 @@ public class Database extends SQLiteOpenHelper {
     private static final String FOOD = "food";
     private static final String EXERCISE = "exercise";
 
-    public Database(Context context){
+    public Database(Context context) {
         super(context, TABLE_NAME, null, 1);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db){
+    public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + DATE + " TEXT)";
         db.execSQL(createTable);
     }
@@ -31,7 +31,7 @@ public class Database extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addData (int water, int food, int exercise) {
+    public boolean addData(int water, int food, int exercise) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(WATER, water);
