@@ -1,9 +1,12 @@
 package com.example.gr.logic;
 
-// AUTHOR @silsanteri
-
 import android.content.Context;
-import android.provider.ContactsContract;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+// AUTHOR @silsanteri
 
 public class UserData {
     private Water water;
@@ -30,9 +33,16 @@ public class UserData {
         return exercise.returnExerciseAmount();
     }
 
+    // DATE FOR DB
+    private String getDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
     // DATABASE STORING
     public void addDBData(){
-        database.addData(returnWater(), returnFood(), returnExercise());
+        database.addData(getDate(), returnWater(), returnFood(), returnExercise());
     }
 }
 

@@ -5,16 +5,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.DatabaseErrorHandler;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.gr.logic.Database;
 import com.example.gr.logic.MotivationalTextGenerator;
 import com.example.gr.logic.UserData;
 

@@ -2,14 +2,16 @@ package com.example.gr.logic;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 // AUTHOR @silsanteri
-// SOURCE https://www.youtube.com/watch?v=aQAIMY-HzL8
 
 public class Database extends SQLiteOpenHelper {
-    private static final String TABLE_NAME = "user_data";
+    private static final String TAG = "DB";
+    private static final String TABLE_NAME = "userdata";
     private static final String DATE = "date";
     private static final String WATER = "water";
     private static final String FOOD = "food";
@@ -21,8 +23,7 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + DATE + " TEXT)";
-        db.execSQL(createTable);
+        db.execSQL("CREATE TABLE " + TABLE_NAME + " (id INTEGER PRIMARY KEY AUTOINCREMENT, " + DATE + " DATE, " + WATER + " INTEGER, " + FOOD + " INTEGER, " + EXERCISE + " INTEGER)");
     }
 
     @Override
@@ -31,19 +32,34 @@ public class Database extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addData(int water, int food, int exercise) {
+    public boolean addData(String date, int water, int food, int exercise) {
+        long result;
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        contentValues.put(DATE, date);
         contentValues.put(WATER, water);
         contentValues.put(FOOD, food);
         contentValues.put(EXERCISE, exercise);
 
-        long result = db.insert(TABLE_NAME, null, contentValues);
+        // CHECK IF DATE ALREADY EXISTS
+        // IF EXISTS RETURNS VALUE <= 1
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + DATE + " = '" + date + "'", null);
+        if(cursor.getCount() <= 0){
+            Log.d(TAG, "addData Insert.");
+            result = db.insert(TABLE_NAME, null, contentValues);
+        } else {
+            Log.d(TAG, "addData Update.");
+            contentValues.remove(DATE); // REMOVE DATE FROM CONTENTVALUES TO MINIMIZE POSSIBLE BUGS
+            result = db.update(TABLE_NAME, contentValues, DATE + " = '" + date + "'", null);
+        }
+        cursor.close();
 
         // IF INSERTED INCORRECTLY IT WILL RETURN -1
         if (result == -1) {
+            Log.d(TAG, "addData Failed.");
             return false;
         } else {
+            Log.d(TAG, "addData Successful.");
             return true;
         }
     }
