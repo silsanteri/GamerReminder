@@ -13,12 +13,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.gr.logic.MotivationalTextGenerator;
+import com.example.gr.logic.UserData;
+
+//AUTHOR @dievskiy, @silsanteri
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_SETTINGS = 420;
 
     private MotivationalTextGenerator textGenerator;
+    UserData mUserData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,14 @@ public class MainActivity extends AppCompatActivity {
 
         textGenerator = new MotivationalTextGenerator(this);
         setUpViews();
+
+        mUserData = new UserData(this);
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        mUserData.addDBData();
     }
 
     private void setUpViews() {
