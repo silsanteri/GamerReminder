@@ -7,7 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-// AUTHOR @silsanteri
+import java.util.ArrayList;
+
+/**
+ * Class includes database related functions.
+ * @author Santeri Silvennoinen (@silsanteri)
+ * @version 1.0 04/2020
+ */
 
 public class Database extends SQLiteOpenHelper {
     private static final String TAG = "DB";
@@ -17,6 +23,10 @@ public class Database extends SQLiteOpenHelper {
     private static final String FOOD = "food";
     private static final String EXERCISE = "exercise";
 
+    /**
+     * Constructor for all initial settings.
+     * @param context
+     */
     public Database(Context context) {
         super(context, TABLE_NAME, null, 1);
     }
@@ -32,6 +42,14 @@ public class Database extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * Saves passed values to database.
+     * @param date Date in yyyy-MM-dd format.
+     * @param water Amount of water.
+     * @param food Amount of food.
+     * @param exercise Amount of exercise.
+     * @return
+     */
     public boolean addData(String date, int water, int food, int exercise) {
         long result;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -61,6 +79,73 @@ public class Database extends SQLiteOpenHelper {
         } else {
             Log.d(TAG, "addData Successful.");
             return true;
+        }
+    }
+
+    /**
+     * Gets values for the specific day from database.
+     * @param date Date in yyyy-MM-dd format.
+     * @return ArrayList [0] = water, [1] = food, [2] = exercise.
+     */
+    public ArrayList<Integer> getData(String date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<Integer> values = new ArrayList<>();
+        int index, water, food, exercise, id = checkData(date);
+
+        if (id == -1) {
+            values.add(0); // ADD 0 TO WATER.
+            values.add(0); // ADD 0 TO FOOD.
+            values.add(0); // ADD 0 TO EXERCISE.
+            Log.d(TAG, "getData returned 0, 0, 0");
+            return values;
+        } else {
+            Cursor cursor = db.rawQuery("SELECT " + WATER + ", " + FOOD + ", " + EXERCISE + " FROM " + TABLE_NAME + " WHERE id = '" + id + "'", null);
+            index = cursor.getColumnIndexOrThrow(WATER);
+            // ADD WATER TO ARRAY
+            if (cursor.moveToFirst()) {
+                water = cursor.getInt(index);
+                values.add(water);
+            }
+            // ADD FOOD TO ARRAY
+            index = cursor.getColumnIndexOrThrow(FOOD);
+            if (cursor.moveToFirst()) {
+                food = cursor.getInt(index);
+                values.add(food);
+            }
+            // ADD EXERCISE TO ARRAY
+            index = cursor.getColumnIndexOrThrow(EXERCISE);
+            if (cursor.moveToFirst()) {
+                exercise = cursor.getInt(index);
+                values.add(exercise);
+            }
+            cursor.close();
+            Log.d(TAG, "getData returned " + values.get(0) + ", " + values.get(1) + ", " + values.get(2));
+            return values;
+        }
+    }
+
+    /**
+     * Checks if specific date entries exists in database.
+     * @param date Date in yyyy-MM-dd format.
+     * @return int returns id of the date if found, otherwise returns -1.
+     */
+    public int checkData(String date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int id = -1;
+
+        Cursor query = db.rawQuery("SELECT id FROM " + TABLE_NAME + " WHERE " + DATE + " = '" + date + "'", null);
+        if(query.getCount() <= 0){
+            Log.d(TAG, "checkData did not find entries on " + date);
+            query.close();
+            return id;
+        } else {
+            int idIndex = query.getColumnIndexOrThrow("id");
+            if (query.moveToFirst()) {
+                id = query.getInt(idIndex);
+            }
+            query.close();
+            Log.d(TAG, "checkData found an entry on " + date + " with id = " + id);
+            return id;
         }
     }
 }
