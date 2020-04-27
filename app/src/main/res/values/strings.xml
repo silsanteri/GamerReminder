@@ -25,4 +25,9 @@
     <string name="settings_notifications_min">15 min</string>
     <string name="settings_notifications_max">120 min</string>
     <string name="settings_notifications_frequency">Frequency</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
+    <string name="dialog_add_message">Set amount to add</string>
+    <string name="toast_not_saved">Not saved</string>
+    <string name="toast_saved_succ">Saved successfully!</string>
 </resources>

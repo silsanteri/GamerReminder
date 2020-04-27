@@ -2,24 +2,42 @@ package com.example.gr;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.gr.logic.AddType;
+import com.example.gr.logic.DialogHandler;
 import com.example.gr.logic.MotivationalTextGenerator;
 import com.example.gr.logic.UserData;
+import com.example.gr.view.AddListener;
 
-//AUTHOR @dievskiy, @silsanteri
-
-public class MainActivity extends AppCompatActivity {
+/**
+ * Launcher Activity class
+ *
+ * @author ruslan, silsanteri
+ * @version 1.0 04/2020
+ */
+public class MainActivity extends AppCompatActivity implements DialogHandler {
 
     private static final int REQUEST_CODE_SETTINGS = 420;
+    private static final String TAG = "MainActivity.class";
+
+    private Button btn_exercise;
+    private Button btn_calories;
+    private Button btn_drink;
 
     private MotivationalTextGenerator textGenerator;
     UserData mUserData;
@@ -36,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause(){
-        super.onPause();
+    protected void onPause() {
         mUserData.addDBData();
+        super.onPause();
     }
 
     private void setUpViews() {
@@ -48,8 +66,87 @@ public class MainActivity extends AppCompatActivity {
 
         // set motivational text
         ((TextView) findViewById(R.id.txt_motivational)).setText(textGenerator.getRandomText());
+
+        // set up buttons
+        btn_exercise = findViewById(R.id.btn_add_exercise);
+        btn_drink = findViewById(R.id.btn_add_water);
+        btn_calories = findViewById(R.id.btn_add_calories);
+
+        View.OnClickListener addListener = new AddListener(this);
+        btn_exercise.setOnClickListener(addListener);
+        btn_drink.setOnClickListener(addListener);
+        btn_calories.setOnClickListener(addListener);
     }
 
+    /**
+     * show dialog to get input from user and add it to new value
+     *
+     * @param type AddType that should be modified
+     * @author ruslan
+     * @version 1.0 04/2020
+     */
+    @Override
+    public void showAddDialog(final AddType type) {
+        final View dialogView = View.inflate(this, R.layout.dialog_add, null);
+        final EditText editText = dialogView.findViewById(R.id.edit_value);
+        String title = type.toString().toLowerCase();
+        // capitalize title
+        // source https://stackoverflow.com/questions/3904579/how-to-capitalize-the-first-letter-of-a-string-in-java
+        title = title.substring(0, 1).toUpperCase() + title.substring(1);
+
+        // source https://stackoverflow.com/questions/26097513/android-simple-alert-dialog
+        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(getString(R.string.dialog_add_message));
+        alertDialog.setView(dialogView);
+
+        // set positive button
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.ok),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // try in case user has inserted non-decimal value
+                        try {
+                            addAmount(type, Integer.valueOf(editText.getText().toString()));
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                            Toast.makeText(MainActivity.this, R.string.toast_not_saved, Toast.LENGTH_SHORT).show();
+                            Log.e(TAG, "onClick: wrong input from user".concat(editText.getText().toString()));
+                        }
+                    }
+                });
+
+        // set negative button
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
+
+    /**
+     * Adds amount to the user data in database
+     *
+     * @param type   AddType to be changed
+     * @param amount amount to add
+     * @author ruslan
+     * @version 1.0 04/2020
+     */
+    private void addAmount(AddType type, Integer amount) {
+        switch (type) {
+            case WATER:
+                mUserData.addWater(amount);
+                break;
+            case CALORIES:
+                mUserData.addFood(amount);
+                break;
+            case EXERCISE:
+                mUserData.addExercise(amount);
+                break;
+        }
+        Toast.makeText(MainActivity.this, R.string.toast_saved_succ, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,59 +193,12 @@ public class MainActivity extends AppCompatActivity {
         // todo
     }
 
-    /**
-     * Add Exercise
-     */
-    public void addExercise(View view) {
-        // todo
-    }
-
-    /**
-     * Add drink
-     */
-    public void addDrink(View view) {
-        // todo
-    }
-
-    /**
-     * Add calories
-     */
-    public void addCalories(View view) {
-        // todo
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // todo handle changes in settings
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
