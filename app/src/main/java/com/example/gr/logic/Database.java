@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 
 public class Database extends SQLiteOpenHelper {
-    private static final String TAG = "DB";
+    private static final String TAG = "Database.class";
     private static final String TABLE_NAME = "userdata";
     private static final String DATE = "date";
     private static final String WATER = "water";
@@ -25,7 +25,7 @@ public class Database extends SQLiteOpenHelper {
 
     /**
      * Constructor for all initial settings.
-     * @param context
+     * @param context context
      */
     public Database(Context context) {
         super(context, TABLE_NAME, null, 1);
@@ -48,7 +48,7 @@ public class Database extends SQLiteOpenHelper {
      * @param water Amount of water.
      * @param food Amount of food.
      * @param exercise Amount of exercise.
-     * @return
+     * @return boolean Returns false if adding data fails.
      */
     public boolean addData(String date, int water, int food, int exercise) {
         long result;

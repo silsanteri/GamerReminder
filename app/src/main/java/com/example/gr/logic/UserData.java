@@ -136,7 +136,7 @@ class Water {
      * @param amount initial amount of water in milliliters (1 = 1ml, 100 = 100ml, etc).
      */
     public Water(int amount) {
-        this.waterAmount = 0;
+        this.waterAmount = amount;
     }
 
     /**
@@ -174,7 +174,7 @@ class Food {
      * @param amount initial amount of food in calories (1 = 1kcal, 100 = 100kcal, etc).
      */
     public Food(int amount) {
-        this.foodAmount = 0;
+        this.foodAmount = amount;
     }
 
     /**
@@ -212,7 +212,7 @@ class Exercise {
      * @param amount initial amount of exercise in minutes (1 = 1min, 100 = 100min, etc).
      */
     public Exercise(int amount) {
-        this.exerciseAmount = 0;
+        this.exerciseAmount = amount;
     }
 
     /**

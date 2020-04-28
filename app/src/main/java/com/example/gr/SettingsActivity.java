@@ -5,6 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+/**
+ * SettingsActivity
+ * @author Ruslan (@dievskiy)
+ * @version 1.0 04/2020
+ */
+
 public class SettingsActivity extends AppCompatActivity {
 
     @Override

@@ -25,11 +25,11 @@ import com.example.gr.logic.UserData;
 import com.example.gr.view.AddListener;
 
 /**
- * Launcher Activity class
- *
- * @author ruslan, silsanteri
+ * Launcher Activity class.
+ * @author Ruslan (@dievskiy), Santeri Silvennoinen (@silsanteri)
  * @version 1.0 04/2020
  */
+
 public class MainActivity extends AppCompatActivity implements DialogHandler {
 
     private static final int REQUEST_CODE_SETTINGS = 420;
@@ -79,11 +79,9 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
     }
 
     /**
-     * show dialog to get input from user and add it to new value
-     *
-     * @param type AddType that should be modified
-     * @author ruslan
-     * @version 1.0 04/2020
+     * Show dialog to get input from user and add it to new value.
+     * @param type AddType that should be modified.
+     * @author Ruslan (@dievskiy)
      */
     @Override
     public void showAddDialog(final AddType type) {
@@ -126,12 +124,10 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
     }
 
     /**
-     * Adds amount to the user data in database
-     *
-     * @param type   AddType to be changed
-     * @param amount amount to add
-     * @author ruslan
-     * @version 1.0 04/2020
+     * Adds amount to the user data in database.
+     * @param type AddType to be changed.
+     * @param amount Amount to add.
+     * @author Ruslan (@dievskiy)
      */
     private void addAmount(AddType type, Integer amount) {
         switch (type) {
@@ -187,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
 
 
     /**
-     * Activate game mode
+     * Activate game mode.
      */
     public void activateGameMode(View view) {
         // todo
