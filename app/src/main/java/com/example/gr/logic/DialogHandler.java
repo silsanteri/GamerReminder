@@ -2,6 +2,7 @@ package com.example.gr.logic;
 
 /**
  * DialogHandler
+ *
  * @author Ruslan (@dievskiy)
  * @version 1.0 04/2020
  */

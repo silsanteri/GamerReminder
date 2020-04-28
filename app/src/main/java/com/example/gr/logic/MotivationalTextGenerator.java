@@ -8,6 +8,7 @@ import java.util.Random;
 
 /**
  * Class that generates random motivational texts from resource folder.
+ *
  * @author Ruslan (@dievskiy)
  * @version 1.0 04/2020
  */

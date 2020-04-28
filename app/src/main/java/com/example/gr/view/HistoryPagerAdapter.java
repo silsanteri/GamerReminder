@@ -16,6 +16,7 @@ import java.util.List;
 
 /**
  * Adapter for ViewPager in HistoryActivity.
+ *
  * @author Ruslan (@dievskiy)
  * @version 1.0 04/2020
  */

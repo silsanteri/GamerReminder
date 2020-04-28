@@ -19,7 +19,12 @@ import com.example.gr.R;
 
 import java.util.ArrayList;
 
-// author Ruslan
+/**
+ * ExerciseFragment
+ *
+ * @author Ruslan (@dievskiy)
+ * @version 1.0 04/2020
+ */
 
 public class ExerciseFragment extends Fragment {
 

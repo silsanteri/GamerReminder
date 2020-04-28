@@ -12,6 +12,7 @@ import com.google.android.material.tabs.TabLayout;
 
 /**
  * HistoryActivity
+ *
  * @author Ruslan (@dievskiy)
  * @version 1.0 04/2020
  */

@@ -26,6 +26,7 @@ import com.example.gr.view.AddListener;
 
 /**
  * Launcher Activity class.
+ *
  * @author Ruslan (@dievskiy), Santeri Silvennoinen (@silsanteri)
  * @version 1.0 04/2020
  */
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
 
     /**
      * Show dialog to get input from user and add it to new value.
+     *
      * @param type AddType that should be modified.
      * @author Ruslan (@dievskiy)
      */
@@ -125,7 +127,8 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
 
     /**
      * Adds amount to the user data in database.
-     * @param type AddType to be changed.
+     *
+     * @param type   AddType to be changed.
      * @param amount Amount to add.
      * @author Ruslan (@dievskiy)
      */

@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 /**
  * SettingsActivity
+ *
  * @author Ruslan (@dievskiy)
  * @version 1.0 04/2020
  */
