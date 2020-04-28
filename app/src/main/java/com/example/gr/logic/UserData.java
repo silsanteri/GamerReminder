@@ -132,7 +132,7 @@ public class UserData {
     /**
      * Returns daily intake limit for both water and food.
      *
-     * @return int exercise amount.
+     * @return int intake limit.
      */
     public int returnIntakeLimit(){
         return this.intakeLimit;
@@ -141,7 +141,7 @@ public class UserData {
     /**
      * Returns daily exercise limit.
      *
-     * @return int exercise amount.
+     * @return int exercise limit.
      */
     public int returnExerciseLimit(){
         return this.exerciseLimit;
