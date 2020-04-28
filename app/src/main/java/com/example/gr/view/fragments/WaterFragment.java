@@ -10,7 +10,12 @@ import android.view.ViewGroup;
 
 import com.example.gr.R;
 
-// author Ruslan
+/**
+ * WaterFragment
+ *
+ * @author Ruslan (@dievskiy)
+ * @version 1.0 04/2020
+ */
 
 public class WaterFragment extends Fragment {
 

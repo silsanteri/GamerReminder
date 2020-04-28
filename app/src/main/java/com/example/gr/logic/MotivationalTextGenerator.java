@@ -1,7 +1,5 @@
 package com.example.gr.logic;
 
-// AUTHOR ruslan
-
 import android.content.Context;
 
 import com.example.gr.R;
@@ -9,8 +7,12 @@ import com.example.gr.R;
 import java.util.Random;
 
 /**
- * Class that generates random motivational texts from resource folder
+ * Class that generates random motivational texts from resource folder.
+ *
+ * @author Ruslan (@dievskiy)
+ * @version 1.0 04/2020
  */
+
 public class MotivationalTextGenerator {
 
     private Context context;

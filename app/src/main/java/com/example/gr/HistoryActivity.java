@@ -10,6 +10,13 @@ import android.view.MenuItem;
 import com.example.gr.view.HistoryPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
+/**
+ * HistoryActivity
+ *
+ * @author Ruslan (@dievskiy)
+ * @version 1.0 04/2020
+ */
+
 public class HistoryActivity extends AppCompatActivity {
 
     private ViewPager viewPager;

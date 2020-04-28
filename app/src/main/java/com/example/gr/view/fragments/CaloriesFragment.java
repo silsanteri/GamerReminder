@@ -9,7 +9,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.gr.R;
 
-// author Ruslan
+/**
+ * CaloriesFragment
+ *
+ * @author Ruslan (@dievskiy)
+ * @version 1.0 04/2020
+ */
 
 public class CaloriesFragment extends Fragment {
 

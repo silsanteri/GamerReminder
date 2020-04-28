@@ -11,12 +11,13 @@ import java.util.ArrayList;
 
 /**
  * Class includes database related functions.
+ *
  * @author Santeri Silvennoinen (@silsanteri)
  * @version 1.0 04/2020
  */
 
 public class Database extends SQLiteOpenHelper {
-    private static final String TAG = "DB";
+    private static final String TAG = "Database.class";
     private static final String TABLE_NAME = "userdata";
     private static final String DATE = "date";
     private static final String WATER = "water";
@@ -25,7 +26,8 @@ public class Database extends SQLiteOpenHelper {
 
     /**
      * Constructor for all initial settings.
-     * @param context
+     *
+     * @param context context
      */
     public Database(Context context) {
         super(context, TABLE_NAME, null, 1);
@@ -43,36 +45,34 @@ public class Database extends SQLiteOpenHelper {
     }
 
     /**
-     * Saves passed values to database.
-     * @param date Date in yyyy-MM-dd format.
-     * @param water Amount of water.
-     * @param food Amount of food.
+     * Writes given parameter values to given date in database.
+     *
+     * @param date     Date in yyyy-MM-dd format.
+     * @param water    Amount of water.
+     * @param food     Amount of food.
      * @param exercise Amount of exercise.
-     * @return
+     * @return boolean Returns false if adding data fails.
      */
     public boolean addData(String date, int water, int food, int exercise) {
-        long result;
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(DATE, date);
         contentValues.put(WATER, water);
         contentValues.put(FOOD, food);
         contentValues.put(EXERCISE, exercise);
+        long result;
+        int id = checkData(date);
 
-        // CHECK IF DATE ALREADY EXISTS
-        // IF EXISTS RETURNS VALUE <= 1
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + DATE + " = '" + date + "'", null);
-        if(cursor.getCount() <= 0){
+        if (id == -1) {
             Log.d(TAG, "addData Insert.");
             result = db.insert(TABLE_NAME, null, contentValues);
         } else {
             Log.d(TAG, "addData Update.");
-            contentValues.remove(DATE); // REMOVE DATE FROM CONTENTVALUES TO MINIMIZE POSSIBLE BUGS
-            result = db.update(TABLE_NAME, contentValues, DATE + " = '" + date + "'", null);
+            contentValues.remove(DATE); // REMOVE DATE TO MINIMIZE BUGS
+            result = db.update(TABLE_NAME, contentValues, "id  = '" + id + "'", null);
         }
-        cursor.close();
 
-        // IF INSERTED INCORRECTLY IT WILL RETURN -1
+        // RETURNS -1 IF UPDATE OR INSERT FAILS
         if (result == -1) {
             Log.d(TAG, "addData Failed.");
             return false;
@@ -84,8 +84,9 @@ public class Database extends SQLiteOpenHelper {
 
     /**
      * Gets values for the specific day from database.
+     *
      * @param date Date in yyyy-MM-dd format.
-     * @return ArrayList [0] = water, [1] = food, [2] = exercise.
+     * @return ArrayList<Integer>, [0] = water, [1] = food, [2] = exercise.
      */
     public ArrayList<Integer> getData(String date) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -96,7 +97,7 @@ public class Database extends SQLiteOpenHelper {
             values.add(0); // ADD 0 TO WATER.
             values.add(0); // ADD 0 TO FOOD.
             values.add(0); // ADD 0 TO EXERCISE.
-            Log.d(TAG, "getData returned 0, 0, 0");
+            Log.d(TAG, "getData returned: (Water,Food,Exercise)(0,0,0)");
             return values;
         } else {
             Cursor cursor = db.rawQuery("SELECT " + WATER + ", " + FOOD + ", " + EXERCISE + " FROM " + TABLE_NAME + " WHERE id = '" + id + "'", null);
@@ -119,13 +120,14 @@ public class Database extends SQLiteOpenHelper {
                 values.add(exercise);
             }
             cursor.close();
-            Log.d(TAG, "getData returned " + values.get(0) + ", " + values.get(1) + ", " + values.get(2));
+            Log.d(TAG, "getData returned: (Water,Food,Exercise)(" + values.get(0) + "," + values.get(1) + "," + values.get(2)+ ")");
             return values;
         }
     }
 
     /**
      * Checks if specific date entries exists in database.
+     *
      * @param date Date in yyyy-MM-dd format.
      * @return int returns id of the date if found, otherwise returns -1.
      */
@@ -134,7 +136,7 @@ public class Database extends SQLiteOpenHelper {
         int id = -1;
 
         Cursor query = db.rawQuery("SELECT id FROM " + TABLE_NAME + " WHERE " + DATE + " = '" + date + "'", null);
-        if(query.getCount() <= 0){
+        if (query.getCount() <= 0) {
             Log.d(TAG, "checkData did not find entries on " + date);
             query.close();
             return id;
@@ -144,7 +146,7 @@ public class Database extends SQLiteOpenHelper {
                 id = query.getInt(idIndex);
             }
             query.close();
-            Log.d(TAG, "checkData found an entry on " + date + " with id = " + id);
+            Log.d(TAG, "checkData found an entry of " + date + " with id = " + id);
             return id;
         }
     }

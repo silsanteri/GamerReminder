@@ -15,8 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Adapter for ViewPager in HistoryActivity
- * author ruslan
+ * Adapter for ViewPager in HistoryActivity.
+ *
+ * @author Ruslan (@dievskiy)
+ * @version 1.0 04/2020
  */
 
 public class HistoryPagerAdapter extends FragmentPagerAdapter {
