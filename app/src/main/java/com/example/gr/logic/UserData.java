@@ -18,6 +18,7 @@ import java.util.Locale;
 
 public class UserData {
     private static final String TAG = "UserData.class";
+    private int intakeLimit, exerciseLimit; // INTAKELIMIT IS THE SAME FOR FOOD AND WATER
     private Water water;
     private Food food;
     private Exercise exercise;
@@ -35,9 +36,14 @@ public class UserData {
         this.database = new Database(context);
         this.date = getDate();
         ArrayList<Integer> values = database.getData(this.date);
-        this.water = new Water(values.get(0));
-        this.food = new Food(values.get(1));
-        this.exercise = new Exercise(values.get(2));
+
+        this.intakeLimit = 10000;
+        this.exerciseLimit = 1440; // 24*60
+
+        this.water = new Water(values.get(0), this.intakeLimit);
+        this.food = new Food(values.get(1), this.intakeLimit);
+        this.exercise = new Exercise(values.get(2), this.exerciseLimit);
+
         Log.d(TAG, "UserData object constructed. Date: " + this.date + ". Values: (Water,Food,Exercise)("
                 + this.water.returnWaterAmount() + "," + this.food.returnFoodAmount() + "," + this.exercise.returnExerciseAmount() + ")");
     }
@@ -124,6 +130,24 @@ public class UserData {
     }
 
     /**
+     * Returns daily intake limit for both water and food.
+     *
+     * @return int intake limit.
+     */
+    public int returnIntakeLimit(){
+        return this.intakeLimit;
+    }
+
+    /**
+     * Returns daily exercise limit.
+     *
+     * @return int exercise limit.
+     */
+    public int returnExerciseLimit(){
+        return this.exerciseLimit;
+    }
+
+    /**
      * Returns current date in yyyy-MM-dd format.
      *
      * @return String current date.
@@ -145,15 +169,19 @@ public class UserData {
 
 // WATER -------------------------------------------------------------------------------------------
 class Water {
+    private static final String TAG = "UserData.class";
     private int waterAmount;
+    private int waterLimit;
 
     /**
      * Constructor for initial values.
      *
      * @param amount initial amount of water in milliliters (1 = 1ml, 100 = 100ml, etc).
+     * @param limit limit of water intake.
      */
-    public Water(int amount) {
+    public Water(int amount, int limit) {
         this.waterAmount = amount;
+        this.waterLimit = limit;
     }
 
     /**
@@ -162,7 +190,13 @@ class Water {
      * @param amount amount of water to add.
      */
     public void addWater(int amount) {
-        this.waterAmount += amount;
+        int newAmount = this.waterAmount + amount;
+        if(waterLimit >= newAmount) {
+            this.waterAmount = newAmount;
+            Log.d(TAG, "addWater added water. New amount: " + this.waterAmount + "/" + this.waterLimit);
+        } else {
+            Log.d(TAG, "addWater did not add water.");
+        }
     }
 
     /**
@@ -187,15 +221,19 @@ class Water {
 
 // FOOD --------------------------------------------------------------------------------------------
 class Food {
+    private static final String TAG = "UserData.class";
     private int foodAmount;
+    private int foodLimit;
 
     /**
      * Constructor for initial values.
      *
      * @param amount initial amount of food in calories (1 = 1kcal, 100 = 100kcal, etc).
+     * @param limit limit of food intake.
      */
-    public Food(int amount) {
+    public Food(int amount, int limit) {
         this.foodAmount = amount;
+        this.foodLimit = limit;
     }
 
     /**
@@ -204,7 +242,13 @@ class Food {
      * @param amount amount of food to add.
      */
     public void addFood(int amount) {
-        this.foodAmount += amount;
+        int newAmount = this.foodAmount + amount;
+        if(foodLimit >= newAmount) {
+            this.foodAmount = newAmount;
+            Log.d(TAG, "addFood added food. New amount: " + this.foodAmount + "/" + this.foodLimit);
+        } else {
+            Log.d(TAG, "addFood did not add food.");
+        }
     }
 
     /**
@@ -229,15 +273,19 @@ class Food {
 
 // EXERCISE ----------------------------------------------------------------------------------------
 class Exercise {
+    private static final String TAG = "UserData.class";
     private int exerciseAmount;
+    private int exerciseLimit;
 
     /**
      * Constructor for initial values.
      *
      * @param amount initial amount of exercise in minutes (1 = 1min, 100 = 100min, etc).
+     * @param limit limit of exercise time.
      */
-    public Exercise(int amount) {
+    public Exercise(int amount, int limit) {
         this.exerciseAmount = amount;
+        this.exerciseLimit = limit;
     }
 
     /**
@@ -246,7 +294,13 @@ class Exercise {
      * @param amount amount of exercise to add.
      */
     public void addExercise(int amount) {
-        this.exerciseAmount += amount;
+        int newAmount = this.exerciseAmount + amount;
+        if(exerciseLimit >= newAmount) {
+            this.exerciseAmount = newAmount;
+            Log.d(TAG, "addExercise added exercise. New amount: " + this.exerciseAmount + "/" + this.exerciseLimit);
+        } else {
+            Log.d(TAG, "addExercise did not add exercise.");
+        }
     }
 
     /**

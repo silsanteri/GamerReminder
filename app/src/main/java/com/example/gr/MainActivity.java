@@ -93,11 +93,28 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
         // capitalize title
         // source https://stackoverflow.com/questions/3904579/how-to-capitalize-the-first-letter-of-a-string-in-java
         title = title.substring(0, 1).toUpperCase() + title.substring(1);
+        Log.d(TAG, "showAddDialog: " + title);
 
         // source https://stackoverflow.com/questions/26097513/android-simple-alert-dialog
         AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
         alertDialog.setTitle(title);
-        alertDialog.setMessage(getString(R.string.dialog_add_message));
+
+        String message = "";
+        // MODIFIES THE DIALOG MESSAGE TO DISPLAY CURRENT VALUES
+        if(type == AddType.WATER){
+            message = getString(R.string.dialog_add_message) + "\n"
+                    + getString(R.string.dialog_today) + " " + this.mUserData.returnWater() + "/" + this.mUserData.returnIntakeLimit();
+        } else if (type == AddType.CALORIES) {
+            message = getString(R.string.dialog_add_message) + "\n"
+                    + getString(R.string.dialog_today) + " " + this.mUserData.returnFood() + "/" + this.mUserData.returnIntakeLimit();
+        } else if (type == AddType.EXERCISE) {
+            message = getString(R.string.dialog_add_message) + "\n"
+                    + getString(R.string.dialog_today) + " " + this.mUserData.returnExercise() + "/" + this.mUserData.returnExerciseLimit();
+        } else {
+            Log.e(TAG, "showAddDialog: unknown AddType value!");
+        }
+
+        alertDialog.setMessage(message);
         alertDialog.setView(dialogView);
 
         // set positive button
@@ -126,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
     }
 
     /**
-     * Adds amount to the user data in database.
+     * Adds the input amount to the UserData object.
      *
      * @param type   AddType to be changed.
      * @param amount Amount to add.
@@ -144,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
                 mUserData.addExercise(amount);
                 break;
         }
-        Toast.makeText(MainActivity.this, R.string.toast_saved_succ, Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, R.string.toast_saved, Toast.LENGTH_SHORT).show();
     }
 
     @Override
