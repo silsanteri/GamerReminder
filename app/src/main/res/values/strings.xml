@@ -4,7 +4,7 @@
     <string name="app_name">Gamer Reminder</string>
     <string name="game_mode">Game Mode</string>
     <string name="add_exercise">Add Exercise</string>
-    <string name="add_drink">Add Drink</string>
+    <string name="add_water">Add Water</string>
     <string name="add_calories">Add calories</string>
     <string name="notification_next">Next Notification In: %1$sm %2$ss</string>
     <!-- MAIN PAGE MOTIVATIONAL PHRASES -->
@@ -28,7 +28,14 @@
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>
     <string name="dialog_add_message">Set the amount to add</string>
-    <string name="dialog_today">Today:</string>
+    <string name="dialog_today">Today: %1$d/%2$d</string>
     <string name="toast_not_saved">Not saved.</string>
     <string name="toast_saved">Saved successfully!</string>
+    <string name="total_exercise">Exercise\n%1$d</string>
+    <string name="total_calories">Calories\n%1$d</string>
+    <string name="total_water">Water\n%1$d</string>
+    <string name="today">Today</string>
+    <string name="history_list_item">%1$s - %2$d</string>
+    <string name="history_average">Average: %1$d %2$s</string>
+    <string name="dialog_edit_title">New value</string>
 </resources>

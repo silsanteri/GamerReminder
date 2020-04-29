@@ -6,13 +6,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.util.Pair;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class includes database related functions.
  *
- * @author Santeri Silvennoinen (@silsanteri)
+ * @author Santeri Silvennoinen (@silsanteri), Ruslan
  * @version 1.0 04/2020
  */
 
@@ -120,10 +122,11 @@ public class Database extends SQLiteOpenHelper {
                 values.add(exercise);
             }
             cursor.close();
-            Log.d(TAG, "getData returned: (Water,Food,Exercise)(" + values.get(0) + "," + values.get(1) + "," + values.get(2)+ ")");
+            Log.d(TAG, "getData returned: (Water,Food,Exercise)(" + values.get(0) + "," + values.get(1) + "," + values.get(2) + ")");
             return values;
         }
     }
+
 
     /**
      * Checks if specific date entries exists in database.
@@ -139,6 +142,7 @@ public class Database extends SQLiteOpenHelper {
         if (query.getCount() <= 0) {
             Log.d(TAG, "checkData did not find entries on " + date);
             query.close();
+
             return id;
         } else {
             int idIndex = query.getColumnIndexOrThrow("id");
@@ -150,4 +154,73 @@ public class Database extends SQLiteOpenHelper {
             return id;
         }
     }
+
+    // todo to helper
+
+    /**
+     * Searches values of specific type for all possible dates
+     *
+     * @param type Type to be searched
+     * @return List of pairs, where first refers to date, and second - to value
+     */
+    public List<Pair<String, Integer>> getAllPairedValues(ItemType type) {
+        String typeString = type.toString().toLowerCase();
+        List<Pair<String, Integer>> list = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select " + typeString + ", " + DATE + " from " + TABLE_NAME, null);
+        while (cursor.moveToNext()) {
+            int index_exercise = cursor.getColumnIndexOrThrow(typeString);
+            int index_date = cursor.getColumnIndexOrThrow(DATE);
+            list.add(new Pair(cursor.getString(index_date), cursor.getInt(index_exercise)));
+        }
+        cursor.close();
+        db.close();
+
+        return list;
+    }
+
+    // todo to helper
+
+    /**
+     * Searches values of specific type for all possible dates
+     *
+     * @param type Type to be searched
+     * @return List of values
+     */
+    public List<Integer> getAllValues(ItemType type) {
+        String typeString = type.toString().toLowerCase();
+        List<Integer> list = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select " + typeString + " from " + TABLE_NAME, null);
+        while (cursor.moveToNext()) {
+            int index_exercise = cursor.getColumnIndexOrThrow(typeString);
+            list.add(cursor.getInt(index_exercise));
+        }
+        cursor.close();
+        db.close();
+
+        return list;
+    }
+
+    // todo to helper
+
+    /**
+     * Updates value
+     *
+     * @param type     type to be updated
+     * @param date     date to be updated
+     * @param newValue new value to set
+     */
+    public void updateItemValue(ItemType type, String date, int newValue) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DATE, date);
+        contentValues.put(type.toString().toLowerCase(), newValue);
+        int id = checkData(date);
+        db.update(TABLE_NAME, contentValues, "id  = '" + id + "'", null);
+        Log.d("123", "updateItemValue: " + type + date + newValue);
+        Log.d("123", "updateItemValue: " + getAllValues(ItemType.FOOD));
+        db.close();
+    }
+
 }

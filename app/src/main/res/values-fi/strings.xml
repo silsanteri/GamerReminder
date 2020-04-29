@@ -4,7 +4,7 @@
     <string name="app_name">Gamer Reminder</string>
     <string name="game_mode">Pelitila</string>
     <string name="add_exercise">Lisää Liikunta</string>
-    <string name="add_drink">Lisää Juoma</string>
+    <string name="add_water">Lisää Juoma</string>
     <string name="add_calories">Add calories</string>
     <string name="notification_next">Seuraava Ilmoitus: %1$sm %2$ss</string>
     <!-- MAIN PAGE MOTIVATIONAL PHRASES -->

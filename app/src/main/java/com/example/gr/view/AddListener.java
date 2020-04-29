@@ -4,7 +4,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.gr.R;
-import com.example.gr.logic.AddType;
+import com.example.gr.logic.ItemType;
 import com.example.gr.logic.DialogHandler;
 
 /**
@@ -25,15 +25,15 @@ public class AddListener implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_add_calories: {
-                dialogHandler.showAddDialog(AddType.CALORIES);
+                dialogHandler.showAddDialog(ItemType.FOOD);
                 break;
             }
             case R.id.btn_add_water: {
-                dialogHandler.showAddDialog(AddType.WATER);
+                dialogHandler.showAddDialog(ItemType.WATER);
                 break;
             }
             case R.id.btn_add_exercise: {
-                dialogHandler.showAddDialog(AddType.EXERCISE);
+                dialogHandler.showAddDialog(ItemType.EXERCISE);
                 break;
             }
             default: {
