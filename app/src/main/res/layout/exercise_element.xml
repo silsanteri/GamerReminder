@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/element_txt"
-        style="@style/exercise_element"
+        style="@style/Text.Element"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -14,27 +14,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/element_remove"
+        android:id="@+id/element_edit"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/ic_remove"
+        android:background="@drawable/ic_edit"
         android:focusable="false"
         android:focusableInTouchMode="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/element_add"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/ic_add"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/element_remove"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

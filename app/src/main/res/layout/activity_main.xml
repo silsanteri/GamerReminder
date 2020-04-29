@@ -10,6 +10,66 @@
         android:layout_height="wrap_content"
         tools:context=".MainActivity">
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView"
+            style="@style/CardViewMain"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_game_mode">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/txt_card_today"
+                    style="@style/CardView.TotalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/today"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txt_total_exer"
+                    style="@style/CardView.TotalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_exercise"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/txt_total_cal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_card_today" />
+
+                <TextView
+                    android:id="@+id/txt_total_cal"
+                    style="@style/CardView.TotalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_calories"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/txt_total_water"
+                    app:layout_constraintStart_toEndOf="@id/txt_total_exer"
+                    app:layout_constraintTop_toBottomOf="@id/txt_card_today" />
+
+                <TextView
+                    android:id="@+id/txt_total_water"
+                    style="@style/CardView.TotalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_water"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/txt_total_cal"
+                    app:layout_constraintTop_toBottomOf="@id/txt_card_today" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_mode"
             android:layout_width="wrap_content"
@@ -21,9 +81,9 @@
             android:id="@+id/btn_game_mode"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:onClick="activateGameMode"
             android:padding="40dp"
             android:text="@string/game_mode"
-            android:onClick="activateGameMode"
             app:cornerRadius="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,27 +93,27 @@
             android:id="@+id/btn_add_water"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="20dp"
+            android:padding="15dp"
+            android:text="@string/add_water"
+            app:cornerRadius="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_add_exercise"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
             android:padding="15dp"
             android:text="@string/add_exercise"
             app:cornerRadius="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_game_mode" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_add_calories" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_add_calories"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="@string/add_drink"
-            app:cornerRadius="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_add_exercise" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_add_exercise"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:padding="15dp"
@@ -72,7 +132,7 @@
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_add_calories" />
+            app:layout_constraintTop_toBottomOf="@id/btn_add_exercise" />
 
         <TextView
             android:id="@+id/txt_notification_next"

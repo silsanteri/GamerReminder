@@ -8,5 +8,5 @@ package com.example.gr.logic;
  */
 
 public interface DialogHandler {
-    void showAddDialog(AddType type);
+    void showAddDialog(ItemType type);
 }

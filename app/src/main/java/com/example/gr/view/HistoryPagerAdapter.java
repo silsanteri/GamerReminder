@@ -5,11 +5,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
 
-import com.example.gr.view.fragments.CaloriesFragment;
-import com.example.gr.view.fragments.ExerciseFragment;
-import com.example.gr.view.fragments.WaterFragment;
+import com.example.gr.logic.ItemType;
+import com.example.gr.logic.UserData;
+import com.example.gr.view.fragments.ItemFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,24 +23,24 @@ import java.util.List;
 public class HistoryPagerAdapter extends FragmentPagerAdapter {
 
     private List<Fragment> fragments;
-
     private List<String> titles;
 
-    public HistoryPagerAdapter(FragmentManager supportFragmentManager) {
+    // todo change userData to helper
+    public HistoryPagerAdapter(FragmentManager supportFragmentManager, UserData userData) {
         super(supportFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 
         // add fragments to the list
         ArrayList<Fragment> fragmentsArray = new ArrayList<>();
-        fragmentsArray.add(new ExerciseFragment());
-        fragmentsArray.add(new WaterFragment());
-        fragmentsArray.add(new CaloriesFragment());
-        fragments = fragmentsArray;
-
-        // add titles
         ArrayList<String> titlesArray = new ArrayList<>();
-        titlesArray.add("Exercise");
-        titlesArray.add("Water");
-        titlesArray.add("Calories");
+
+        for (ItemType type : ItemType.values()) {
+            // add fragment
+            fragmentsArray.add(new ItemFragment(type, userData));
+            // add title
+            titlesArray.add(type.name());
+
+        }
+        fragments = fragmentsArray;
         titles = titlesArray;
     }
 

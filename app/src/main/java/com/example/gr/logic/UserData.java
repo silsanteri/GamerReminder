@@ -2,10 +2,14 @@ package com.example.gr.logic;
 
 import android.content.Context;
 import android.util.Log;
+import android.util.Pair;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -46,6 +50,16 @@ public class UserData {
 
         Log.d(TAG, "UserData object constructed. Date: " + this.date + ". Values: (Water,Food,Exercise)("
                 + this.water.returnWaterAmount() + "," + this.food.returnFoodAmount() + "," + this.exercise.returnExerciseAmount() + ")");
+    }
+
+    /**
+     * Updates main values
+     */
+    public void updateValues() {
+        ArrayList<Integer> values = database.getData(this.date);
+        this.water = new Water(values.get(0), this.intakeLimit);
+        this.food = new Food(values.get(1), this.intakeLimit);
+        this.exercise = new Exercise(values.get(2), this.exerciseLimit);
     }
 
     /**
@@ -134,7 +148,7 @@ public class UserData {
      *
      * @return int intake limit.
      */
-    public int returnIntakeLimit(){
+    public int returnIntakeLimit() {
         return this.intakeLimit;
     }
 
@@ -143,7 +157,7 @@ public class UserData {
      *
      * @return int exercise limit.
      */
-    public int returnExerciseLimit(){
+    public int returnExerciseLimit() {
         return this.exerciseLimit;
     }
 
@@ -159,11 +173,74 @@ public class UserData {
     }
 
     /**
+     * Returns reversed list of pairs of date and amount
+     *
+     * @param type Type for which values needed
+     * @return list of pairs
+     */
+    public List<Pair<String, Integer>> getAllValues(ItemType type) {
+        final List<Pair<String, Integer>> list = database.getAllPairedValues(type);
+        if (list != null) {
+            Collections.reverse(list);
+        }
+        return list;
+    }
+
+    /**
+     * Returns reversed list of pairs of date and amount
+     *
+     * @param type Type for which values needed
+     * @return list of integers
+     */
+    public List<Integer> getAllValuesPlain(ItemType type) {
+        final List<Integer> list = database.getAllValues(type);
+        if (list != null) {
+            Collections.reverse(list);
+        }
+        return list;
+    }
+
+    /**
      * Saves current values to database.
      * Uses addData function from Database class.
      */
     public void addDBData() {
         database.addData(this.date, returnWater(), returnFood(), returnExercise());
+    }
+
+    public int getValueByType(ItemType type) {
+        switch (type) {
+            case FOOD:
+                return returnFood();
+            case EXERCISE:
+                return returnExercise();
+            case WATER:
+                return returnWater();
+            default:
+                return 0;
+        }
+    }
+
+    public int getLimitByType(ItemType type) {
+        switch (type) {
+            case FOOD:
+            case WATER:
+                return returnIntakeLimit();
+            case EXERCISE:
+                return returnExerciseLimit();
+            default:
+                return 0;
+        }
+    }
+
+    /**
+     * @param type     Type of Item to update
+     * @param date     Date
+     * @param newValue Value to update
+     */
+    // todo move to helper
+    public void editItem(ItemType type, String date, int newValue) {
+        database.updateItemValue(type, date, newValue);
     }
 }
 
@@ -177,7 +254,7 @@ class Water {
      * Constructor for initial values.
      *
      * @param amount initial amount of water in milliliters (1 = 1ml, 100 = 100ml, etc).
-     * @param limit limit of water intake.
+     * @param limit  limit of water intake.
      */
     public Water(int amount, int limit) {
         this.waterAmount = amount;
@@ -191,7 +268,7 @@ class Water {
      */
     public void addWater(int amount) {
         int newAmount = this.waterAmount + amount;
-        if(waterLimit >= newAmount) {
+        if (waterLimit >= newAmount) {
             this.waterAmount = newAmount;
             Log.d(TAG, "addWater added water. New amount: " + this.waterAmount + "/" + this.waterLimit);
         } else {
@@ -229,7 +306,7 @@ class Food {
      * Constructor for initial values.
      *
      * @param amount initial amount of food in calories (1 = 1kcal, 100 = 100kcal, etc).
-     * @param limit limit of food intake.
+     * @param limit  limit of food intake.
      */
     public Food(int amount, int limit) {
         this.foodAmount = amount;
@@ -243,7 +320,7 @@ class Food {
      */
     public void addFood(int amount) {
         int newAmount = this.foodAmount + amount;
-        if(foodLimit >= newAmount) {
+        if (foodLimit >= newAmount) {
             this.foodAmount = newAmount;
             Log.d(TAG, "addFood added food. New amount: " + this.foodAmount + "/" + this.foodLimit);
         } else {
@@ -281,7 +358,7 @@ class Exercise {
      * Constructor for initial values.
      *
      * @param amount initial amount of exercise in minutes (1 = 1min, 100 = 100min, etc).
-     * @param limit limit of exercise time.
+     * @param limit  limit of exercise time.
      */
     public Exercise(int amount, int limit) {
         this.exerciseAmount = amount;
@@ -295,7 +372,7 @@ class Exercise {
      */
     public void addExercise(int amount) {
         int newAmount = this.exerciseAmount + amount;
-        if(exerciseLimit >= newAmount) {
+        if (exerciseLimit >= newAmount) {
             this.exerciseAmount = newAmount;
             Log.d(TAG, "addExercise added exercise. New amount: " + this.exerciseAmount + "/" + this.exerciseLimit);
         } else {

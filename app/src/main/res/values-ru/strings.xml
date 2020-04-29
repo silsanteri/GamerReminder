@@ -4,7 +4,7 @@
     <string name="app_name">Gamer Reminder</string>
     <string name="game_mode">Режим игры</string>
     <string name="add_exercise">Добавить упражнения</string>
-    <string name="add_drink">Добавить напиток</string>
+    <string name="add_water">Добавить напиток</string>
     <string name="notification_next">Следующее уведомление через: %1$sм %2$sс</string>
     <string name="add_calories">Добавить калории</string>
     <!-- MAIN PAGE MOTIVATIONAL PHRASES -->

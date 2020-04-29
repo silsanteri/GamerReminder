@@ -18,7 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.gr.logic.AddType;
+import com.example.gr.logic.ItemType;
 import com.example.gr.logic.DialogHandler;
 import com.example.gr.logic.MotivationalTextGenerator;
 import com.example.gr.logic.UserData;
@@ -34,14 +34,19 @@ import com.example.gr.view.AddListener;
 public class MainActivity extends AppCompatActivity implements DialogHandler {
 
     private static final int REQUEST_CODE_SETTINGS = 420;
+    private static final int REQUEST_CODE_HISTORY = 4020;
     private static final String TAG = "MainActivity.class";
 
     private Button btn_exercise;
     private Button btn_calories;
     private Button btn_drink;
 
+    private TextView txt_total_cal;
+    private TextView txt_total_water;
+    private TextView txt_total_exer;
+
     private MotivationalTextGenerator textGenerator;
-    UserData mUserData;
+    private UserData mUserData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +54,9 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
         setContentView(R.layout.activity_main);
 
         textGenerator = new MotivationalTextGenerator(this);
-        setUpViews();
 
         mUserData = new UserData(this);
+        setUpViews();
     }
 
     @Override
@@ -60,6 +65,9 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
         super.onPause();
     }
 
+    /**
+     * Set up all views and add relevant values to them
+     */
     private void setUpViews() {
         // todo set relevant time
         ((TextView) findViewById(R.id.txt_notification_next))
@@ -73,20 +81,32 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
         btn_drink = findViewById(R.id.btn_add_water);
         btn_calories = findViewById(R.id.btn_add_calories);
 
+        // add listener
         View.OnClickListener addListener = new AddListener(this);
         btn_exercise.setOnClickListener(addListener);
         btn_drink.setOnClickListener(addListener);
         btn_calories.setOnClickListener(addListener);
+
+        // set relevant today values
+        txt_total_exer = findViewById(R.id.txt_total_exer);
+        txt_total_cal = findViewById(R.id.txt_total_cal);
+        txt_total_water = findViewById(R.id.txt_total_water);
+        updateTotalValues();
+    }
+
+    private void updateTotalValues() {
+        txt_total_exer.setText(getString(R.string.total_exercise, mUserData.getValueByType(ItemType.EXERCISE)));
+        txt_total_cal.setText(getString(R.string.total_calories, mUserData.getValueByType(ItemType.FOOD)));
+        txt_total_water.setText(getString(R.string.total_water, mUserData.getValueByType(ItemType.WATER)));
     }
 
     /**
      * Show dialog to get input from user and add it to new value.
      *
      * @param type AddType that should be modified.
-     * @author Ruslan (@dievskiy)
      */
     @Override
-    public void showAddDialog(final AddType type) {
+    public void showAddDialog(final ItemType type) {
         final View dialogView = View.inflate(this, R.layout.dialog_add, null);
         final EditText editText = dialogView.findViewById(R.id.edit_value);
         String title = type.toString().toLowerCase();
@@ -99,22 +119,9 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
         AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
         alertDialog.setTitle(title);
 
-        String message = "";
-        // MODIFIES THE DIALOG MESSAGE TO DISPLAY CURRENT VALUES
-        if(type == AddType.WATER){
-            message = getString(R.string.dialog_add_message) + "\n"
-                    + getString(R.string.dialog_today) + " " + this.mUserData.returnWater() + "/" + this.mUserData.returnIntakeLimit();
-        } else if (type == AddType.CALORIES) {
-            message = getString(R.string.dialog_add_message) + "\n"
-                    + getString(R.string.dialog_today) + " " + this.mUserData.returnFood() + "/" + this.mUserData.returnIntakeLimit();
-        } else if (type == AddType.EXERCISE) {
-            message = getString(R.string.dialog_add_message) + "\n"
-                    + getString(R.string.dialog_today) + " " + this.mUserData.returnExercise() + "/" + this.mUserData.returnExerciseLimit();
-        } else {
-            Log.e(TAG, "showAddDialog: unknown AddType value!");
-        }
-
+        final String message = getString(R.string.dialog_today, mUserData.getValueByType(type), mUserData.getLimitByType(type));
         alertDialog.setMessage(message);
+
         alertDialog.setView(dialogView);
 
         // set positive button
@@ -147,20 +154,22 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
      *
      * @param type   AddType to be changed.
      * @param amount Amount to add.
-     * @author Ruslan (@dievskiy)
      */
-    private void addAmount(AddType type, Integer amount) {
+    private void addAmount(ItemType type, Integer amount) {
         switch (type) {
             case WATER:
                 mUserData.addWater(amount);
                 break;
-            case CALORIES:
+            case FOOD:
                 mUserData.addFood(amount);
                 break;
             case EXERCISE:
                 mUserData.addExercise(amount);
                 break;
+            default:
+                return;
         }
+        updateTotalValues();
         Toast.makeText(MainActivity.this, R.string.toast_saved, Toast.LENGTH_SHORT).show();
     }
 
@@ -192,7 +201,8 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
 
     private void startHistoryActivity() {
         Intent historyIntent = new Intent(this, HistoryActivity.class);
-        startActivity(historyIntent);
+        // start for result to handle changes after user modifications
+        startActivityForResult(historyIntent, REQUEST_CODE_HISTORY);
     }
 
     private void startSettingsActivity() {
@@ -212,7 +222,21 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // todo handle changes in settings
+        // update values if user has modified them
+        switch (requestCode) {
+            case REQUEST_CODE_HISTORY: {
+                if (resultCode == RESULT_OK) {
+                    mUserData.updateValues();
+                    updateTotalValues();
+                }
+            }
+            case REQUEST_CODE_SETTINGS: {
+                if (resultCode == RESULT_OK) {
+                    mUserData.updateValues();
+                    updateTotalValues();
+                }
+            }
+        }
     }
 }
 
