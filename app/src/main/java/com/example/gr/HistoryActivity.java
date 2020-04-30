@@ -2,10 +2,9 @@ package com.example.gr;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
-
+import com.example.gr.logic.LocaleUtils;
 import com.example.gr.logic.UserData;
 import com.example.gr.view.HistoryPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
@@ -25,6 +24,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        LocaleUtils.loadLocale(HistoryActivity.this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         mUserData = new UserData(this);
@@ -32,6 +32,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
+        LocaleUtils.loadLocale(HistoryActivity.this); //TODO FIX: LANGUAGE UPDATES ONLY ON APP RESTART
         super.onStart();
         // add back button
         if (getSupportActionBar() != null)

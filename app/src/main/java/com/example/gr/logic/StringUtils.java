@@ -1,8 +1,16 @@
 package com.example.gr.logic;
 
+/**
+ * Class that contains text functions.
+ *
+ * @author Ruslan (@dievskiy), Tapi (@DXGGX)
+ * @version 1.0 04/2020
+ */
+
 public class StringUtils {
+
     /**
-     * Returns user-friendly form of date of type "2020-03-23" to 03.23
+     * Returns user-friendly form of date of type e.g. "yyyy-MM-dd" to "MM.dd".
      *
      * @param date Initial date
      * @return new date

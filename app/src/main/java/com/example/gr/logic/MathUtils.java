@@ -1,22 +1,21 @@
 package com.example.gr.logic;
 
-import android.util.Pair;
-
 import java.util.List;
 
 /**
- * Class that contains math functions
+ * Class that contains math functions.
  *
- * @author Ruslan
- * @version 1/04.2020
+ * @author Ruslan (@dievskiy), Tapi (@DXGGX)
+ * @version 1.0 04/2020
  */
+
 public class MathUtils {
 
     /**
-     * Returns average
+     * Returns average.
      *
      * @param allValues list of values
-     * @return average
+     * @return int average
      */
     public int getAverage(List<Integer> allValues) {
         int average = 0;

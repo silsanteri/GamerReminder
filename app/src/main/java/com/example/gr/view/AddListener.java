@@ -37,7 +37,7 @@ public class AddListener implements View.OnClickListener {
                 break;
             }
             default: {
-                Log.w("AddListener.java", "AddListener: Unknown button id..");
+                Log.w("AddListener.java", "AddListener: Unknown button id.");
             }
         }
     }

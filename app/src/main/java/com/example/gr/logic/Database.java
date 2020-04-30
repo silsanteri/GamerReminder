@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class includes database related functions.
+ * Class that contains database related functions.
  *
- * @author Santeri Silvennoinen (@silsanteri), Ruslan
+ * @author Santeri Silvennoinen (@silsanteri), Ruslan (@dievskiy)
  * @version 1.0 04/2020
  */
 
