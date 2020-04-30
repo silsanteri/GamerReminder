@@ -12,10 +12,10 @@ https://stackoverflow.com/questions/4533320/android-clickable-layout
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/language_container"
-        android:layout_width="410dp"
-        android:layout_height="98dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-        android:padding="16dp"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,71 +30,56 @@ https://stackoverflow.com/questions/4533320/android-clickable-layout
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/buttonEnglish"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:paddingLeft="14sp"
-            android:paddingRight="14sp"
-            android:text="@string/language_english"
-            android:textSize="14dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <Button
-            android:id="@+id/buttonFinnish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="3dp"
-            android:layout_marginBottom="16dp"
-            android:paddingLeft="14sp"
-            android:paddingRight="14sp"
-            android:text="@string/language_finnish"
-            android:textSize="14dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/buttonKorean"
-            app:layout_constraintStart_toEndOf="@+id/buttonEnglish"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <Button
-            android:id="@+id/buttonKorean"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="6dp"
-            android:layout_marginBottom="16dp"
-            android:paddingLeft="14sp"
-            android:paddingRight="14sp"
-            android:text="@string/language_korean"
-            android:textSize="14dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/buttonRussian"
-            app:layout_constraintStart_toEndOf="@+id/buttonFinnish"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <Button
-            android:id="@+id/buttonRussian"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="16dp"
-            android:paddingLeft="14sp"
-            android:paddingRight="14sp"
-            android:text="@string/language_russian"
-            android:textSize="14dp"
-            app:iconPadding="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView7">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonEnglish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight=".25"
+                android:lines="1"
+                android:text="@string/language_english"
+                android:textSize="12sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonFinnish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight=".25"
+                android:lines="1"
+                android:text="@string/language_finnish"
+                android:textSize="12sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonKorean"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="8dp"
+                android:layout_weight=".25"
+                android:lines="1"
+                android:text="@string/language_korean"
+                android:textSize="12sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonRussian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight=".25"
+                android:lines="1"
+                android:text="@string/language_russian"
+                android:textSize="12sp" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

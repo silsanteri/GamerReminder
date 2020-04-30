@@ -32,7 +32,6 @@ public class HistoryActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        LocaleUtils.loadLocale(HistoryActivity.this); //TODO FIX: LANGUAGE UPDATES ONLY ON APP RESTART
         super.onStart();
         // add back button
         if (getSupportActionBar() != null)

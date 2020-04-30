@@ -32,7 +32,7 @@ import com.example.gr.view.AddListener;
 
 public class MainActivity extends AppCompatActivity implements DialogHandler {
 
-    private static final int REQUEST_CODE_SETTINGS = 420;
+    public static final int REQUEST_CODE_SETTINGS = 420;
     private static final int REQUEST_CODE_HISTORY = 4020;
     private static final String TAG = "MainActivity.class";
 
@@ -233,6 +233,8 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
             }
             case REQUEST_CODE_SETTINGS: {
                 if (resultCode == RESULT_OK) {
+                    finish();
+                    startActivity(getIntent());
                     mUserData.updateValues();
                     updateTotalValues();
                 }

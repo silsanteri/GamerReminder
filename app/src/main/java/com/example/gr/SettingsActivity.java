@@ -1,10 +1,13 @@
 package com.example.gr;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
 import com.example.gr.logic.LocaleUtils;
 
 /**
@@ -14,7 +17,7 @@ import com.example.gr.logic.LocaleUtils;
  * @version 1.0 04/2020
  */
 
-public class SettingsActivity extends AppCompatActivity{
+public class SettingsActivity extends AppCompatActivity {
     //TODO ADD SOURCE LIST
     private static final String TAG = "SettingsActivity.class";
 
@@ -51,6 +54,8 @@ public class SettingsActivity extends AppCompatActivity{
      * Set up all views and add relevant values to them.
      */
     private void setUpViews() {
+        View.OnClickListener listener = new LanguageListener();
+
         //TODO TURN NOT SELECTED LANGUAGE BUTTONS TO DIFFERENT COLOR(GRAY?)
         btn_language_en = findViewById(R.id.buttonEnglish);
         btn_language_fi = findViewById(R.id.buttonFinnish);
@@ -58,33 +63,34 @@ public class SettingsActivity extends AppCompatActivity{
         btn_language_ru = findViewById(R.id.buttonRussian);
 
         //TODO change following setOnClickListeners to not be 20 lines long total :)
-        btn_language_en.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                LocaleUtils.setLocale(SettingsActivity.this,"en");
-                finish();
-                startActivity(getIntent());
+        btn_language_en.setOnClickListener(listener);
+        btn_language_fi.setOnClickListener(listener);
+        btn_language_kor.setOnClickListener(listener);
+        btn_language_ru.setOnClickListener(listener);
+    }
+
+    private class LanguageListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            LocaleUtils.setLocale(SettingsActivity.this, detectLanguage(v.getId()));
+            setResult(RESULT_OK);
+            finish();
+            startActivityForResult(getIntent(), MainActivity.REQUEST_CODE_SETTINGS);
+        }
+
+        private String detectLanguage(int id) {
+            switch (id) {
+                case R.id.buttonRussian:
+                    return "ru";
+                case R.id.buttonKorean:
+                    return "kor";
+                case R.id.buttonFinnish:
+                    return "fi";
+                default:
+                    return "en";
             }
-        });
-        btn_language_fi.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                LocaleUtils.setLocale(SettingsActivity.this,"fi");
-                finish();
-                startActivity(getIntent());
-            }
-        });
-        btn_language_kor.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                LocaleUtils.setLocale(SettingsActivity.this,"kor");
-                finish();
-                startActivity(getIntent());
-            }
-        });
-        btn_language_ru.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                LocaleUtils.setLocale(SettingsActivity.this,"ru");
-                finish();
-                startActivity(getIntent());
-            }
-        });
+
+        }
     }
 }
