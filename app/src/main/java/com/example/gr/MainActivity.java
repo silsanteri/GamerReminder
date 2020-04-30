@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,17 +16,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.gr.logic.ItemType;
 import com.example.gr.logic.DialogHandler;
+import com.example.gr.logic.LocaleUtils;
 import com.example.gr.logic.MotivationalTextGenerator;
 import com.example.gr.logic.UserData;
 import com.example.gr.view.AddListener;
 
 /**
- * Launcher Activity class.
+ * MainActivity
  *
- * @author Ruslan (@dievskiy), Santeri Silvennoinen (@silsanteri)
+ * @author Ruslan (@dievskiy), Santeri Silvennoinen (@silsanteri), Tapi (@DXGGX)
  * @version 1.0 04/2020
  */
 
@@ -45,11 +44,13 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
     private TextView txt_total_water;
     private TextView txt_total_exer;
 
+    //TODO ADJUST MOTIVATIONAL TEXT SIZE TO FIT MORE LONGER SENTENCES
     private MotivationalTextGenerator textGenerator;
     private UserData mUserData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        LocaleUtils.loadLocale(MainActivity.this); //TODO FIX: LANGUAGE UPDATES ONLY ON APP RESTART
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
     }
 
     /**
-     * Set up all views and add relevant values to them
+     * Set up all views and add relevant values to them.
      */
     private void setUpViews() {
         // todo set relevant time
@@ -239,15 +240,3 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-

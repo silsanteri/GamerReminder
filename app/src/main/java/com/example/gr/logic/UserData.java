@@ -16,7 +16,7 @@ import java.util.Locale;
  * Class includes userdata related functions.
  * Also includes Water, Food and Exercise subclasses solely used by UserData class.
  *
- * @author Santeri Silvennoinen (@silsanteri)
+ * @author Santeri Silvennoinen (@silsanteri), Ruslan (@dievskiy)
  * @version 1.0 04/2020
  */
 
@@ -39,21 +39,18 @@ public class UserData {
     public UserData(Context context) {
         this.database = new Database(context);
         this.date = getDate();
-        ArrayList<Integer> values = database.getData(this.date);
 
         this.intakeLimit = 10000;
         this.exerciseLimit = 1440; // 24*60
 
-        this.water = new Water(values.get(0), this.intakeLimit);
-        this.food = new Food(values.get(1), this.intakeLimit);
-        this.exercise = new Exercise(values.get(2), this.exerciseLimit);
+        this.updateValues();
 
         Log.d(TAG, "UserData object constructed. Date: " + this.date + ". Values: (Water,Food,Exercise)("
                 + this.water.returnWaterAmount() + "," + this.food.returnFoodAmount() + "," + this.exercise.returnExerciseAmount() + ")");
     }
 
     /**
-     * Updates main values
+     * Updates main values.
      */
     public void updateValues() {
         ArrayList<Integer> values = database.getData(this.date);

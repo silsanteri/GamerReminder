@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="motivational" >
-        <item>Water Helps to Maximize Physical Performance</item>
-        <item>Hydration Has a Major Effect on Energy Levels and Brain Function</item>
-        <item>Drinking Water May Help to Prevent and Treat Headaches</item>
-        <item>Drinking More Water May Help Relieve Constipation</item>
-        <item>Drinking Water May Help Treat Kidney Stones</item>
-        <item>Water Helps Prevent Hangovers</item>
-        <item>Drinking More Water Can Help With Weight Loss</item>
+    <string-array name="motivational">
+        <item>You can find the sources to these facts in the settings!</item>
+        <item>Water helps to maximize physical performance.(1)</item>
+        <item>Hydration has a major effect on energy levels and brain function.(1)</item>
+        <item>Drinking water may help to prevent and treat headaches.(1)</item>
+        <item>Drinking more water may help relieve constipation.(1)</item>
+        <item>Drinking water may help treat kidney stones.(1)</item>
+        <item>Water helps prevent hangovers.(1)</item>
+        <item>Drinking more water can help with weight loss.(1)</item>
+        <item>A deficiency in Vitamin D can cause rickets.(2)</item>
+        <item>A combination of calcium, vitamin D, vitamin K, magnesium, and phosphorus protects your bones against fractures.(2)</item>
+        <item>Several B vitamins are key components of certain coenzymes that help release energy from food.(2)</item>
+        <item>Bone formation would be impossible without vitamins A, D, and K.(2)</item>
+        <item>Vitamin A helps keep cells healthy and protects your vision.(2)</item>
+        <item>Sugary drinks are the most fattening product in the modern diet.(3)</item>
+        <item>Eating bats might cause a major public health risk.(4)</item>
+        <item>Use of the artificial sweetener aspartame has been linked to neurological and behavioral disturbances in sensitive individuals.(5)</item>
+        <item>The mushroom is the only non-animal natural source of vitamin D.(6)</item>
+        <item>Major brain damage from alcohol can be prevented by proper nutrition and is not directly caused by alcohol itself.(7)</item>
+    </string-array>
+    <string-array name="motivational_source">
+        <item>(1)https://www.healthline.com/nutrition/7-health-benefits-of-water#section7</item>
+        <item>(2)https://www.helpguide.org/harvard/vitamins-and-minerals.htm</item>
+        <item>(3)https://www.healthline.com/nutrition/20-nutrition-facts-that-should-be-common-sense#section16</item>
+        <item>(4)https://www.sciencedaily.com/releases/2020/03/200317175442.htm</item>
+        <item>(5)https://nutritionfacts.org/video/aspartame-and-the-brain/</item>
+        <item>(6)https://www.justvitamins.co.uk/blog/some-interesting-food-facts/</item>
+        <item>(7)https://factrepublic.com/40-interesting-nutrition-facts-you-have-to-know/</item>
     </string-array>
 </resources>
