@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+
 import java.util.Locale;
 
 /**
@@ -42,7 +43,7 @@ public class LocaleUtils {
      *
      * @param context
      */
-    public static void loadLocale(Context context){
+    public static void loadLocale(Context context) {
         // SOURCE: https://www.youtube.com/watch?v=zILw5eV9QBQ
         SharedPreferences prefs = context.getSharedPreferences(SETTINGS, Activity.MODE_PRIVATE);
         String language = prefs.getString(LANGUAGE, "");
