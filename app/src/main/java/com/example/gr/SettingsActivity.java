@@ -3,6 +3,7 @@ package com.example.gr;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,8 +18,9 @@ import com.example.gr.logic.LocaleUtils;
  * @version 1.0 04/2020
  */
 
+//TODO MAKE SOURCES BUTTON WORK AND ADD SOURCELIST
+
 public class SettingsActivity extends AppCompatActivity {
-    //TODO ADD SOURCE LIST
     private static final String TAG = "SettingsActivity.class";
 
     private Button btn_language_en;
@@ -62,13 +64,15 @@ public class SettingsActivity extends AppCompatActivity {
         btn_language_kor = findViewById(R.id.buttonKorean);
         btn_language_ru = findViewById(R.id.buttonRussian);
 
-        //TODO change following setOnClickListeners to not be 20 lines long total :)
         btn_language_en.setOnClickListener(listener);
         btn_language_fi.setOnClickListener(listener);
         btn_language_kor.setOnClickListener(listener);
         btn_language_ru.setOnClickListener(listener);
     }
 
+    /**
+     * Listener for language selection.
+     */
     private class LanguageListener implements View.OnClickListener {
 
         @Override
