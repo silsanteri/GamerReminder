@@ -1,46 +1,31 @@
 <resources>
-    <!-- FINNISH -->
-    <!-- MAIN PAGE -->
-    <string name="app_name">Gamer Reminder</string>
     <string name="game_mode">Pelitila</string>
     <string name="add_exercise">Lisää Liikunta</string>
     <string name="add_water">Lisää Juoma</string>
-    <string name="add_calories">Add calories</string>
+    <string name="add_calories">Lisää Kalorit</string>
     <string name="notification_next">Seuraava Ilmoitus: %1$sm %2$ss</string>
-    <!-- MAIN PAGE MOTIVATIONAL PHRASES -->
-    <!-- TODO: MAIN PAGE MOTIVATIONAL PHRASES -->
-    <string name="motivational_water">Vesi on tärkeää :)</string>
-    <string name="motivational_exercise">Liikunta on tärkeää :)</string>
-    <!-- SETTINGS PAGE -->
-    <string name="settings">Asetukset</string>
-    <string name="language">Kieli</string>
-    <string name="notification">Ilmoitukset</string>
-    <string name="notification_frequency">Ilmoitusten Aikaväli</string>
     <string name="settings_language">Kieli</string>
-    <string name="settings_sound">Sound</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="settings_notifications">Notifications</string>
+    <string name="settings_sound">Äänet</string>
+    <string name="settings_notifications">Ilmoitukset</string>
     <string name="settings_notifications_min">15 min</string>
     <string name="settings_notifications_max">120 min</string>
-    <string name="settings_notifications_frequency">Frequency</string>
-    <!-- LANGUAGES -->
-    <string name="language_english">English</string>
-    <string name="language_finnish">Suomi</string>
-    <string name="language_korean">한국어</string>
-    <string name="language_russian">Pусский</string>
-    <!-- DIALOG -->
-    <string name="ok">OK</string>
-    <string name="cancel">CANCEL</string>
-    <string name="dialog_add_message">Set the amount to add</string>
-    <string name="dialog_today">Today: %1$d/%2$d</string>
-    <string name="toast_not_saved">Not saved.</string>
-    <string name="toast_saved">Saved successfully!</string>
-    <string name="total_exercise">Exercise\n%1$d</string>
+    <string name="settings_notifications_frequency">Aikaväli</string>
+    <string name="cancel">PERUUTA</string>
+    <string name="dialog_add_message">Aseta lisättävä määrä</string>
+    <string name="dialog_today">Tänään: %1$d/%2$d</string>
+    <string name="toast_not_saved">Tallennus peruutettu!</string>
+    <string name="toast_saved">Tallennus onnistui!</string>
+    <string name="total_exercise">Exercise\n%1$d min</string>
     <string name="total_calories">Calories\n%1$d</string>
-    <string name="total_water">Water\n%1$d</string>
-    <string name="today">Today</string>
+    <string name="total_water">Juoma \n%1$dml</string>
+    <string name="today">Tänään</string>
     <string name="history_list_item">%1$s - %2$d</string>
-    <string name="history_average">Average: %1$d %2$s</string>
-    <string name="dialog_edit_title">New value</string>
+    <string name="history_average">Keskiarvo: %1$d %2$s</string>
+    <string name="dialog_edit_title">Uusi arvo</string>
+    <string name="settings_source">Lähteet</string>
+    <string name="ok">OK</string>
+    <string name="calories">Kalorit</string>
+    <string name="drink">Juoma</string>
+    <string name="exercise">Liikunta</string>
+    <string name="notification_content">Muista liikkua ja juoda jotain!</string>
 </resources>

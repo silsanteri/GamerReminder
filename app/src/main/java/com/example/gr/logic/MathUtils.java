@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Class that contains math functions.
  *
- * @author Ruslan (@dievskiy), Tapi (@DXGGX)
+ * @author Ruslan (@dievskiy), Santeri Silvennoinen (@silsanteri), Tapi (@DXGGX)
  * @version 1.0 04/2020
  */
 
@@ -32,4 +32,27 @@ public class MathUtils {
         } else return 0;
     }
 
+    /**
+     * A function that converts given milliseconds to seconds.
+     *
+     * @param value initial value of milliseconds
+     * @return long seconds
+     */
+    public static long millisecondsToSeconds(long value) {
+        // 1 SECOND = 1000 MILLISECONDS
+        long result = Math.round(value / 1000);
+        return result;
+    }
+
+    /**
+     * A function that converts given minutes to seconds.
+     *
+     * @param value initial value of milliseconds
+     * @return long seconds
+     */
+    public static long minutesToSeconds(long value) {
+        // 1 MINUTE = 60 SECONDS
+        long result = (value * 60);
+        return result;
+    }
 }

@@ -1,43 +1,31 @@
 <resources>
-    <!-- KOREAN -->
-    <!-- MAIN PAGE -->
-    <string name="app_name">Gamer Reminder</string>
     <string name="game_mode">게임 모드</string>
     <string name="add_exercise">운동 첨가</string>
     <string name="add_water">음료 첨가</string>
     <string name="add_calories">칼로리 첨가</string>
     <string name="notification_next">다음 알림: %1$s %2$s</string>
-    <!-- MAIN PAGE MOTIVATIONAL PHRASES -->
-    <!-- TODO: MAIN PAGE MOTIVATIONAL PHRASES -->
-    <string name="motivational_water">물을 마신 거 중요합니다 :)</string>
-    <string name="motivational_exercise">운동을 중요합니다 :)</string>
-    <!-- SETTINGS PAGE -->
-    <string name="settings">설정</string>
-    <string name="language">언어</string>
-    <string name="notification">알림</string>
-    <string name="notification_frequency">알림 빈도</string>
     <string name="settings_language">언어</string>
-    <string name="settings_notifications">Notifications</string>
-    <string name="settings_notifications_min">15 min</string>
-    <string name="settings_notifications_max">120 min</string>
-    <string name="settings_notifications_frequency">Frequency</string>
-    <string name="settings_sound">Sound</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="language_english">English</string>
-    <string name="language_finnish">Suomi</string>
-    <string name="language_korean">한국어</string>
-    <string name="language_russian">Pусский</string>
-    <string name="ok">OK</string>
-    <string name="cancel">CANCEL</string>
-    <string name="dialog_add_message">Set the amount to add</string>
-    <string name="dialog_today">Today: %1$d/%2$d</string>
-    <string name="toast_not_saved">Not saved.</string>
-    <string name="toast_saved">Saved successfully!</string>
-    <string name="total_exercise">Exercise %1$d</string>
-    <string name="total_calories">Calories %1$d</string>
-    <string name="total_water">Water %1$d</string>
-    <string name="today">Today</string>
+    <string name="settings_notifications">알림</string>
+    <string name="settings_notifications_min">15분</string>
+    <string name="settings_notifications_max">120분</string>
+    <string name="settings_notifications_frequency">빈도</string>
+    <string name="settings_sound">사운드</string>
+    <string name="cancel">최소</string>
+    <string name="dialog_add_message">추가할 양을 입력</string>
+    <string name="dialog_today">오늘: %1$d/%2$d</string>
+    <string name="toast_not_saved">저장 최소했습니다!</string>
+    <string name="toast_saved">저장 성공적이었습니다!</string>
+    <string name="total_exercise">운동 %1$d분</string>
+    <string name="total_calories">칼로리 %1$d</string>
+    <string name="total_water">음료 %1$dml</string>
+    <string name="today">오늘</string>
     <string name="history_list_item">%1$s - %2$d</string>
-    <string name="history_average">Average: %1$d %2$s</string>
-    <string name="dialog_edit_title">New value</string>
+    <string name="history_average">평균: %1$d %2$s</string>
+    <string name="dialog_edit_title">새로운 양</string>
+    <string name="settings_source">출처</string>
+    <string name="ok">예</string>
+    <string name="calories">칼로리</string>
+    <string name="drink">음료</string>
+    <string name="exercise">운동</string>
+    <string name="notification_content">음직여고 뭐가 마시는 거 기억하시오!</string>
 </resources>

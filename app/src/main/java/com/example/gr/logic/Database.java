@@ -158,7 +158,7 @@ public class Database extends SQLiteOpenHelper {
     // todo to helper
 
     /**
-     * Searches values of specific type for all possible dates
+     * Searches values of specific type for all possible dates.
      *
      * @param type Type to be searched
      * @return List of pairs, where first refers to date, and second - to value
@@ -182,7 +182,7 @@ public class Database extends SQLiteOpenHelper {
     // todo to helper
 
     /**
-     * Searches values of specific type for all possible dates
+     * Searches values of specific type for all possible dates.
      *
      * @param type Type to be searched
      * @return List of values
@@ -205,7 +205,7 @@ public class Database extends SQLiteOpenHelper {
     // todo to helper
 
     /**
-     * Updates value
+     * Updates value.
      *
      * @param type     type to be updated
      * @param date     date to be updated

@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,8 +23,11 @@ import com.example.gr.logic.ItemType;
 import com.example.gr.logic.DialogHandler;
 import com.example.gr.logic.LocaleUtils;
 import com.example.gr.logic.MotivationalTextGenerator;
+import com.example.gr.logic.NotificationUtils;
 import com.example.gr.logic.UserData;
 import com.example.gr.view.AddListener;
+
+import java.util.Calendar;
 
 /**
  * MainActivity
@@ -29,6 +35,8 @@ import com.example.gr.view.AddListener;
  * @author Ruslan (@dievskiy), Santeri Silvennoinen (@silsanteri), Tapi (@DXGGX)
  * @version 1.0 04/2020
  */
+
+//TODO RUSSIAN TRANSLATIONS
 
 public class MainActivity extends AppCompatActivity implements DialogHandler {
 
@@ -50,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        LocaleUtils.loadLocale(MainActivity.this); //TODO FIX: LANGUAGE UPDATES ONLY ON APP RESTART
+        LocaleUtils.loadLocale(MainActivity.this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -217,7 +225,8 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
      * Activate game mode.
      */
     public void activateGameMode(View view) {
-        // todo
+        //TODO MAKE PERIODIC NOTIFICATIONS
+        NotificationUtils.sendNotification(this, view, getResources().getString(R.string.app_name), getResources().getString(R.string.notification_content));
     }
 
     @Override
