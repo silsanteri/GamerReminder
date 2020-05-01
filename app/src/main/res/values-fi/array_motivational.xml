@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- TODO: ADD MORE AND TRANSLATE MOTIVATIONAL PHRASES -->
     <string-array name="motivational">
         <item id="1">You can find the sources to these facts in the settings!</item>
         <item id="1">Water helps to maximize physical performance.</item>

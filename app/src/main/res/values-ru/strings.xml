@@ -28,4 +28,6 @@
     <string name="drink">Drink</string>
     <string name="exercise">Exercise</string>
     <string name="notification_content">Remember to move and drink something!</string>
+    <string name="game_mode_activated">Game Mode Activated!</string>
+    <string name="game_mode_disabled">Activate Game Mode to get notifications!</string>
 </resources>

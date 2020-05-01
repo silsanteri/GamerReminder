@@ -9,6 +9,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -43,16 +44,20 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
     public static final int REQUEST_CODE_SETTINGS = 420;
     private static final int REQUEST_CODE_HISTORY = 4020;
     private static final String TAG = "MainActivity.class";
+    boolean gamemodeActive;
 
     private Button btn_exercise;
     private Button btn_calories;
     private Button btn_drink;
+    private Button btn_game_mode;
 
     private TextView txt_total_cal;
     private TextView txt_total_water;
     private TextView txt_total_exer;
+    private TextView txt_game_mode_activated;
+    private TextView txt_notification_next;
+    private TextView txt_game_mode_disabled;
 
-    //TODO ADJUST MOTIVATIONAL TEXT SIZE TO FIT MORE LONGER SENTENCES
     private MotivationalTextGenerator textGenerator;
     private UserData mUserData;
 
@@ -66,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
 
         mUserData = new UserData(this);
         setUpViews();
+        gamemodeActive = false; //TODO GET FROM SHAREDPREFS
     }
 
     @Override
@@ -85,10 +91,16 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
         // set motivational text
         ((TextView) findViewById(R.id.txt_motivational)).setText(textGenerator.getRandomText());
 
+        // set game mode texts
+        txt_game_mode_activated = findViewById(R.id.txt_game_mode_activated);
+        txt_game_mode_disabled = findViewById(R.id.txt_game_mode_disabled);
+        txt_notification_next = findViewById(R.id.txt_notification_next);
+
         // set up buttons
         btn_exercise = findViewById(R.id.btn_add_exercise);
         btn_drink = findViewById(R.id.btn_add_water);
         btn_calories = findViewById(R.id.btn_add_calories);
+        btn_game_mode = findViewById(R.id.btn_game_mode);
 
         // add listener
         View.OnClickListener addListener = new AddListener(this);
@@ -225,8 +237,21 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
      * Activate game mode.
      */
     public void activateGameMode(View view) {
-        //TODO MAKE PERIODIC NOTIFICATIONS
-        NotificationUtils.sendNotification(this, view, getResources().getString(R.string.app_name), getResources().getString(R.string.notification_content));
+        if (this.gamemodeActive) {
+            btn_game_mode.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            txt_game_mode_activated.setVisibility(View.INVISIBLE);
+            txt_notification_next.setVisibility(View.INVISIBLE);
+            txt_game_mode_disabled.setVisibility(View.VISIBLE);
+            this.gamemodeActive = false;
+        } else {
+            btn_game_mode.setBackgroundColor(getResources().getColor(R.color.colorActivated));
+            txt_game_mode_activated.setVisibility(View.VISIBLE);
+            txt_notification_next.setVisibility(View.VISIBLE);
+            txt_game_mode_disabled.setVisibility(View.INVISIBLE);
+            //TODO MAKE PERIODIC NOTIFICATIONS
+            NotificationUtils.sendNotification(this, view, getResources().getString(R.string.app_name), getResources().getString(R.string.notification_content));
+            this.gamemodeActive = true;
+        }
     }
 
     @Override

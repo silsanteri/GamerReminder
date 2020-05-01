@@ -28,4 +28,6 @@
     <string name="drink">Juoma</string>
     <string name="exercise">Liikunta</string>
     <string name="notification_content">Muista liikkua ja juoda jotain!</string>
+    <string name="game_mode_activated">Pelitila Käytössä!</string>
+    <string name="game_mode_disabled">Aktivoi Pelitila saadaksesi ilmoituksia!</string>
 </resources>

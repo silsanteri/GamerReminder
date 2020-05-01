@@ -3,7 +3,7 @@
     <string name="add_exercise">운동 첨가</string>
     <string name="add_water">음료 첨가</string>
     <string name="add_calories">칼로리 첨가</string>
-    <string name="notification_next">다음 알림: %1$s %2$s</string>
+    <string name="notification_next">다음 알림: %1$s 분 %2$s 초</string>
     <string name="settings_language">언어</string>
     <string name="settings_notifications">알림</string>
     <string name="settings_notifications_min">15분</string>
@@ -15,9 +15,9 @@
     <string name="dialog_today">오늘: %1$d/%2$d</string>
     <string name="toast_not_saved">저장 최소했습니다!</string>
     <string name="toast_saved">저장 성공적이었습니다!</string>
-    <string name="total_exercise">운동 %1$d분</string>
-    <string name="total_calories">칼로리 %1$d</string>
-    <string name="total_water">음료 %1$dml</string>
+    <string name="total_exercise">운동\n%1$d분</string>
+    <string name="total_calories">칼로리\n%1$d</string>
+    <string name="total_water">음료\n%1$dml</string>
     <string name="today">오늘</string>
     <string name="history_list_item">%1$s - %2$d</string>
     <string name="history_average">평균: %1$d %2$s</string>
@@ -28,4 +28,6 @@
     <string name="drink">음료</string>
     <string name="exercise">운동</string>
     <string name="notification_content">음직여고 뭐가 마시는 거 기억하시오!</string>
+    <string name="game_mode_activated">게임 모드 활성화됨!</string>
+    <string name="game_mode_disabled">알림을 받으려면 게임 모드를 활성화하십시오!</string>
 </resources>
