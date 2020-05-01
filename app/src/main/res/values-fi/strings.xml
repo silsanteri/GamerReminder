@@ -5,11 +5,10 @@
     <string name="add_calories">Lisää Kalorit</string>
     <string name="notification_next">Seuraava Ilmoitus: %1$sm %2$ss</string>
     <string name="settings_language">Kieli</string>
-    <string name="settings_sound">Äänet</string>
-    <string name="settings_notifications">Ilmoitukset</string>
+    <string name="settings_notifications_sound">Ilmoitusten Ääni</string>
     <string name="settings_notifications_min">15 min</string>
     <string name="settings_notifications_max">120 min</string>
-    <string name="settings_notifications_frequency">Aikaväli</string>
+    <string name="settings_notifications_frequency">Ilmoitusten Aikaväli</string>
     <string name="cancel">PERUUTA</string>
     <string name="dialog_add_message">Aseta lisättävä määrä</string>
     <string name="dialog_today">Tänään: %1$d/%2$d</string>
@@ -17,7 +16,7 @@
     <string name="toast_saved">Tallennus onnistui!</string>
     <string name="total_exercise">Exercise\n%1$d min</string>
     <string name="total_calories">Calories\n%1$d</string>
-    <string name="total_water">Juoma \n%1$dml</string>
+    <string name="total_water">Juoma\n%1$dml</string>
     <string name="today">Tänään</string>
     <string name="history_list_item">%1$s - %2$d</string>
     <string name="history_average">Keskiarvo: %1$d %2$s</string>
@@ -30,4 +29,5 @@
     <string name="notification_content">Muista liikkua ja juoda jotain!</string>
     <string name="game_mode_activated">Pelitila Käytössä!</string>
     <string name="game_mode_disabled">Aktivoi Pelitila saadaksesi ilmoituksia!</string>
+    <string name="settings_delete_data">Poista Käyttäjätiedot</string>
 </resources>

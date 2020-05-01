@@ -5,11 +5,10 @@
     <string name="add_calories">칼로리 첨가</string>
     <string name="notification_next">다음 알림: %1$s 분 %2$s 초</string>
     <string name="settings_language">언어</string>
-    <string name="settings_notifications">알림</string>
     <string name="settings_notifications_min">15분</string>
     <string name="settings_notifications_max">120분</string>
-    <string name="settings_notifications_frequency">빈도</string>
-    <string name="settings_sound">사운드</string>
+    <string name="settings_notifications_frequency">알림 빈도</string>
+    <string name="settings_notifications_sound">알림 사운드</string>
     <string name="cancel">최소</string>
     <string name="dialog_add_message">추가할 양을 입력</string>
     <string name="dialog_today">오늘: %1$d/%2$d</string>
@@ -30,4 +29,5 @@
     <string name="notification_content">음직여고 뭐가 마시는 거 기억하시오!</string>
     <string name="game_mode_activated">게임 모드 활성화됨!</string>
     <string name="game_mode_disabled">알림을 받으려면 게임 모드를 활성화하십시오!</string>
+    <string name="settings_delete_data">사용자 데이터 삭제</string>
 </resources>

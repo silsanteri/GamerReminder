@@ -6,11 +6,10 @@
     <string name="add_calories">Add Calories</string>
     <string name="notification_next">Next Notification In: %1$sm %2$ss</string>
     <string name="settings_language">Language</string>
-    <string name="settings_sound">Sound</string>
-    <string name="settings_notifications">Notifications</string>
+    <string name="settings_notifications_sound">Notification Sound</string>
     <string name="settings_notifications_min">15 min</string>
     <string name="settings_notifications_max">120 min</string>
-    <string name="settings_notifications_frequency">Frequency</string>
+    <string name="settings_notifications_frequency">Notification Frequency</string>
     <string name="language_english" translatable="false">English</string>
     <string name="language_finnish" translatable="false">Suomi</string>
     <string name="language_korean" translatable="false">한국어</string>
@@ -23,7 +22,7 @@
     <string name="toast_saved">Saved successfully!</string>
     <string name="total_exercise">Exercise\n%1$dmin</string>
     <string name="total_calories">Calories\n%1$d</string>
-    <string name="total_water">Drink \n%1$dml</string>
+    <string name="total_water">Drink\n%1$dml</string>
     <string name="today">Today</string>
     <string name="history_list_item">%1$s - %2$d</string>
     <string name="history_average">Average: %1$d %2$s</string>
@@ -35,4 +34,5 @@
     <string name="notification_content">Remember to move and drink something!</string>
     <string name="game_mode_activated">Game Mode Activated!</string>
     <string name="game_mode_disabled">Activate Game Mode to get notifications!</string>
+    <string name="settings_delete_data">Delete Userdata</string>
 </resources>

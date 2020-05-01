@@ -83,18 +83,6 @@ https://stackoverflow.com/questions/4533320/android-clickable-layout
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/notifications"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/settings_notifications"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/language_container" />
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/slider_container"
@@ -105,7 +93,7 @@ https://stackoverflow.com/questions/4533320/android-clickable-layout
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sound">
+        app:layout_constraintTop_toBottomOf="@+id/notification_sound">
 
         <TextView
             android:id="@+id/txt_frequency"
@@ -146,20 +134,20 @@ https://stackoverflow.com/questions/4533320/android-clickable-layout
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/sound"
+        android:id="@+id/notification_sound"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/settings_sound"
+        android:text="@string/settings_notifications_sound"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notifications" />
+        app:layout_constraintTop_toBottomOf="@+id/language_container" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_sources"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -170,5 +158,17 @@ https://stackoverflow.com/questions/4533320/android-clickable-layout
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_delete_userdata"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/settings_delete_data"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/slider_container" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.example.gr.logic;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.util.Pair;
 
@@ -21,6 +22,7 @@ import java.util.Locale;
  */
 
 public class UserData {
+    private static final String SETTINGS = "settings";
     private static final String TAG = "UserData.class";
     private int intakeLimit, exerciseLimit; // INTAKELIMIT IS THE SAME FOR FOOD AND WATER
     private Water water;
@@ -84,33 +86,6 @@ public class UserData {
      */
     public void addExercise(int amount) {
         this.exercise.addExercise(amount);
-    }
-
-    /**
-     * Removes water.
-     *
-     * @param amount amount of water to remove.
-     */
-    public void removeWater(int amount) {
-        this.water.removeWater(amount);
-    }
-
-    /**
-     * Removes food.
-     *
-     * @param amount amount of food to remove.
-     */
-    public void removeFood(int amount) {
-        this.food.removeFood(amount);
-    }
-
-    /**
-     * Removes exercise.
-     *
-     * @param amount amount of exercise to remove.
-     */
-    public void removeExercise(int amount) {
-        this.exercise.removeExercise(amount);
     }
 
     /**
@@ -239,6 +214,15 @@ public class UserData {
     public void editItem(ItemType type, String date, int newValue) {
         database.updateItemValue(type, date, newValue);
     }
+    // todo move to helper
+
+    /**
+     * Deletes all data from database and inserts current day with empty values.
+     */
+    public void deleteAllData() {
+        database.deleteData();
+        database.addData(this.date, 0, 0, 0);
+    }
 }
 
 // WATER -------------------------------------------------------------------------------------------
@@ -271,15 +255,6 @@ class Water {
         } else {
             Log.d(TAG, "addWater did not add water.");
         }
-    }
-
-    /**
-     * Removes water.
-     *
-     * @param amount amount of water to remove.
-     */
-    public void removeWater(int amount) {
-        this.waterAmount -= amount;
     }
 
     /**
@@ -326,15 +301,6 @@ class Food {
     }
 
     /**
-     * Removes food.
-     *
-     * @param amount amount of food to remove.
-     */
-    public void removeFood(int amount) {
-        this.foodAmount -= amount;
-    }
-
-    /**
      * Returns food.
      *
      * @return int food amount.
@@ -375,15 +341,6 @@ class Exercise {
         } else {
             Log.d(TAG, "addExercise did not add exercise.");
         }
-    }
-
-    /**
-     * Removes exercise.
-     *
-     * @param amount amount of exercise to remove.
-     */
-    public void removeExercise(int amount) {
-        this.exerciseAmount -= amount;
     }
 
     /**

@@ -85,6 +85,19 @@ public class Database extends SQLiteOpenHelper {
     }
 
     /**
+     * Deletes all data from database and resets autoincremented id.
+     *
+     * @return boolean Returns false if data deletion fails.
+     */
+    public void deleteData() {
+        Log.d(TAG, "deleteData executed.");
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_NAME);
+        db.execSQL("DELETE FROM sqlite_sequence WHERE name='" + TABLE_NAME + "'");
+    }
+
+
+    /**
      * Gets values for the specific day from database.
      *
      * @param date Date in yyyy-MM-dd format.

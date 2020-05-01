@@ -1,15 +1,14 @@
 package com.example.gr;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.gr.logic.LocaleUtils;
+import com.example.gr.logic.UserData;
 
 /**
  * SettingsActivity
@@ -27,6 +26,9 @@ public class SettingsActivity extends AppCompatActivity {
     private Button btn_language_fi;
     private Button btn_language_kor;
     private Button btn_language_ru;
+    private Button btn_delete_userdata;
+
+    private UserData mUserData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,8 @@ public class SettingsActivity extends AppCompatActivity {
         // add back button
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mUserData = new UserData(this);
     }
 
     @Override
@@ -57,6 +61,17 @@ public class SettingsActivity extends AppCompatActivity {
      */
     private void setUpViews() {
         View.OnClickListener listener = new LanguageListener();
+
+        // USERDATA DELETION
+        btn_delete_userdata = findViewById(R.id.btn_delete_userdata);
+        btn_delete_userdata.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mUserData.deleteAllData();
+                setResult(RESULT_OK);
+                finish();
+                startActivityForResult(getIntent(), MainActivity.REQUEST_CODE_SETTINGS);
+            }
+        });
 
         //TODO TURN NOT SELECTED LANGUAGE BUTTONS TO DIFFERENT COLOR(GRAY?)
         btn_language_en = findViewById(R.id.buttonEnglish);

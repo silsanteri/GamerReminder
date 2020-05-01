@@ -5,11 +5,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.gr.logic.ItemType;
 import com.example.gr.logic.DialogHandler;
 import com.example.gr.logic.LocaleUtils;
@@ -27,8 +25,6 @@ import com.example.gr.logic.MotivationalTextGenerator;
 import com.example.gr.logic.NotificationUtils;
 import com.example.gr.logic.UserData;
 import com.example.gr.view.AddListener;
-
-import java.util.Calendar;
 
 /**
  * MainActivity
@@ -116,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
     }
 
     private void updateTotalValues() {
+        //TODO FIX CALORIES TEXTVIEW IS NOT CENTERED
         txt_total_exer.setText(getString(R.string.total_exercise, mUserData.getValueByType(ItemType.EXERCISE)));
         txt_total_cal.setText(getString(R.string.total_calories, mUserData.getValueByType(ItemType.FOOD)));
         txt_total_water.setText(getString(R.string.total_water, mUserData.getValueByType(ItemType.WATER)));
