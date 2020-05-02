@@ -2,6 +2,7 @@ package com.example.gr;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +14,7 @@ import com.example.gr.logic.UserData;
 /**
  * SettingsActivity
  *
- * @author Ruslan (@dievskiy), Santeri Silvennoinen (@silsanteri)
+ * @author Ruslan (@dievskiy), Santeri Silvennoinen (@silsanteri), Tapi
  * @version 1.0 04/2020
  */
 
@@ -37,9 +38,11 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         setUpViews();
 
-        // add back button
-        if (getSupportActionBar() != null)
+        // add back button and set title
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(R.string.appbar_title_settings);
+        }
 
         mUserData = new UserData(this);
     }
@@ -61,6 +64,14 @@ public class SettingsActivity extends AppCompatActivity {
      */
     private void setUpViews() {
         View.OnClickListener listener = new LanguageListener();
+
+        Button btn_sources = findViewById(R.id.btn_sources);
+        btn_sources.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SettingsActivity.this, SourcesActivity.class));
+            }
+        });
 
         // USERDATA DELETION
         btn_delete_userdata = findViewById(R.id.btn_delete_userdata);

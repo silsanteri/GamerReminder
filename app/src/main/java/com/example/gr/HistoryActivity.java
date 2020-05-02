@@ -2,8 +2,10 @@ package com.example.gr;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+
 import com.example.gr.logic.LocaleUtils;
 import com.example.gr.logic.UserData;
 import com.example.gr.view.HistoryPagerAdapter;
@@ -35,9 +37,12 @@ public class HistoryActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        // add back button
-        if (getSupportActionBar() != null)
+        // add back button and set title
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(R.string.appbar_title_history);
+        }
+
 
         setupViews();
     }
