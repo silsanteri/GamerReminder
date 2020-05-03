@@ -16,11 +16,11 @@ public enum ItemType {
     public String getAppendix(Context context) {
         switch (this) {
             case WATER:
-                return " " + context.getString(R.string.appendix_water);
+                return context.getString(R.string.appendix_water);
             case EXERCISE:
-                return " " + context.getString(R.string.appendix_exercise);
+                return context.getString(R.string.appendix_exercise);
             case FOOD:
-                return " " + context.getString(R.string.appendix_food);
+                return context.getString(R.string.appendix_food);
             default:
                 return "";
         }

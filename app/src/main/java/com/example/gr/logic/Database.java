@@ -103,7 +103,7 @@ public class Database extends SQLiteOpenHelper {
             Log.d(TAG, "addData Failed");
             return false;
         } else {
-            // RETURNS TRUE IF UPDATE OR RESULT IS SUCCESSFUL
+            // RETURNS TRUE IF UPDATE OR INSERT RESULT IS SUCCESSFUL
             Log.d(TAG, "addData Successful");
             return true;
         }
