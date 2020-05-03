@@ -40,10 +40,9 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
     private static final String TAG = "MainActivity.class";
     public static final int REQUEST_CODE_SETTINGS = 420;
     private static final int REQUEST_CODE_HISTORY = 4020;
-    private static final int notificationId = 1;
 
     // GAMEMODE ACTIVE BOOLEAN
-    private static boolean gamemodeActive;
+    private boolean gamemodeActive;
 
     // UI VARIABLES
     private Button btn_exercise;
@@ -60,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
     // OBJECTS
     private MotivationalTextGenerator textGenerator;
     private UserData mUserData;
+    private NotificationUtils notificationUtils;
 
     /**
      * onCreate @Override
@@ -76,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
         super.onCreate(savedInstanceState);
         // CREATES USERDATA OBJECT
         this.mUserData = new UserData(this);
+        // CREATES NOTIFICATIONUTILS OBJECT
+        this.notificationUtils = new NotificationUtils(this);
         // LOADS USER'S SETTINGS
         this.gamemodeActive = SharedPrefsUtils.returnGameModeStatus(this);
         // SETS UP UI
@@ -86,15 +88,13 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
 
     /**
      * onPause @Override
-     * Saves userdata to database and settings to SharedPrefs.
+     * Saves userdata to database.
      */
     @Override
     protected void onPause() {
         Log.d(TAG, "onPause");
         // SAVES USERDATA TO DATABASE
         this.mUserData.addDBData();
-        // SAVES gamemodeActive TO SHAREDPREFS
-        SharedPrefsUtils.saveGameModeStatus(this, this.gamemodeActive);
         super.onPause();
     }
 
@@ -120,9 +120,9 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
         this.btn_drink = findViewById(R.id.btn_add_water);
         this.btn_calories = findViewById(R.id.btn_add_calories);
         this.btn_game_mode = findViewById(R.id.btn_game_mode);
-        if (gamemodeActive) {
-            setGameModeUI();
-        }
+        // set up gamemode ui
+        setGameModeUI();
+
 
         // add listener
         View.OnClickListener addListener = new AddListener(this);
@@ -289,33 +289,39 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
         if (this.gamemodeActive) {
             // IF GAME MODE WAS ACTIVE WHEN CLICKED
             this.gamemodeActive = false;
-            // SETS THE UI TO DEFAULT UI
-            this.btn_game_mode.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            this.txt_game_mode_activated.setVisibility(View.INVISIBLE);
-            this.txt_notification_next.setVisibility(View.INVISIBLE);
-            this.txt_game_mode_disabled.setVisibility(View.VISIBLE);
+            // SAVES THE NEW GAMEMODE STATUS TO SHAREDPREFS
+            SharedPrefsUtils.saveGameModeStatus(this, this.gamemodeActive);
+            // SETS THE BACK TO DEFAULT
+            setGameModeUI();
+            // STOPS THE REPEATING NOTIFICATIONS
+            notificationUtils.stopNotifications();
         } else {
             // IF GAME MODE WAS NOT ACTIVE WHEN CLICKED
             this.gamemodeActive = true;
+            // SAVES THE NEW GAMEMODE STATUS TO SHAREDPREFS
+            SharedPrefsUtils.saveGameModeStatus(this, this.gamemodeActive);
             // SETS THE UI TO VISUALLY INDICATE GAME MODE ACTIVATION
             setGameModeUI();
             // STARTS THE REPEATING NOTIFICATIONS
-            NotificationUtils.sendNotification(
-                    this,
-                    this.notificationId,
-                    getResources().getString(R.string.app_name),
-                    getResources().getString(R.string.notification_content));
+            notificationUtils.startNotifications(this);
         }
     }
 
     /**
-     * Sets the UI to visually indicate Game Mode activation.
+     * Adjusts the UI accordingly based on value of gamemodeActive.
      */
     private void setGameModeUI() {
-        this.btn_game_mode.setBackgroundColor(getResources().getColor(R.color.colorActivated));
-        this.txt_game_mode_activated.setVisibility(View.VISIBLE);
-        this.txt_notification_next.setVisibility(View.VISIBLE);
-        this.txt_game_mode_disabled.setVisibility(View.INVISIBLE);
+        if (this.gamemodeActive) {
+            this.btn_game_mode.setBackgroundColor(getResources().getColor(R.color.colorActivated));
+            this.txt_game_mode_activated.setVisibility(View.VISIBLE);
+            this.txt_notification_next.setVisibility(View.VISIBLE);
+            this.txt_game_mode_disabled.setVisibility(View.INVISIBLE);
+        } else {
+            this.btn_game_mode.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            this.txt_game_mode_activated.setVisibility(View.INVISIBLE);
+            this.txt_notification_next.setVisibility(View.INVISIBLE);
+            this.txt_game_mode_disabled.setVisibility(View.VISIBLE);
+        }
     }
 
     /**

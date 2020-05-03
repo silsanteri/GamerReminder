@@ -7,8 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import static com.example.gr.App.CHANNEL_ID;
+import static com.example.gr.App.CHANNEL_ID_HIGH;
+import static com.example.gr.App.CHANNEL_ID_LOW;
 import static com.example.gr.App.NOTIFICATION_ID;
+import static com.example.gr.App.NOTIFICATION_LAST;
 
 /**
  * NotificationHelper
@@ -23,13 +25,25 @@ public class NotificationHelper extends BroadcastReceiver {
     // STATIC FINAL VARIABLES
     public static String TAG = "NotificationHelper.class";
 
+    /**
+     * onRecieve @Override
+     *
+     * @param context
+     * @param intent
+     */
     @Override
     public void onReceive(final Context context, Intent intent) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        Notification notification = intent.getParcelableExtra(CHANNEL_ID);
+        boolean notificationLast = intent.getBooleanExtra(NOTIFICATION_LAST, true);
+        Notification notification;
+        if (notificationLast) {
+            notification = intent.getParcelableExtra(CHANNEL_ID_HIGH);
+            Log.d(TAG, "Notification sent! - Sound");
+        } else {
+            notification = intent.getParcelableExtra(CHANNEL_ID_LOW);
+            Log.d(TAG, "Notification sent! - No Sound");
+        }
         int notificationId = intent.getIntExtra(NOTIFICATION_ID, 0);
         notificationManager.notify(notificationId, notification);
-        Log.d(TAG, "Notification sent!");
     }
 }

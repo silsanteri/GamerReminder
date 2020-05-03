@@ -12,8 +12,12 @@ import androidx.core.app.NotificationCompat;
 import com.example.gr.MainActivity;
 import com.example.gr.R;
 
-import static com.example.gr.App.CHANNEL_ID;
+import static com.example.gr.App.CHANNEL_ID_HIGH;
+import static com.example.gr.App.CHANNEL_ID_LOW;
 import static com.example.gr.App.NOTIFICATION_ID;
+import static com.example.gr.App.NOTIFICATION_LAST;
+import static com.example.gr.App.notificationIdHigh;
+import static com.example.gr.App.notificationIdLow;
 
 /**
  * Class that contains notification functions.
@@ -23,83 +27,137 @@ import static com.example.gr.App.NOTIFICATION_ID;
  */
 
 public class NotificationUtils {
-    //TODO COMMENTS + JAVADOCS
+
+    // VARIABLES
+    private AlarmManager alarmManager;
+    private PendingIntent pendingIntent;
+    private Notification notification;
+    private boolean notificationLast;
 
     /**
-     * A function that starts repeating notifications via AlarmManager.
+     * Constructor for all initial settings.
+     * Creates AlarmManager and PendingIntent variables.
      *
      * @param context
-     * @param notificationId
-     * @param notificationTitle
-     * @param notificationText
      */
-    public static void sendNotification(Context context, int notificationId, String notificationTitle, String notificationText) {
-        //TODO GET NOTIFICATION TITLE AND TEXT FROM CONTEXT INSTEAD OF AS PARAMETER
-        //SOURCE 1: https://stackoverflow.com/questions/36902667/how-to-schedule-notification-in-android
-        //SOURCE 2: https://developer.android.com/training/scheduling/alarms
+    public NotificationUtils(Context context) {
+        // CREATES NOTIFICATION
+        createNotification(context);
+        // GETS THE LAST NOTIFICATIONTYPE
+        this.notificationLast = SharedPrefsUtils.returnGameModeStatus(context);
+        // INITIATES ALARMMANAGER
+        this.alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-        long notificationDelay = MathUtils.minutesToMilliseconds(SharedPrefsUtils.returnNotificationFrequency(context));
-        boolean notificationSound = SharedPrefsUtils.returnNotificationSound(context);
-
-        // CREATES THE NOTIFICATION
-        Notification notification = createNotification(context, notificationId, notificationTitle, notificationText, notificationSound);
-
-        // CREATES INTENT AND PUTS NOTIFICATION ID AND NOTIFICATION OBJECT TO EXTRA
-        Intent notificationIntent = new Intent(context, NotificationHelper.class);
-        notificationIntent.putExtra(NOTIFICATION_ID, notificationId);
-        notificationIntent.putExtra(CHANNEL_ID, notification);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                context,
-                notificationId,
-                notificationIntent,
-                PendingIntent.FLAG_CANCEL_CURRENT);
-
-        // SETS ON THE REPEATING ALARM
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis(),
-                notificationDelay,
-                pendingIntent);
     }
 
     /**
-     * A function that creates a notification.
+     * Starts repeating notifications.
+     */
+    public void startNotifications(Context context) {
+        // GETS NOTIFICATION DELAY VARIABLE FROM SHAREDPREFS
+        //long notificationDelay = MathUtils.minutesToMilliseconds(SharedPrefsUtils.returnNotificationFrequency(context));
+        long notificationDelay = 60 * 1000; //todo remove test
+
+        createNotification(context);
+        // START REPEATING NOTIFICATIONS
+        this.alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                System.currentTimeMillis(),
+                notificationDelay,
+                this.pendingIntent);
+    }
+
+    /**
+     * Stops repeating notifications.
+     */
+    public void stopNotifications() {
+        // STOP REPEATING NOTIFICATIONS
+        this.alarmManager.cancel(this.pendingIntent);
+    }
+
+    /**
+     * Returns a raw notification.
+     * Checks user settings and customizes the notification accordingly.
      *
      * @param context
-     * @param notificationId
-     * @param notificationTitle
-     * @param notificationText
-     * @param notificationSound Boolean - True = Sound ON, False = Sound OFF.
      * @return Notification
      */
-    public static Notification createNotification(Context context, int notificationId, String notificationTitle, String notificationText, boolean notificationSound) {
-        //TODO FIX SOUND NOT MUTED
-        Intent intent = new Intent(context, MainActivity.class);
-        PendingIntent activity = PendingIntent.getActivity(context, notificationId, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+    public Notification createRawNotification(Context context) {
+        //GETS NOTIFICATION SOUND BOOLEAN FROM SHAREDPREFS
+        boolean notificationSound = SharedPrefsUtils.returnGameModeStatus(context);
+        // CREATES TEMPORARY INTENT FOR PENDING INTENT
+        Intent tempIntent = new Intent(context, MainActivity.class);
         if (notificationSound) {
-            Notification notificationUnmuted = new NotificationCompat.Builder(context, CHANNEL_ID)
+            // CREATES PENDING INTENT FOR ACTIVITY
+            PendingIntent activity = PendingIntent.getActivity(context, notificationIdHigh, tempIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+            // IF NOTIFICATION SOUND SETTING IS ON CREATES A NOTIFICATION WITH SOUNDS
+            // USES HIGH PRIORITY TO BE ABLE TO USE SOUND
+            Notification notification = new NotificationCompat.Builder(context, CHANNEL_ID_HIGH)
                     .setSmallIcon(R.drawable.ic_notification)
-                    .setContentTitle(notificationTitle)
-                    .setContentText(notificationText)
+                    .setContentTitle(context.getResources().getString(R.string.app_name))
+                    .setContentText(context.getResources().getString(R.string.notification_content))
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setCategory(NotificationCompat.CATEGORY_ALARM)
+                    .setCategory(NotificationCompat.CATEGORY_REMINDER)
                     .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
                     .setContentIntent(activity)
                     .build();
-
-            return notificationUnmuted;
+            // RETURNS NOTIFICATION
+            this.notificationLast = true;
+            return notification;
         } else {
-            Notification notificationMuted = new NotificationCompat.Builder(context, CHANNEL_ID)
+            // CREATES PENDING INTENT FOR ACTIVITY
+            PendingIntent activity = PendingIntent.getActivity(context, notificationIdLow, tempIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+            // IF NOTIFICATION SOUND SETTING IS OFF CREATES A NOTIFICATION WITHOUT SOUNDS
+            // USES LOW PRIORITY TO MUTE SOUND
+            Notification notificationMuted = new NotificationCompat.Builder(context, CHANNEL_ID_LOW)
                     .setSmallIcon(R.drawable.ic_notification)
-                    .setContentTitle(notificationTitle)
-                    .setContentText(notificationText)
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setCategory(NotificationCompat.CATEGORY_ALARM)
+                    .setContentTitle(context.getResources().getString(R.string.app_name))
+                    .setContentText(context.getResources().getString(R.string.notification_content))
+                    .setPriority(NotificationCompat.PRIORITY_LOW)
+                    .setCategory(NotificationCompat.CATEGORY_REMINDER)
                     .setSound(null)
                     .setContentIntent(activity)
                     .build();
-
+            // RETURNS NOTIFICATION
+            this.notificationLast = false;
             return notificationMuted;
+        }
+    }
+
+    /**
+     * Creates a full notification.
+     *
+     * @param context
+     * @return Notification
+     */
+    public void createNotification(Context context) {
+        // GETS RAW NOTIFICATION
+        this.notification = createRawNotification(context);
+        // CREATES INTENT FOR THE PENDINGINTENT
+        Intent notificationIntent = new Intent(context, NotificationHelper.class);
+        if (this.notificationLast) {
+            // IF LAST NOTIFICATION IS NOT MUTED CREATES THE NOTIFICATION WITH HIGH IMPORTANCE
+            // PUTS EXTRA INFO TO THE INTENT
+            notificationIntent.putExtra(NOTIFICATION_ID, notificationIdHigh);
+            notificationIntent.putExtra(CHANNEL_ID_HIGH, notification);
+            notificationIntent.putExtra(NOTIFICATION_LAST, notificationLast);
+            // UPDATES THE PENDINGINTENT WITH APPROPRIATE VALUES
+            this.pendingIntent = PendingIntent.getBroadcast(
+                    context,
+                    notificationIdHigh,
+                    notificationIntent,
+                    PendingIntent.FLAG_CANCEL_CURRENT);
+        } else {
+            // IF LAST NOTIFICATION IS NOT MUTED CREATES THE NOTIFICATION WITH LOW IMPORTANCE
+            // PUTS EXTRA INFO TO THE INTENT
+            notificationIntent.putExtra(NOTIFICATION_ID, notificationIdLow);
+            notificationIntent.putExtra(CHANNEL_ID_LOW, notification);
+            notificationIntent.putExtra(NOTIFICATION_LAST, notificationLast);
+            // UPDATES THE PENDINGINTENT WITH APPROPRIATE VALUES
+            this.pendingIntent = PendingIntent.getBroadcast(
+                    context,
+                    notificationIdLow,
+                    notificationIntent,
+                    PendingIntent.FLAG_CANCEL_CURRENT);
         }
     }
 }

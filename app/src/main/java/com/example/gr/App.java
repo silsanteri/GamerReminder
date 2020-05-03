@@ -16,8 +16,12 @@ public class App extends Application {
     //SOURCE: https://www.youtube.com/playlist?list=PLrnPJCHvNZuCN52QwGu7YTSLIMrjCF0gM
 
     // STATIC FINAL VARIABLES
-    public static final String CHANNEL_ID = "notification";
+    public static final String CHANNEL_ID_HIGH = "notification_high";
+    public static final String CHANNEL_ID_LOW = "notification_low";
     public static final String NOTIFICATION_ID = "notification_id";
+    public static final String NOTIFICATION_LAST = "notification_last";
+    public static final int notificationIdHigh = 1;
+    public static final int notificationIdLow = 2;
 
     /**
      * onCreate @Override
@@ -26,25 +30,40 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        createNotificationChannel();
+        createNotificationChannels();
     }
 
     /**
-     * Creates notification channel.
+     * Creates two notification channels.
+     * One for notifications with sound and one for notifications without sound.
      */
-    private void createNotificationChannel() {
+    private void createNotificationChannels() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // BUILDS THE NEW NOTIFICATION CHANNEL
-            NotificationChannel notification = new NotificationChannel(
-                    CHANNEL_ID,
+            // BUILDS THE NEW NOTIFICATION CHANNEL WITH SOUND
+            NotificationChannel notification_high = new NotificationChannel(
+                    CHANNEL_ID_HIGH,
                     "Reminder",
                     NotificationManager.IMPORTANCE_HIGH
             );
             // SETS THE NOTIFICATION DESCRIPTION TO "Reminder"
-            notification.setDescription("Reminder");
-            NotificationManager manager = getSystemService(NotificationManager.class);
+            notification_high.setDescription("Reminder");
+            // MAKES NOTIFICATIONMANAGER OBJECT
+            NotificationManager manager_high = getSystemService(NotificationManager.class);
             // CREATES NOTIFICATION CHANNEL
-            manager.createNotificationChannel(notification);
+            manager_high.createNotificationChannel(notification_high);
+
+            // BUILDS THE NEW NOTIFICATION CHANNEL WITH NO SOUND
+            NotificationChannel notification_low = new NotificationChannel(
+                    CHANNEL_ID_LOW,
+                    "Muted Reminder",
+                    NotificationManager.IMPORTANCE_LOW
+            );
+            // SETS THE NOTIFICATION DESCRIPTION TO "Muted Reminder"
+            notification_high.setDescription("Muted Reminder");
+            // MAKES NOTIFICATIONMANAGER OBJECT
+            NotificationManager manager_low = getSystemService(NotificationManager.class);
+            // CREATES NOTIFICATION CHANNEL
+            manager_low.createNotificationChannel(notification_low);
         }
     }
 }
