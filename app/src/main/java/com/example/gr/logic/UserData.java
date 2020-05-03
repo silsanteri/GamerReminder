@@ -249,6 +249,10 @@ public class UserData {
 }
 
 // WATER -------------------------------------------------------------------------------------------
+
+/**
+ * UserData subclass for water values.
+ */
 class Water {
     private static final String TAG = "Water.class";
     private int waterAmount;
@@ -294,6 +298,10 @@ class Water {
 
 
 // FOOD --------------------------------------------------------------------------------------------
+
+/**
+ * UserData subclass for food values.
+ */
 class Food {
     private static final String TAG = "Food.class";
     private int foodAmount;
@@ -339,6 +347,10 @@ class Food {
 
 
 // EXERCISE ----------------------------------------------------------------------------------------
+
+/**
+ * UserData subclass for exercise values.
+ */
 class Exercise {
     private static final String TAG = "Exercise.class";
     private int exerciseAmount;
