@@ -22,7 +22,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="5dp">
 
                 <TextView
                     android:id="@+id/txt_card_today"
@@ -31,8 +32,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/today"
                     android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/txt_total_cal2"
+                    app:layout_constraintEnd_toEndOf="@id/txt_total_cal2"
+                    app:layout_constraintStart_toStartOf="@id/txt_total_cal2"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -43,7 +45,18 @@
                     android:text="@string/total_exercise"
                     android:textAlignment="center"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/txt_total_cal"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_total_exer2"
+                    app:layout_constraintStart_toStartOf="@+id/txt_total_exer2"
+                    app:layout_constraintTop_toBottomOf="@id/txt_total_exer2" />
+
+                <TextView
+                    android:id="@+id/txt_total_exer2"
+                    style="@style/CardView.TotalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exercise"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toStartOf="@id/txt_total_cal2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/txt_card_today" />
 
@@ -55,8 +68,20 @@
                     android:text="@string/total_calories"
                     android:textAlignment="center"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/txt_total_water"
-                    app:layout_constraintStart_toEndOf="@id/txt_total_exer"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_total_cal2"
+                    app:layout_constraintStart_toStartOf="@+id/txt_total_cal2"
+                    app:layout_constraintTop_toBottomOf="@id/txt_total_cal2" />
+
+
+                <TextView
+                    android:id="@+id/txt_total_cal2"
+                    style="@style/CardView.TotalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/calories"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_total_water2"
+                    app:layout_constraintStart_toEndOf="@+id/txt_total_exer2"
                     app:layout_constraintTop_toBottomOf="@id/txt_card_today" />
 
                 <TextView
@@ -67,9 +92,22 @@
                     android:text="@string/total_water"
                     android:textAlignment="center"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_total_water2"
+                    app:layout_constraintStart_toStartOf="@+id/txt_total_water2"
+                    app:layout_constraintTop_toBottomOf="@id/txt_total_water2" />
+
+
+                <TextView
+                    android:id="@+id/txt_total_water2"
+                    style="@style/CardView.TotalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/water"
+                    android:textAlignment="center"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/txt_total_cal"
+                    app:layout_constraintStart_toEndOf="@id/txt_total_cal2"
                     app:layout_constraintTop_toBottomOf="@id/txt_card_today" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
@@ -139,7 +177,8 @@
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_add_exercise" />
 
         <TextView
             android:id="@+id/txt_notification_next"
@@ -149,8 +188,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="@string/notification_next"
-            android:textColor="@color/black"
             android:textAlignment="center"
+            android:textColor="@color/black"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -163,8 +202,8 @@
             android:layout_marginBottom="16dp"
             android:text="@string/game_mode_activated"
             android:textAlignment="center"
-            android:visibility="invisible"
             android:textColor="@color/colorActivated"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/btn_game_mode"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -176,8 +215,8 @@
             android:layout_marginStart="176dp"
             android:layout_marginEnd="176dp"
             android:text="@string/game_mode_disabled"
-            android:textColor="@color/black"
             android:textAlignment="center"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/txt_game_mode_activated"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

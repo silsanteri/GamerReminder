@@ -1,5 +1,7 @@
 package com.example.gr.view;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -26,7 +28,7 @@ public class HistoryPagerAdapter extends FragmentPagerAdapter {
     private List<String> titles;
 
     // todo change userData to helper
-    public HistoryPagerAdapter(FragmentManager supportFragmentManager, UserData userData) {
+    public HistoryPagerAdapter(FragmentManager supportFragmentManager, UserData userData, Context context) {
         super(supportFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 
         // add fragments to the list
@@ -37,7 +39,7 @@ public class HistoryPagerAdapter extends FragmentPagerAdapter {
             // add fragment
             fragmentsArray.add(new ItemFragment(type, userData));
             // add title
-            titlesArray.add(type.name());
+            titlesArray.add(type.getLocaledName(context));
 
         }
         fragments = fragmentsArray;

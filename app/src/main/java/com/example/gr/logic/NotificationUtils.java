@@ -36,7 +36,8 @@ public class NotificationUtils {
         //SOURCE 1: https://stackoverflow.com/questions/36902667/how-to-schedule-notification-in-android
         //SOURCE 2: https://developer.android.com/training/scheduling/alarms
 
-        long notificationDelay = SharedPrefsUtils.returnNotificationFrequency(context);
+        // todo check conversion
+        long notificationDelay = SharedPrefsUtils.returnNotificationFrequency(context) * 60 * 1000;
         boolean notificationSound = SharedPrefsUtils.returnNotificationSound(context);
 
         // CREATES THE NOTIFICATION

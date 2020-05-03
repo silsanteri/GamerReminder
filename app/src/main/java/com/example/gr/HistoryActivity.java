@@ -18,8 +18,6 @@ import com.google.android.material.tabs.TabLayout;
  * @version 1.0 04/2020
  */
 
-//TODO CHANGE FRAGMENT TITLES TO CURRENT LOCALE (VALUES ARE READY)
-
 public class HistoryActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
@@ -53,7 +51,7 @@ public class HistoryActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tablayout);
         viewPager.setOffscreenPageLimit(2);
         tabLayout.setupWithViewPager(viewPager);
-        viewPager.setAdapter(new HistoryPagerAdapter(getSupportFragmentManager(), mUserData));
+        viewPager.setAdapter(new HistoryPagerAdapter(getSupportFragmentManager(), mUserData, this));
     }
 
     @Override

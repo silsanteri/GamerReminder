@@ -114,8 +114,10 @@ public class ItemFragment extends Fragment {
 
     private void updateAverage() {
         if (average != null && mUserData != null) {
-            average.setText(getString(R.string.history_average, mathUtils.getAverage(mUserData.getAllValuesPlain(type)), type.getAppendix()));
-
+            average.setText(getString(R.string.history_average,
+                    mathUtils.getAverage(mUserData.getAllValuesPlain(type)),
+                    type.getAppendix(requireContext()
+                    )));
         }
     }
 

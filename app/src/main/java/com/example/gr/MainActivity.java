@@ -34,8 +34,6 @@ import com.example.gr.view.AddListener;
  * @version 1.0 04/2020
  */
 
-//TODO RUSSIAN TRANSLATIONS
-
 public class MainActivity extends AppCompatActivity implements DialogHandler {
 
     public static final int REQUEST_CODE_SETTINGS = 420;
@@ -68,8 +66,8 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
         this.textGenerator = new MotivationalTextGenerator(this);
 
         this.mUserData = new UserData(this);
+        gamemodeActive = SharedPrefsUtils.returnGameModeStatus(this);
         setUpViews();
-        this.gamemodeActive = SharedPrefsUtils.returnGameModeStatus(this);
     }
 
     @Override
@@ -77,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
         // SAVES USERDATA TO DATABASE
         this.mUserData.addDBData();
         // SAVES gamemodeActive TO SHAREDPREFS
-        SharedPrefsUtils.saveGameModeStatus(this, this.gamemodeActive);
+        SharedPrefsUtils.saveGameModeStatus(this, gamemodeActive);
         super.onPause();
     }
 
@@ -102,6 +100,9 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
         btn_drink = findViewById(R.id.btn_add_water);
         btn_calories = findViewById(R.id.btn_add_calories);
         btn_game_mode = findViewById(R.id.btn_game_mode);
+        if (gamemodeActive) {
+            setGameModeUi();
+        }
 
         // add listener
         View.OnClickListener addListener = new AddListener(this);
@@ -117,7 +118,6 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
     }
 
     private void updateTotalValues() {
-        //TODO FIX CALORIES TEXTVIEW IS NOT CENTERED
         txt_total_exer.setText(getString(R.string.total_exercise, mUserData.getValueByType(ItemType.EXERCISE)));
         txt_total_cal.setText(getString(R.string.total_calories, mUserData.getValueByType(ItemType.FOOD)));
         txt_total_water.setText(getString(R.string.total_water, mUserData.getValueByType(ItemType.WATER)));
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
     public void showAddDialog(final ItemType type) {
         final View dialogView = View.inflate(this, R.layout.dialog_add, null);
         final EditText editText = dialogView.findViewById(R.id.edit_value);
-        String title = type.toString().toLowerCase();
+        String title = type.getLocaledName(this);
         // capitalize title
         // source https://stackoverflow.com/questions/3904579/how-to-capitalize-the-first-letter-of-a-string-in-java
         title = title.substring(0, 1).toUpperCase() + title.substring(1);
@@ -251,11 +251,7 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
             this.txt_game_mode_disabled.setVisibility(View.VISIBLE);
         } else {
             this.gamemodeActive = true;
-            // SETS THE UI TO VISUALLY EXPRESS GAME MODE ACTIVATION
-            this.btn_game_mode.setBackgroundColor(getResources().getColor(R.color.colorActivated));
-            this.txt_game_mode_activated.setVisibility(View.VISIBLE);
-            this.txt_notification_next.setVisibility(View.VISIBLE);
-            this.txt_game_mode_disabled.setVisibility(View.INVISIBLE);
+            setGameModeUi();
 
             // STARTS THE REPEATING NOTIFICATIONS
             NotificationUtils.sendNotification(
@@ -264,6 +260,16 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
                     getResources().getString(R.string.app_name),
                     getResources().getString(R.string.notification_content));
         }
+    }
+
+    /**
+     * SETS THE UI TO VISUALLY EXPRESS GAME MODE ACTIVATION
+     */
+    private void setGameModeUi() {
+        this.btn_game_mode.setBackgroundColor(getResources().getColor(R.color.colorActivated));
+        this.txt_game_mode_activated.setVisibility(View.VISIBLE);
+        this.txt_notification_next.setVisibility(View.VISIBLE);
+        this.txt_game_mode_disabled.setVisibility(View.INVISIBLE);
     }
 
     @Override
