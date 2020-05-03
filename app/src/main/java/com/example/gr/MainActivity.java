@@ -23,6 +23,7 @@ import com.example.gr.logic.DialogHandler;
 import com.example.gr.logic.LocaleUtils;
 import com.example.gr.logic.MotivationalTextGenerator;
 import com.example.gr.logic.NotificationUtils;
+import com.example.gr.logic.SharedPrefsUtils;
 import com.example.gr.logic.UserData;
 import com.example.gr.view.AddListener;
 
@@ -40,7 +41,8 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
     public static final int REQUEST_CODE_SETTINGS = 420;
     private static final int REQUEST_CODE_HISTORY = 4020;
     private static final String TAG = "MainActivity.class";
-    boolean gamemodeActive;
+    private static final int notificationId = 1;
+    private static boolean gamemodeActive;
 
     private Button btn_exercise;
     private Button btn_calories;
@@ -63,16 +65,19 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textGenerator = new MotivationalTextGenerator(this);
+        this.textGenerator = new MotivationalTextGenerator(this);
 
-        mUserData = new UserData(this);
+        this.mUserData = new UserData(this);
         setUpViews();
-        gamemodeActive = false; //TODO GET FROM SHAREDPREFS
+        this.gamemodeActive = SharedPrefsUtils.returnGameModeStatus(this);
     }
 
     @Override
     protected void onPause() {
-        mUserData.addDBData();
+        // SAVES USERDATA TO DATABASE
+        this.mUserData.addDBData();
+        // SAVES gamemodeActive TO SHAREDPREFS
+        SharedPrefsUtils.saveGameModeStatus(this, this.gamemodeActive);
         super.onPause();
     }
 
@@ -231,23 +236,33 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
 
 
     /**
-     * Activate game mode.
+     * Toggles game mode on or off.
+     * Customizes UI to express Game Mode activation.
+     *
+     * @param view
      */
     public void activateGameMode(View view) {
         if (this.gamemodeActive) {
-            btn_game_mode.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            txt_game_mode_activated.setVisibility(View.INVISIBLE);
-            txt_notification_next.setVisibility(View.INVISIBLE);
-            txt_game_mode_disabled.setVisibility(View.VISIBLE);
             this.gamemodeActive = false;
+            // SETS THE UI TO DEFAULT UI
+            this.btn_game_mode.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            this.txt_game_mode_activated.setVisibility(View.INVISIBLE);
+            this.txt_notification_next.setVisibility(View.INVISIBLE);
+            this.txt_game_mode_disabled.setVisibility(View.VISIBLE);
         } else {
-            btn_game_mode.setBackgroundColor(getResources().getColor(R.color.colorActivated));
-            txt_game_mode_activated.setVisibility(View.VISIBLE);
-            txt_notification_next.setVisibility(View.VISIBLE);
-            txt_game_mode_disabled.setVisibility(View.INVISIBLE);
-            //TODO MAKE PERIODIC NOTIFICATIONS
-            NotificationUtils.sendNotification(this, view, getResources().getString(R.string.app_name), getResources().getString(R.string.notification_content));
             this.gamemodeActive = true;
+            // SETS THE UI TO VISUALLY EXPRESS GAME MODE ACTIVATION
+            this.btn_game_mode.setBackgroundColor(getResources().getColor(R.color.colorActivated));
+            this.txt_game_mode_activated.setVisibility(View.VISIBLE);
+            this.txt_notification_next.setVisibility(View.VISIBLE);
+            this.txt_game_mode_disabled.setVisibility(View.INVISIBLE);
+
+            // STARTS THE REPEATING NOTIFICATIONS
+            NotificationUtils.sendNotification(
+                    this,
+                    this.notificationId,
+                    getResources().getString(R.string.app_name),
+                    getResources().getString(R.string.notification_content));
         }
     }
 

@@ -5,7 +5,7 @@
     <string name="add_calories">Lisää Kalorit</string>
     <string name="notification_next">Seuraava Ilmoitus: %1$sm %2$ss</string>
     <string name="settings_language">Kieli</string>
-    <string name="settings_notifications_sound">Ilmoitusten Ääni</string>
+    <string name="settings_notifications_sound">Ilmoitusten Äänet</string>
     <string name="settings_notifications_min">15 min</string>
     <string name="settings_notifications_max">120 min</string>
     <string name="settings_notifications_frequency">Ilmoitusten Aikaväli</string>
@@ -30,7 +30,7 @@
     <string name="game_mode_activated">Pelitila Käytössä!</string>
     <string name="game_mode_disabled">Aktivoi Pelitila saadaksesi ilmoituksia!</string>
     <string name="settings_delete_data">Poista Käyttäjätiedot</string>
-    <string name="appbar_title_sources">Sources</string>
-    <string name="appbar_title_settings">Settings</string>
-    <string name="appbar_title_history">History</string>
+    <string name="appbar_title_sources">Lähteet</string>
+    <string name="appbar_title_settings">Asetukset</string>
+    <string name="appbar_title_history">Historia</string>
 </resources>

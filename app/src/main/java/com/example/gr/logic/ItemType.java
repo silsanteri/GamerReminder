@@ -3,7 +3,7 @@ package com.example.gr.logic;
 /**
  * Types of possible add items.
  *
- * @author Ruslan (@dievskiy), Tapi
+ * @author Ruslan (@dievskiy), Tapi (@DXGGX)
  * @version 1.0 04/2020
  */
 
