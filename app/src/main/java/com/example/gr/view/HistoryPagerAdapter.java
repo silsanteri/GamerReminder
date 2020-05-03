@@ -24,6 +24,7 @@ import java.util.List;
 
 public class HistoryPagerAdapter extends FragmentPagerAdapter {
 
+    // VARIABLES
     private List<Fragment> fragments;
     private List<String> titles;
 
@@ -42,21 +43,40 @@ public class HistoryPagerAdapter extends FragmentPagerAdapter {
             titlesArray.add(type.getLocaledName(context));
 
         }
-        fragments = fragmentsArray;
-        titles = titlesArray;
+        this.fragments = fragmentsArray;
+        this.titles = titlesArray;
     }
 
+    /**
+     * getItem @NonNull @Override
+     * Returns Fragment position.
+     *
+     * @param position
+     * @return Fragment Position.
+     */
     @NonNull
     @Override
     public Fragment getItem(int position) {
         return fragments.get(position);
     }
 
+    /**
+     * getCount @Override
+     * Returns fragment size.
+     *
+     * @return int Fragment list size.
+     */
     @Override
     public int getCount() {
         return fragments.size();
     }
 
+    /**
+     * getPageTitle @Nullable @Override
+     *
+     * @param position int
+     * @return CharSequence
+     */
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {

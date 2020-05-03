@@ -20,32 +20,48 @@ import com.google.android.material.tabs.TabLayout;
 
 public class HistoryActivity extends AppCompatActivity {
 
+    // UI VARIABLES
     private ViewPager viewPager;
     private TabLayout tabLayout;
+
+    // OBJECTS
     private UserData mUserData;
 
+    /**
+     * onCreate @Override
+     * Sets up UI and loads user's settings from SharedPrefs and values from database.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // LOADS LOCALE FROM SHAREDPREFS
         LocaleUtils.loadLocale(HistoryActivity.this);
         super.onCreate(savedInstanceState);
+        // SETS UP UI
         setContentView(R.layout.activity_history);
+        // CREATES USERDATA OBJECT
         mUserData = new UserData(this);
     }
 
+    /**
+     * onStart @Override
+     */
     @Override
     protected void onStart() {
         super.onStart();
-        // add back button and set title
+        // SETS UP UI
+        setUpViews();
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(R.string.appbar_title_history);
         }
-
-
-        setupViews();
     }
 
-    private void setupViews() {
+    /**
+     * Set up all views and add relevant values to them.
+     */
+    private void setUpViews() {
         // setup viewpager with tabLayout
         viewPager = findViewById(R.id.pager);
         tabLayout = findViewById(R.id.tablayout);
@@ -54,6 +70,12 @@ public class HistoryActivity extends AppCompatActivity {
         viewPager.setAdapter(new HistoryPagerAdapter(getSupportFragmentManager(), mUserData, this));
     }
 
+    /**
+     * onOptionsItemSelected @Override
+     *
+     * @param item
+     * @return boolean
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

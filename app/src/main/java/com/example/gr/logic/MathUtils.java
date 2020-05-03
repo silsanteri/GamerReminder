@@ -18,10 +18,9 @@ public class MathUtils {
      * @return int average
      */
     public int getAverage(List<Integer> allValues) {
-        int average = 0;
-        int size = 0;
+        int average = 0, size = 0;
         for (int el : allValues) {
-            // skip days if its empty
+            // skip days if it's empty
             if (el != 0) {
                 average += el;
                 size++;
@@ -33,7 +32,7 @@ public class MathUtils {
     }
 
     /**
-     * A function that converts given milliseconds to seconds.
+     * Converts given parameter milliseconds to seconds.
      *
      * @param value initial value of milliseconds
      * @return long seconds
@@ -45,7 +44,7 @@ public class MathUtils {
     }
 
     /**
-     * A function that converts given minutes to seconds.
+     * Converts given parameter minutes to seconds.
      *
      * @param value initial value of milliseconds
      * @return long seconds
@@ -53,6 +52,18 @@ public class MathUtils {
     public static long minutesToSeconds(long value) {
         // 1 MINUTE = 60 SECONDS
         long result = (value * 60);
+        return result;
+    }
+
+    /**
+     * Cconverts given parameter minutes to milliseconds.
+     *
+     * @param value initial value of milliseconds
+     * @return long milliseconds
+     */
+    public static int minutesToMilliseconds(int value) {
+        // 1 MINUTE = 60000 MILLISECONDS
+        int result = (value * 60000);
         return result;
     }
 }

@@ -7,6 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import static com.example.gr.App.CHANNEL_ID;
+import static com.example.gr.App.NOTIFICATION_ID;
+
 /**
  * NotificationHelper
  *
@@ -15,15 +18,16 @@ import android.util.Log;
  */
 
 public class NotificationHelper extends BroadcastReceiver {
+    //TODO COMMENTS + JAVADOCS
+
+    // STATIC FINAL VARIABLES
     public static String TAG = "NotificationHelper.class";
-    public static String NOTIFICATION_ID = "notification_id";
-    public static String NOTIFICATION = "notification";
 
     @Override
     public void onReceive(final Context context, Intent intent) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        Notification notification = intent.getParcelableExtra(NOTIFICATION);
+        Notification notification = intent.getParcelableExtra(CHANNEL_ID);
         int notificationId = intent.getIntExtra(NOTIFICATION_ID, 0);
         notificationManager.notify(notificationId, notification);
         Log.d(TAG, "Notification sent!");

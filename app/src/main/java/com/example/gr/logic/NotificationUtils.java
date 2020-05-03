@@ -5,7 +5,6 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.provider.Settings;
 
 import androidx.core.app.NotificationCompat;
@@ -14,6 +13,7 @@ import com.example.gr.MainActivity;
 import com.example.gr.R;
 
 import static com.example.gr.App.CHANNEL_ID;
+import static com.example.gr.App.NOTIFICATION_ID;
 
 /**
  * Class that contains notification functions.
@@ -23,6 +23,7 @@ import static com.example.gr.App.CHANNEL_ID;
  */
 
 public class NotificationUtils {
+    //TODO COMMENTS + JAVADOCS
 
     /**
      * A function that starts repeating notifications via AlarmManager.
@@ -33,11 +34,11 @@ public class NotificationUtils {
      * @param notificationText
      */
     public static void sendNotification(Context context, int notificationId, String notificationTitle, String notificationText) {
+        //TODO GET NOTIFICATION TITLE AND TEXT FROM CONTEXT INSTEAD OF AS PARAMETER
         //SOURCE 1: https://stackoverflow.com/questions/36902667/how-to-schedule-notification-in-android
         //SOURCE 2: https://developer.android.com/training/scheduling/alarms
 
-        // todo check conversion
-        long notificationDelay = SharedPrefsUtils.returnNotificationFrequency(context) * 60 * 1000;
+        long notificationDelay = MathUtils.minutesToMilliseconds(SharedPrefsUtils.returnNotificationFrequency(context));
         boolean notificationSound = SharedPrefsUtils.returnNotificationSound(context);
 
         // CREATES THE NOTIFICATION
@@ -45,8 +46,8 @@ public class NotificationUtils {
 
         // CREATES INTENT AND PUTS NOTIFICATION ID AND NOTIFICATION OBJECT TO EXTRA
         Intent notificationIntent = new Intent(context, NotificationHelper.class);
-        notificationIntent.putExtra(NotificationHelper.NOTIFICATION_ID, notificationId);
-        notificationIntent.putExtra(NotificationHelper.NOTIFICATION, notification);
+        notificationIntent.putExtra(NOTIFICATION_ID, notificationId);
+        notificationIntent.putExtra(CHANNEL_ID, notification);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 context,
                 notificationId,
@@ -72,7 +73,7 @@ public class NotificationUtils {
      * @return Notification
      */
     public static Notification createNotification(Context context, int notificationId, String notificationTitle, String notificationText, boolean notificationSound) {
-
+        //TODO FIX SOUND NOT MUTED
         Intent intent = new Intent(context, MainActivity.class);
         PendingIntent activity = PendingIntent.getActivity(context, notificationId, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         if (notificationSound) {
