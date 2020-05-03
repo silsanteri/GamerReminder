@@ -21,38 +21,55 @@ import com.google.android.material.slider.Slider;
 /**
  * SettingsActivity
  *
- * @author Ruslan (@dievskiy), Santeri Silvennoinen (@silsanteri), Tapi
+ * @author Ruslan (@dievskiy), Santeri Silvennoinen (@silsanteri), Tapi (@DXGGX)
  * @version 1.0 04/2020
  */
 
 public class SettingsActivity extends AppCompatActivity {
+
+    // STATIC FINAL VARIABLES
     private static final String TAG = "SettingsActivity.class";
 
+    // UI VARIABLES
     private Button btn_language_en;
     private Button btn_language_fi;
     private Button btn_language_kor;
     private Button btn_language_ru;
     private Button btn_delete_userdata;
 
+    // OBJECTS
     private UserData mUserData;
 
-
+    /**
+     * onCreate @Override
+     * Sets up UI and loads users settings from SharedPrefs and values from database.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate");
+        // LOADS LOCALE FROM SHAREDPREFS
         LocaleUtils.loadLocale(SettingsActivity.this);
+        // SUPER onCreate
         super.onCreate(savedInstanceState);
+        // SETS UP UI
         setContentView(R.layout.activity_settings);
         setUpViews();
-
-        // add back button and set title
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(R.string.appbar_title_settings);
         }
-
-        mUserData = new UserData(this);
+        // CREATES USERDATA OBJECT
+        this.mUserData = new UserData(this);
     }
 
+    /**
+     * onOptionsItemSelected @Override
+     *
+     * @param item
+     * @return boolean
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -69,8 +86,7 @@ public class SettingsActivity extends AppCompatActivity {
      * Set up all views and add relevant values to them.
      */
     private void setUpViews() {
-        View.OnClickListener listener = new LanguageListener();
-
+        // SETS UP SOURCE BUTTON
         Button btn_sources = findViewById(R.id.btn_sources);
         btn_sources.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,8 +96,8 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         // USERDATA DELETION
-        btn_delete_userdata = findViewById(R.id.btn_delete_userdata);
-        btn_delete_userdata.setOnClickListener(new View.OnClickListener() {
+        this.btn_delete_userdata = findViewById(R.id.btn_delete_userdata);
+        this.btn_delete_userdata.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 mUserData.deleteAllData();
                 setResult(RESULT_OK);
@@ -90,16 +106,19 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        // FINDS THE LANGUAGEBUTTONS
         //TODO TURN NOT SELECTED LANGUAGE BUTTONS TO DIFFERENT COLOR(GRAY?)
-        btn_language_en = findViewById(R.id.buttonEnglish);
-        btn_language_fi = findViewById(R.id.buttonFinnish);
-        btn_language_kor = findViewById(R.id.buttonKorean);
-        btn_language_ru = findViewById(R.id.buttonRussian);
+        this.btn_language_en = findViewById(R.id.buttonEnglish);
+        this.btn_language_fi = findViewById(R.id.buttonFinnish);
+        this.btn_language_kor = findViewById(R.id.buttonKorean);
+        this.btn_language_ru = findViewById(R.id.buttonRussian);
 
-        btn_language_en.setOnClickListener(listener);
-        btn_language_fi.setOnClickListener(listener);
-        btn_language_kor.setOnClickListener(listener);
-        btn_language_ru.setOnClickListener(listener);
+        // SET ONCLICKLISTENERS FOR LANGUAGE BUTTONS
+        View.OnClickListener listener = new LanguageListener();
+        this.btn_language_en.setOnClickListener(listener);
+        this.btn_language_fi.setOnClickListener(listener);
+        this.btn_language_kor.setOnClickListener(listener);
+        this.btn_language_ru.setOnClickListener(listener);
 
         // set notification checkbox
         CheckBox checkBox = findViewById(R.id.notification_sound);
@@ -127,6 +146,12 @@ public class SettingsActivity extends AppCompatActivity {
      */
     private class LanguageListener implements View.OnClickListener {
 
+        /**
+         * onClick @Override
+         * Sets the selected locale when clicked.
+         *
+         * @param v View
+         */
         @Override
         public void onClick(View v) {
             LocaleUtils.setLocale(SettingsActivity.this, detectLanguage(v.getId()));
@@ -135,6 +160,12 @@ public class SettingsActivity extends AppCompatActivity {
             startActivityForResult(getIntent(), MainActivity.REQUEST_CODE_SETTINGS);
         }
 
+        /**
+         * Detects the selected language and returns the appropriate abbreviation as a String.
+         *
+         * @param id int
+         * @return String language abbreviation
+         */
         private String detectLanguage(int id) {
             switch (id) {
                 case R.id.buttonRussian:

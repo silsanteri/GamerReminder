@@ -33,7 +33,6 @@
     <string name="appbar_title_sources">Lähteet</string>
     <string name="appbar_title_settings">Asetukset</string>
     <string name="appbar_title_history">Historia</string>
-    <string name="water">Vesi</string>
     <string name="appendix_water">ml</string>
     <string name="appendix_exercise">min</string>
     <string name="appendix_food">kcal</string>

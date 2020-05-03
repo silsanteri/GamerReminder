@@ -14,25 +14,36 @@ import android.os.Build;
 
 public class App extends Application {
     //SOURCE: https://www.youtube.com/playlist?list=PLrnPJCHvNZuCN52QwGu7YTSLIMrjCF0gM
-    public static final String CHANNEL_ID = "notification";
 
+    // STATIC FINAL VARIABLES
+    public static final String CHANNEL_ID = "notification";
+    public static final String NOTIFICATION_ID = "notification_id";
+
+    /**
+     * onCreate @Override
+     * Creates notification channels.
+     */
     @Override
     public void onCreate() {
         super.onCreate();
-
-        createNotificationChannels();
+        createNotificationChannel();
     }
 
-    private void createNotificationChannels() {
+    /**
+     * Creates notification channel.
+     */
+    private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // BUILDS THE NEW NOTIFICATION CHANNEL
             NotificationChannel notification = new NotificationChannel(
                     CHANNEL_ID,
                     "Reminder",
                     NotificationManager.IMPORTANCE_HIGH
             );
+            // SETS THE NOTIFICATION DESCRIPTION TO "Reminder"
             notification.setDescription("Reminder");
-
             NotificationManager manager = getSystemService(NotificationManager.class);
+            // CREATES NOTIFICATION CHANNEL
             manager.createNotificationChannel(notification);
         }
     }

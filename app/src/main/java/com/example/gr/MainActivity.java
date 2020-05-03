@@ -36,17 +36,20 @@ import com.example.gr.view.AddListener;
 
 public class MainActivity extends AppCompatActivity implements DialogHandler {
 
+    // STATIC FINAL VARIABLES
+    private static final String TAG = "MainActivity.class";
     public static final int REQUEST_CODE_SETTINGS = 420;
     private static final int REQUEST_CODE_HISTORY = 4020;
-    private static final String TAG = "MainActivity.class";
     private static final int notificationId = 1;
+
+    // GAMEMODE ACTIVE BOOLEAN
     private static boolean gamemodeActive;
 
+    // UI VARIABLES
     private Button btn_exercise;
     private Button btn_calories;
     private Button btn_drink;
     private Button btn_game_mode;
-
     private TextView txt_total_cal;
     private TextView txt_total_water;
     private TextView txt_total_exer;
@@ -54,28 +57,44 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
     private TextView txt_notification_next;
     private TextView txt_game_mode_disabled;
 
+    // OBJECTS
     private MotivationalTextGenerator textGenerator;
     private UserData mUserData;
 
+    /**
+     * onCreate @Override
+     * Sets up UI and loads user's settings from SharedPrefs and values from database.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate");
+        // LOADS LOCALE FROM SHAREDPREFS
         LocaleUtils.loadLocale(MainActivity.this);
+        // SUPER onCreate
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        this.textGenerator = new MotivationalTextGenerator(this);
-
+        // CREATES USERDATA OBJECT
         this.mUserData = new UserData(this);
-        gamemodeActive = SharedPrefsUtils.returnGameModeStatus(this);
+        // LOADS USER'S SETTINGS
+        this.gamemodeActive = SharedPrefsUtils.returnGameModeStatus(this);
+        // SETS UP UI
+        setContentView(R.layout.activity_main);
+        this.textGenerator = new MotivationalTextGenerator(this);
         setUpViews();
     }
 
+    /**
+     * onPause @Override
+     * Saves userdata to database and settings to SharedPrefs.
+     */
     @Override
     protected void onPause() {
+        Log.d(TAG, "onPause");
         // SAVES USERDATA TO DATABASE
         this.mUserData.addDBData();
         // SAVES gamemodeActive TO SHAREDPREFS
-        SharedPrefsUtils.saveGameModeStatus(this, gamemodeActive);
+        SharedPrefsUtils.saveGameModeStatus(this, this.gamemodeActive);
         super.onPause();
     }
 
@@ -83,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
      * Set up all views and add relevant values to them.
      */
     private void setUpViews() {
+        Log.d(TAG, "setUpViews");
         // todo set relevant time
         ((TextView) findViewById(R.id.txt_notification_next))
                 .setText(getString(R.string.notification_next, "04", "20"));
@@ -91,36 +111,41 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
         ((TextView) findViewById(R.id.txt_motivational)).setText(textGenerator.getRandomText());
 
         // set game mode texts
-        txt_game_mode_activated = findViewById(R.id.txt_game_mode_activated);
-        txt_game_mode_disabled = findViewById(R.id.txt_game_mode_disabled);
-        txt_notification_next = findViewById(R.id.txt_notification_next);
+        this.txt_game_mode_activated = findViewById(R.id.txt_game_mode_activated);
+        this.txt_game_mode_disabled = findViewById(R.id.txt_game_mode_disabled);
+        this.txt_notification_next = findViewById(R.id.txt_notification_next);
 
         // set up buttons
-        btn_exercise = findViewById(R.id.btn_add_exercise);
-        btn_drink = findViewById(R.id.btn_add_water);
-        btn_calories = findViewById(R.id.btn_add_calories);
-        btn_game_mode = findViewById(R.id.btn_game_mode);
+        this.btn_exercise = findViewById(R.id.btn_add_exercise);
+        this.btn_drink = findViewById(R.id.btn_add_water);
+        this.btn_calories = findViewById(R.id.btn_add_calories);
+        this.btn_game_mode = findViewById(R.id.btn_game_mode);
         if (gamemodeActive) {
-            setGameModeUi();
+            setGameModeUI();
         }
 
         // add listener
         View.OnClickListener addListener = new AddListener(this);
-        btn_exercise.setOnClickListener(addListener);
-        btn_drink.setOnClickListener(addListener);
-        btn_calories.setOnClickListener(addListener);
+        this.btn_exercise.setOnClickListener(addListener);
+        this.btn_drink.setOnClickListener(addListener);
+        this.btn_calories.setOnClickListener(addListener);
 
         // set relevant today values
-        txt_total_exer = findViewById(R.id.txt_total_exer);
-        txt_total_cal = findViewById(R.id.txt_total_cal);
-        txt_total_water = findViewById(R.id.txt_total_water);
+        this.txt_total_exer = findViewById(R.id.txt_total_exer);
+        this.txt_total_cal = findViewById(R.id.txt_total_cal);
+        this.txt_total_water = findViewById(R.id.txt_total_water);
         updateTotalValues();
     }
 
+    /**
+     * Updates today's values.
+     */
     private void updateTotalValues() {
-        txt_total_exer.setText(getString(R.string.total_exercise, mUserData.getValueByType(ItemType.EXERCISE)));
-        txt_total_cal.setText(getString(R.string.total_calories, mUserData.getValueByType(ItemType.FOOD)));
-        txt_total_water.setText(getString(R.string.total_water, mUserData.getValueByType(ItemType.WATER)));
+        // UPDATES TODAYS VALUES
+        Log.d(TAG, "updateTotalValues");
+        this.txt_total_exer.setText(getString(R.string.total_exercise, mUserData.getValueByType(ItemType.EXERCISE)));
+        this.txt_total_cal.setText(getString(R.string.total_calories, mUserData.getValueByType(ItemType.FOOD)));
+        this.txt_total_water.setText(getString(R.string.total_water, mUserData.getValueByType(ItemType.WATER)));
     }
 
     /**
@@ -181,13 +206,13 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
     private void addAmount(ItemType type, Integer amount) {
         switch (type) {
             case WATER:
-                mUserData.addWater(amount);
+                this.mUserData.addWater(amount);
                 break;
             case FOOD:
-                mUserData.addFood(amount);
+                this.mUserData.addFood(amount);
                 break;
             case EXERCISE:
-                mUserData.addExercise(amount);
+                this.mUserData.addExercise(amount);
                 break;
             default:
                 return;
@@ -196,6 +221,12 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
         Toast.makeText(MainActivity.this, R.string.toast_saved, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * onCreateOptionsMenu @Override
+     *
+     * @param menu
+     * @return boolean true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -203,11 +234,18 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
         return true;
     }
 
+    /**
+     * onOptionsItemSelected @Override
+     *
+     * @param item
+     * @return boolean
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
             case R.id.menu_info:
+                // start HistoryActivity if history icon clicked
                 startHistoryActivity();
                 break;
             case R.id.menu_settings:
@@ -222,12 +260,18 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
 
     }
 
+    /**
+     * Function that starts history activity.
+     */
     private void startHistoryActivity() {
         Intent historyIntent = new Intent(this, HistoryActivity.class);
         // start for result to handle changes after user modifications
         startActivityForResult(historyIntent, REQUEST_CODE_HISTORY);
     }
 
+    /**
+     * Function that starts settings activity.
+     */
     private void startSettingsActivity() {
         Intent settingsIntent = new Intent(this, SettingsActivity.class);
         // start for result to handle changes after user modifications
@@ -237,12 +281,13 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
 
     /**
      * Toggles game mode on or off.
-     * Customizes UI to express Game Mode activation.
+     * Customizes UI to indicate Game Mode activation.
      *
      * @param view
      */
     public void activateGameMode(View view) {
         if (this.gamemodeActive) {
+            // IF GAME MODE WAS ACTIVE WHEN CLICKED
             this.gamemodeActive = false;
             // SETS THE UI TO DEFAULT UI
             this.btn_game_mode.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
@@ -250,9 +295,10 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
             this.txt_notification_next.setVisibility(View.INVISIBLE);
             this.txt_game_mode_disabled.setVisibility(View.VISIBLE);
         } else {
+            // IF GAME MODE WAS NOT ACTIVE WHEN CLICKED
             this.gamemodeActive = true;
-            setGameModeUi();
-
+            // SETS THE UI TO VISUALLY INDICATE GAME MODE ACTIVATION
+            setGameModeUI();
             // STARTS THE REPEATING NOTIFICATIONS
             NotificationUtils.sendNotification(
                     this,
@@ -263,15 +309,22 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
     }
 
     /**
-     * SETS THE UI TO VISUALLY EXPRESS GAME MODE ACTIVATION
+     * Sets the UI to visually indicate Game Mode activation.
      */
-    private void setGameModeUi() {
+    private void setGameModeUI() {
         this.btn_game_mode.setBackgroundColor(getResources().getColor(R.color.colorActivated));
         this.txt_game_mode_activated.setVisibility(View.VISIBLE);
         this.txt_notification_next.setVisibility(View.VISIBLE);
         this.txt_game_mode_disabled.setVisibility(View.INVISIBLE);
     }
 
+    /**
+     * onActivityResult @Override
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -279,7 +332,7 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
         switch (requestCode) {
             case REQUEST_CODE_HISTORY: {
                 if (resultCode == RESULT_OK) {
-                    mUserData.updateValues();
+                    this.mUserData.updateValues();
                     updateTotalValues();
                 }
             }
@@ -287,7 +340,7 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
                 if (resultCode == RESULT_OK) {
                     finish();
                     startActivity(getIntent());
-                    mUserData.updateValues();
+                    this.mUserData.updateValues();
                     updateTotalValues();
                 }
             }

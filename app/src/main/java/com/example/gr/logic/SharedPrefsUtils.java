@@ -11,6 +11,8 @@ import android.content.SharedPreferences;
  * @version 1.0 04/2020
  */
 public class SharedPrefsUtils {
+
+    // STATIC FINAL VARIABLES
     private static final String SETTINGS = "settings";
     private static final String LANGUAGE = "language";
     private static final String GAMEMODE_ACTIVE = "gamemode_active";
@@ -74,7 +76,7 @@ public class SharedPrefsUtils {
     }
 
     /**
-     * Returns notification sound value from SharedPrefs.
+     * Returns boolean notification sound value from SharedPrefs.
      *
      * @param context
      * @return boolean
@@ -90,13 +92,13 @@ public class SharedPrefsUtils {
      * @param context
      * @return long
      */
-    public static long returnNotificationFrequency(Context context) {
+    public static int returnNotificationFrequency(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(SETTINGS, Activity.MODE_PRIVATE);
         return prefs.getInt(NOTIFICATION_FREQUENCY, 15);
     }
 
     /**
-     * Returns Game Mode status value from SharedPrefs.
+     * Returns boolean Game Mode status value from SharedPrefs.
      *
      * @param context
      * @return boolean

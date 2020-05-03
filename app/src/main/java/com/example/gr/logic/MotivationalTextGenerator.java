@@ -14,13 +14,17 @@ import java.util.Random;
  */
 
 public class MotivationalTextGenerator {
-
     private Context context;
 
     public MotivationalTextGenerator(Context context) {
         this.context = context;
     }
 
+    /**
+     * Function that returns a random motivational String from /res/values/array_motivational.
+     *
+     * @return String random motivational text.
+     */
     public String getRandomText() {
         // get array of motivational texts
         String[] array_motivational = context.getResources().getStringArray(R.array.motivational);

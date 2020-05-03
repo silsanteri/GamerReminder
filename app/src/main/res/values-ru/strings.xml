@@ -33,8 +33,6 @@
     <string name="appbar_title_sources">Источники</string>
     <string name="appbar_title_settings">Настройки</string>
     <string name="appbar_title_history">История</string>
-    <string name="water">Вода</string>
-    <string name="food">Еда</string>
     <string name="appendix_water">мл</string>
     <string name="appendix_exercise">мин</string>
     <string name="appendix_food">ккал</string>

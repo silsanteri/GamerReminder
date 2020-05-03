@@ -15,10 +15,10 @@ import java.util.Locale;
 public class LocaleUtils {
 
     /**
-     * Function for changing and saving app language.
+     * Function for changing the UI locale and saving the used locale to SharedPrefs.
      *
      * @param context
-     * @param language
+     * @param language String language abbreviation.
      */
     public static void setLocale(Context context, String language) {
         // SOURCE: https://www.youtube.com/watch?v=zILw5eV9QBQ
@@ -27,16 +27,17 @@ public class LocaleUtils {
         Configuration config = new Configuration();
         config.locale = locale;
         context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
-
+        // SAVES LANGUAGE TO SHAREDPREFS
         SharedPrefsUtils.saveLanguage(context, language);
     }
 
     /**
-     * Function for loading app language.
+     * Function for loading app language from SharedPrefs.
      *
      * @param context
      */
     public static void loadLocale(Context context) {
+        // GETS SAVED LOCALE FROM SHAREDPREFS
         setLocale(context, SharedPrefsUtils.returnLanguage(context));
     }
 }

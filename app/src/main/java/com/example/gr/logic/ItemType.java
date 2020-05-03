@@ -1,11 +1,7 @@
 package com.example.gr.logic;
 
 import android.content.Context;
-import android.util.Log;
-
 import com.example.gr.R;
-
-import java.util.Locale;
 
 /**
  * Types of possible add items.
@@ -37,7 +33,7 @@ public enum ItemType {
             case FOOD:
                 return context.getString(R.string.calories).toLowerCase();
             default:
-                return context.getString(R.string.water).toLowerCase();
+                return context.getString(R.string.drink).toLowerCase();
         }
     }
 }

@@ -33,9 +33,7 @@
     <string name="appbar_title_sources">출처</string>
     <string name="appbar_title_settings">설정</string>
     <string name="appbar_title_history">이력</string>
-    <string name="water">Water</string>
-    <string name="food">Food</string>
     <string name="appendix_water">ml</string>
-    <string name="appendix_exercise">min</string>
+    <string name="appendix_exercise">분</string>
     <string name="appendix_food">kcal</string>
 </resources>

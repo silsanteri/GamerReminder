@@ -102,7 +102,7 @@
                     style="@style/CardView.TotalText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/water"
+                    android:text="@string/drink"
                     android:textAlignment="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/txt_total_cal2"

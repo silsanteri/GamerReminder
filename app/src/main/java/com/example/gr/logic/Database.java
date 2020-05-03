@@ -35,14 +35,34 @@ public class Database extends SQLiteOpenHelper {
         super(context, TABLE_NAME, null, 1);
     }
 
+
+    /**
+     * onCreate @Override
+     * Creates database table.
+     *
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d(TAG, "onCreate");
+        // CREATE NEW DATABASE TABLE
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (id INTEGER PRIMARY KEY AUTOINCREMENT, " + DATE + " DATE, " + WATER + " INTEGER, " + FOOD + " INTEGER, " + EXERCISE + " INTEGER)");
     }
 
+    /**
+     * onUpgrade @Override
+     * Drops table and creates a new one on upgrade.
+     *
+     * @param db
+     * @param i
+     * @param il
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int il) {
+        Log.d(TAG, "onUpgrade");
+        // DROPS EXISTING TABLE ON UPGRADE
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        // CALLS onCreate TO CREATE A NEW TABLE
         onCreate(db);
     }
 
@@ -53,46 +73,52 @@ public class Database extends SQLiteOpenHelper {
      * @param water    Amount of water.
      * @param food     Amount of food.
      * @param exercise Amount of exercise.
-     * @return boolean Returns false if adding data fails.
+     * @return boolean Returns false if data addition fails.
      */
     public boolean addData(String date, int water, int food, int exercise) {
+        // GET WRITABLE DATABASE
         SQLiteDatabase db = this.getWritableDatabase();
+        //SETS PARAMETERS TO CONTENTVALUES
         ContentValues contentValues = new ContentValues();
         contentValues.put(DATE, date);
         contentValues.put(WATER, water);
         contentValues.put(FOOD, food);
         contentValues.put(EXERCISE, exercise);
+        // RESULT VARIABLE
         long result;
+        // SETS ID VARIABLE TO DATE PARAMETER DATE ID
         int id = checkData(date);
 
         if (id == -1) {
-            Log.d(TAG, "addData Insert.");
+            Log.d(TAG, "addData Insert");
             result = db.insert(TABLE_NAME, null, contentValues);
         } else {
-            Log.d(TAG, "addData Update.");
+            Log.d(TAG, "addData Update");
             contentValues.remove(DATE); // REMOVE DATE TO MINIMIZE BUGS
             result = db.update(TABLE_NAME, contentValues, "id  = '" + id + "'", null);
         }
-
-        // RETURNS -1 IF UPDATE OR INSERT FAILS
+        // RESULT = -1 IF UPDATE OR INSERT FAILS
         if (result == -1) {
-            Log.d(TAG, "addData Failed.");
+            // RETURNS FALSE IF UPDATE OR INSERT FAILS
+            Log.d(TAG, "addData Failed");
             return false;
         } else {
-            Log.d(TAG, "addData Successful.");
+            // RETURNS TRUE IF UPDATE OR RESULT IS SUCCESSFUL
+            Log.d(TAG, "addData Successful");
             return true;
         }
     }
 
     /**
-     * Deletes all data from database and resets autoincremented id.
-     *
-     * @return boolean Returns false if data deletion fails.
+     * Deletes all data from database and resets the AUTOINCREMENT'ed id to 1.
      */
     public void deleteData() {
         Log.d(TAG, "deleteData executed.");
+        // GET WRITABLE DATABASE
         SQLiteDatabase db = this.getWritableDatabase();
+        // DELETES EVERYTHING FROM THE TABLE
         db.execSQL("DELETE FROM " + TABLE_NAME);
+        // RESETS THE AUTOINCREMENT ID TO 1
         db.execSQL("DELETE FROM sqlite_sequence WHERE name='" + TABLE_NAME + "'");
     }
 
@@ -104,20 +130,27 @@ public class Database extends SQLiteOpenHelper {
      * @return ArrayList<Integer>, [0] = water, [1] = food, [2] = exercise.
      */
     public ArrayList<Integer> getData(String date) {
+        // GET WRITABLE DATABASE
         SQLiteDatabase db = this.getWritableDatabase();
+        // VARIABLES
         ArrayList<Integer> values = new ArrayList<>();
-        int index, water, food, exercise, id = checkData(date);
+        int index, water, food, exercise;
+        int id = checkData(date); // SETS ID VARIABLE TO DATE PARAMETER DATE ID
 
         if (id == -1) {
-            values.add(0); // ADD 0 TO WATER.
-            values.add(0); // ADD 0 TO FOOD.
-            values.add(0); // ADD 0 TO EXERCISE.
-            Log.d(TAG, "getData returned: (Water,Food,Exercise)(0,0,0)");
+            // IF DATE DOESN'T EXIST IN DATABASE
+            // SETS ALL VALUES TO 0 AND RETURNS THEM
+            values.add(0);
+            values.add(0);
+            values.add(0);
+            Log.d(TAG, "getData returned: (Water,Food,Exercise)(" + values.get(0) + "," + values.get(1) + "," + values.get(2) + ")");
             return values;
         } else {
+            // IF DATE EXISTS
+            // GETS ALL VALUES FROM DATE ID DATABASE TO CURSOR
             Cursor cursor = db.rawQuery("SELECT " + WATER + ", " + FOOD + ", " + EXERCISE + " FROM " + TABLE_NAME + " WHERE id = '" + id + "'", null);
-            index = cursor.getColumnIndexOrThrow(WATER);
             // ADD WATER TO ARRAY
+            index = cursor.getColumnIndexOrThrow(WATER);
             if (cursor.moveToFirst()) {
                 water = cursor.getInt(index);
                 values.add(water);
@@ -134,8 +167,10 @@ public class Database extends SQLiteOpenHelper {
                 exercise = cursor.getInt(index);
                 values.add(exercise);
             }
+            // CLOSES CURSOR
             cursor.close();
             Log.d(TAG, "getData returned: (Water,Food,Exercise)(" + values.get(0) + "," + values.get(1) + "," + values.get(2) + ")");
+            // RETURNS VALUES
             return values;
         }
     }
@@ -148,27 +183,34 @@ public class Database extends SQLiteOpenHelper {
      * @return int returns id of the date if found, otherwise returns -1.
      */
     public int checkData(String date) {
+        // GET WRITABLE DATABASE
         SQLiteDatabase db = this.getWritableDatabase();
+        // DEFAULT ID -1
         int id = -1;
-
+        // DATABASE QUERY TO CHECK IF DATE EXISTS IN DATABASE
         Cursor query = db.rawQuery("SELECT id FROM " + TABLE_NAME + " WHERE " + DATE + " = '" + date + "'", null);
         if (query.getCount() <= 0) {
-            Log.d(TAG, "checkData did not find entries on " + date);
+            // DATE DOES NOT EXIST
+            // CLOSES QUERY
             query.close();
-
+            Log.d(TAG, "checkData did not find entries on " + date);
+            // RETURNS DEFAULT ID (-1)
             return id;
         } else {
+            // DATE EXISTS
+            // GETS ID INDEX FROM QUERY
             int idIndex = query.getColumnIndexOrThrow("id");
+            // WRITES DATE ID FROM DATABASE TO "ID" VARIABLE
             if (query.moveToFirst()) {
                 id = query.getInt(idIndex);
             }
+            // CLOSES QUERY
             query.close();
             Log.d(TAG, "checkData found an entry of " + date + " with id = " + id);
+            // RETURNS THE FOUND DATE ID
             return id;
         }
     }
-
-    // todo to helper
 
     /**
      * Searches values of specific type for all possible dates.
@@ -177,22 +219,24 @@ public class Database extends SQLiteOpenHelper {
      * @return List of pairs, where first refers to date, and second - to value
      */
     public List<Pair<String, Integer>> getAllPairedValues(ItemType type) {
+        // GET WRITABLE DATABASE
+        SQLiteDatabase db = this.getWritableDatabase();
+        // VARIABLES
         String typeString = type.toString().toLowerCase();
         List<Pair<String, Integer>> list = new ArrayList<>();
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select " + typeString + ", " + DATE + " from " + TABLE_NAME, null);
+        // DATABASE QUERY TO GET PAIRED VALUES
+        Cursor cursor = db.rawQuery("SELECT " + typeString + ", " + DATE + " FROM " + TABLE_NAME, null);
+        // ADDS PAIRED VALUES TO ARRAYLIST
         while (cursor.moveToNext()) {
             int index_exercise = cursor.getColumnIndexOrThrow(typeString);
             int index_date = cursor.getColumnIndexOrThrow(DATE);
             list.add(new Pair(cursor.getString(index_date), cursor.getInt(index_exercise)));
         }
+        // CLOSES QUERY
         cursor.close();
-        db.close();
-
+        // RETURNS VALUES
         return list;
     }
-
-    // todo to helper
 
     /**
      * Searches values of specific type for all possible dates.
@@ -201,39 +245,42 @@ public class Database extends SQLiteOpenHelper {
      * @return List of values
      */
     public List<Integer> getAllValues(ItemType type) {
+        // GET WRITABLE DATABASE
+        SQLiteDatabase db = this.getWritableDatabase();
+        // VARIABLES
         String typeString = type.toString().toLowerCase();
         List<Integer> list = new ArrayList<>();
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select " + typeString + " from " + TABLE_NAME, null);
+        // DATABASE QUERY TO GET ALL VALUES
+        Cursor cursor = db.rawQuery("SELECT " + typeString + " FROM " + TABLE_NAME, null);
+        // ADDS ALL VALUES TO ARRAYLIST
         while (cursor.moveToNext()) {
             int index_exercise = cursor.getColumnIndexOrThrow(typeString);
             list.add(cursor.getInt(index_exercise));
         }
+        // CLOSES QUERY
         cursor.close();
-        db.close();
-
+        // RETURNS VALUES
         return list;
     }
 
-    // todo to helper
-
     /**
-     * Updates value.
+     * Updates item value.
      *
      * @param type     type to be updated
      * @param date     date to be updated
      * @param newValue new value to set
      */
     public void updateItemValue(ItemType type, String date, int newValue) {
+        // GET WRITABLE DATABASE
         SQLiteDatabase db = this.getWritableDatabase();
+        // SETS PARAMETERS TO CONTENTVALUES
         ContentValues contentValues = new ContentValues();
         contentValues.put(DATE, date);
         contentValues.put(type.toString().toLowerCase(), newValue);
+        // CHECK IF CURRENT DATE EXISTS
         int id = checkData(date);
+        // UPDATES DB WITH CONTENTVALUES
         db.update(TABLE_NAME, contentValues, "id  = '" + id + "'", null);
-        Log.d("123", "updateItemValue: " + type + date + newValue);
-        Log.d("123", "updateItemValue: " + getAllValues(ItemType.FOOD));
-        db.close();
     }
 
 }

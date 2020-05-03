@@ -37,31 +37,45 @@ import java.util.List;
 
 public class ItemFragment extends Fragment {
 
+    // VARIABLES
+    private final ArrayList<Pair<String, Integer>> items = new ArrayList<>();
+
+    // UI VARIABLES
     private ListView listView;
     private TextView average;
-    private final ArrayList<Pair<String, Integer>> items = new ArrayList<>();
+
+    // OBJECTS
     private final StringUtils stringUtils = new StringUtils();
     private final MathUtils mathUtils = new MathUtils();
     private UserData mUserData;
     private ItemType type;
 
     /**
-     * Constructor
+     * Constructor for all initial settings.
      *
      * @param type ItemType
+     * @param userData UserData Object.
      */
     public ItemFragment(ItemType type, UserData userData) {
         this.type = type;
         this.mUserData = userData;
     }
 
+    /**
+     * onCreate @Override
+     * Loads values.
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadValues();
     }
 
-
+    /**
+     * Loads values.
+     */
     private void loadValues() {
         List<Pair<String, Integer>> values = mUserData.getAllValues(type);
         if (values != null) {
@@ -70,12 +84,26 @@ public class ItemFragment extends Fragment {
         }
     }
 
+    /**
+     * onCreateView @Override
+     *
+     * @param inflater           LayoutInflater
+     * @param container          ViewGroup
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_item, container, false);
     }
 
+    /**
+     * onViewCreated @Override
+     *
+     * @param view View
+     * @param savedInstanceState Bundle
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -112,6 +140,9 @@ public class ItemFragment extends Fragment {
         updateAverage();
     }
 
+    /**
+     * Updates average.
+     */
     private void updateAverage() {
         if (average != null && mUserData != null) {
             average.setText(getString(R.string.history_average,
@@ -122,7 +153,7 @@ public class ItemFragment extends Fragment {
     }
 
     /**
-     * show dialog to edit values
+     * Show dialog to edit values.
      *
      * @param position position of the element in items array
      */

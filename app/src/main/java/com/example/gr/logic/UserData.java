@@ -1,13 +1,11 @@
 package com.example.gr.logic;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.util.Pair;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -22,14 +20,18 @@ import java.util.Locale;
  */
 
 public class UserData {
-    private static final String SETTINGS = "settings";
+    // STATIC FINAL VARIABLES
     private static final String TAG = "UserData.class";
-    private int intakeLimit, exerciseLimit; // INTAKELIMIT IS THE SAME FOR FOOD AND WATER
+
+    // VARIABLES
+    private int intakeLimit, exerciseLimit; // INTAKELIMIT IS ALWAYS THE SAME FOR CALORIES AND DRINK
+    private String date;
+
+    // OBJECTS
     private Water water;
     private Food food;
     private Exercise exercise;
     private Database database;
-    private String date;
 
     /**
      * Constructor for all initial settings.
@@ -39,12 +41,14 @@ public class UserData {
      * @param context gets context for Database object.
      */
     public UserData(Context context) {
+        // MAKES A NEW DATABASE OBJECT
         this.database = new Database(context);
+        // GETS CURRENT DATE
         this.date = getDate();
-
+        // SETS USERDATA LIMITS (COULD BE CUSTOMIZABLE BY USER IN LATER VERSIONS)
         this.intakeLimit = 10000;
         this.exerciseLimit = 1440; // 24*60
-
+        // UPDATES VALUES FROM DATABASE
         this.updateValues();
 
         Log.d(TAG, "UserData object constructed. Date: " + this.date + ". Values: (Water,Food,Exercise)("
@@ -52,7 +56,7 @@ public class UserData {
     }
 
     /**
-     * Updates main values.
+     * Updates users values.
      */
     public void updateValues() {
         ArrayList<Integer> values = database.getData(this.date);
@@ -116,7 +120,7 @@ public class UserData {
     }
 
     /**
-     * Returns daily intake limit for both water and food.
+     * Returns daily intake limit for both drink and calories.
      *
      * @return int intake limit.
      */
@@ -139,18 +143,20 @@ public class UserData {
      * @return String current date.
      */
     private String getDate() {
+        // TODO MOVE TO UserDataHelper
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
     }
 
     /**
-     * Returns reversed list of pairs of date and amount
+     * Returns reversed list of pairs of date and amount.
      *
-     * @param type Type for which values needed
-     * @return list of pairs
+     * @param type Type for which values needed.
+     * @return List<Pair><String, Integer>>
      */
     public List<Pair<String, Integer>> getAllValues(ItemType type) {
+        // TODO MOVE TO UserDataHelper
         final List<Pair<String, Integer>> list = database.getAllPairedValues(type);
         if (list != null) {
             Collections.reverse(list);
@@ -159,12 +165,13 @@ public class UserData {
     }
 
     /**
-     * Returns reversed list of pairs of date and amount
+     * Returns reversed list of pairs of date and amount.
      *
-     * @param type Type for which values needed
-     * @return list of integers
+     * @param type Type for which values needed.
+     * @return List<Integer>
      */
     public List<Integer> getAllValuesPlain(ItemType type) {
+        // TODO MOVE TO UserDataHelper
         final List<Integer> list = database.getAllValues(type);
         if (list != null) {
             Collections.reverse(list);
@@ -173,14 +180,21 @@ public class UserData {
     }
 
     /**
-     * Saves current values to database.
-     * Uses addData function from Database class.
+     * Saves all current values to database.
      */
     public void addDBData() {
+        // TODO MOVE TO UserDataHelper
         database.addData(this.date, returnWater(), returnFood(), returnExercise());
     }
 
+    /**
+     * Returns value by type.
+     *
+     * @param type
+     * @return int
+     */
     public int getValueByType(ItemType type) {
+        // TODO MOVE TO UserDataHelper
         switch (type) {
             case FOOD:
                 return returnFood();
@@ -193,7 +207,14 @@ public class UserData {
         }
     }
 
+    /**
+     * Returns limit by type.
+     *
+     * @param type
+     * @return int
+     */
     public int getLimitByType(ItemType type) {
+        // TODO MOVE TO UserDataHelper
         switch (type) {
             case FOOD:
             case WATER:
@@ -206,20 +227,22 @@ public class UserData {
     }
 
     /**
+     * Updates individual value.
+     *
      * @param type     Type of Item to update
      * @param date     Date
      * @param newValue Value to update
      */
-    // todo move to helper
     public void editItem(ItemType type, String date, int newValue) {
+        // TODO MOVE TO UserDataHelper
         database.updateItemValue(type, date, newValue);
     }
-    // todo move to helper
 
     /**
      * Deletes all data from database and inserts current day with empty values.
      */
     public void deleteAllData() {
+        // TODO MOVE TO UserDataHelper
         database.deleteData();
         database.addData(this.date, 0, 0, 0);
     }
@@ -227,7 +250,7 @@ public class UserData {
 
 // WATER -------------------------------------------------------------------------------------------
 class Water {
-    private static final String TAG = "UserData.class";
+    private static final String TAG = "Water.class";
     private int waterAmount;
     private int waterLimit;
 
@@ -244,16 +267,18 @@ class Water {
 
     /**
      * Adds water.
+     * If water amount added is more than limit, sets water amount to the limit.
      *
      * @param amount amount of water to add.
      */
     public void addWater(int amount) {
         int newAmount = this.waterAmount + amount;
-        if (waterLimit >= newAmount) {
+        if (this.waterLimit >= newAmount) {
             this.waterAmount = newAmount;
             Log.d(TAG, "addWater added water. New amount: " + this.waterAmount + "/" + this.waterLimit);
         } else {
-            Log.d(TAG, "addWater did not add water.");
+            this.waterAmount = this.waterLimit;
+            Log.d(TAG, "addWater added water. New amount: " + this.waterAmount + "/" + this.waterLimit);
         }
     }
 
@@ -270,7 +295,7 @@ class Water {
 
 // FOOD --------------------------------------------------------------------------------------------
 class Food {
-    private static final String TAG = "UserData.class";
+    private static final String TAG = "Food.class";
     private int foodAmount;
     private int foodLimit;
 
@@ -287,16 +312,18 @@ class Food {
 
     /**
      * Adds food.
+     * If food amount added is more than limit, sets food amount to the limit.
      *
      * @param amount amount of food to add.
      */
     public void addFood(int amount) {
         int newAmount = this.foodAmount + amount;
-        if (foodLimit >= newAmount) {
+        if (this.foodLimit >= newAmount) {
             this.foodAmount = newAmount;
             Log.d(TAG, "addFood added food. New amount: " + this.foodAmount + "/" + this.foodLimit);
         } else {
-            Log.d(TAG, "addFood did not add food.");
+            this.foodAmount = this.foodLimit;
+            Log.d(TAG, "addFood added food. New amount: " + this.foodAmount + "/" + this.foodLimit);
         }
     }
 
@@ -313,7 +340,7 @@ class Food {
 
 // EXERCISE ----------------------------------------------------------------------------------------
 class Exercise {
-    private static final String TAG = "UserData.class";
+    private static final String TAG = "Exercise.class";
     private int exerciseAmount;
     private int exerciseLimit;
 
@@ -330,16 +357,18 @@ class Exercise {
 
     /**
      * Adds exercise.
+     * If exercise amount added is more than limit, sets exercise amount to the limit.
      *
      * @param amount amount of exercise to add.
      */
     public void addExercise(int amount) {
         int newAmount = this.exerciseAmount + amount;
-        if (exerciseLimit >= newAmount) {
+        if (this.exerciseLimit >= newAmount) {
             this.exerciseAmount = newAmount;
             Log.d(TAG, "addExercise added exercise. New amount: " + this.exerciseAmount + "/" + this.exerciseLimit);
         } else {
-            Log.d(TAG, "addExercise did not add exercise.");
+            this.exerciseAmount = this.exerciseLimit;
+            Log.d(TAG, "addExercise added exercise. New amount: " + this.exerciseAmount + "/" + this.exerciseLimit);
         }
     }
 
