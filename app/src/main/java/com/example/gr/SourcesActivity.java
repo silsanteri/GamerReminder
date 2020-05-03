@@ -7,8 +7,6 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.List;
-
 public class SourcesActivity extends AppCompatActivity {
 
     private ListView listView;

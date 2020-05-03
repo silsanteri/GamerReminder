@@ -8,7 +8,7 @@
     <string name="settings_notifications_min">15 min</string>
     <string name="settings_notifications_max">120 min</string>
     <string name="settings_notifications_frequency">Notification Frequency</string>
-    <string name="settings_notifications_sound">Notification Sound</string>
+    <string name="settings_notifications_sound">Notification Sounds</string>
     <string name="cancel">Отмена</string>
     <string name="dialog_add_message">Укажите новое значение</string>
     <string name="dialog_today">Today: %1$d/%2$d</string>
