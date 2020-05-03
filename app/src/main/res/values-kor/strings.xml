@@ -14,9 +14,9 @@
     <string name="dialog_today">오늘: %1$d/%2$d</string>
     <string name="toast_not_saved">저장 최소했습니다!</string>
     <string name="toast_saved">저장 성공적이었습니다!</string>
-    <string name="total_exercise">운동\n%1$d분</string>
-    <string name="total_calories">칼로리\n%1$d</string>
-    <string name="total_water">음료\n%1$dml</string>
+    <string name="total_exercise">%1$d분</string>
+    <string name="total_calories">%1$d kcal</string>
+    <string name="total_water">%1$d ml</string>
     <string name="today">오늘</string>
     <string name="history_list_item">%1$s - %2$d</string>
     <string name="history_average">평균: %1$d %2$s</string>
@@ -33,4 +33,9 @@
     <string name="appbar_title_sources">출처</string>
     <string name="appbar_title_settings">설정</string>
     <string name="appbar_title_history">이력</string>
+    <string name="water">Water</string>
+    <string name="food">Food</string>
+    <string name="appendix_water">ml</string>
+    <string name="appendix_exercise">min</string>
+    <string name="appendix_food">kcal</string>
 </resources>

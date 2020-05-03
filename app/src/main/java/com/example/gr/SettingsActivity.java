@@ -1,15 +1,22 @@
 package com.example.gr;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.DragEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.example.gr.logic.LocaleUtils;
+import com.example.gr.logic.SharedPrefsUtils;
 import com.example.gr.logic.UserData;
+import com.google.android.material.slider.Slider;
 
 /**
  * SettingsActivity
@@ -17,8 +24,6 @@ import com.example.gr.logic.UserData;
  * @author Ruslan (@dievskiy), Santeri Silvennoinen (@silsanteri), Tapi
  * @version 1.0 04/2020
  */
-
-//TODO MAKE SOURCES BUTTON WORK AND ADD SOURCELIST
 
 public class SettingsActivity extends AppCompatActivity {
     private static final String TAG = "SettingsActivity.class";
@@ -30,6 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
     private Button btn_delete_userdata;
 
     private UserData mUserData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +100,26 @@ public class SettingsActivity extends AppCompatActivity {
         btn_language_fi.setOnClickListener(listener);
         btn_language_kor.setOnClickListener(listener);
         btn_language_ru.setOnClickListener(listener);
+
+        // set notification checkbox
+        CheckBox checkBox = findViewById(R.id.notification_sound);
+        checkBox.setChecked(SharedPrefsUtils.returnNotificationSound(this));
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPrefsUtils.saveNotificationSound(SettingsActivity.this, isChecked);
+            }
+        });
+
+        // set notification frequency slider
+        Slider slider = findViewById(R.id.slider);
+        slider.setValue((float) SharedPrefsUtils.returnNotificationFrequency(this));
+        slider.addOnChangeListener(new Slider.OnChangeListener() {
+            @Override
+            public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
+                SharedPrefsUtils.saveNotificationFrequency(SettingsActivity.this, (int) value);
+            }
+        });
     }
 
     /**

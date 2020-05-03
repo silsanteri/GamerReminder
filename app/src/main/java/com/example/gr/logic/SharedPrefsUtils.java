@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
  * @author Santeri Silvennoinen (@silsanteri)
  * @version 1.0 04/2020
  */
-
 public class SharedPrefsUtils {
     private static final String SETTINGS = "settings";
     private static final String LANGUAGE = "language";
@@ -46,9 +45,9 @@ public class SharedPrefsUtils {
      *
      * @param context
      */
-    public static void saveNotificationFrequency(Context context, long notificationFrequency) {
+    public static void saveNotificationFrequency(Context context, int notificationFrequency) {
         SharedPreferences.Editor editor = context.getSharedPreferences(SETTINGS, context.MODE_PRIVATE).edit();
-        editor.putLong(NOTIFICATION_FREQUENCY, notificationFrequency);
+        editor.putInt(NOTIFICATION_FREQUENCY, notificationFrequency);
         editor.apply();
     }
 
@@ -93,7 +92,7 @@ public class SharedPrefsUtils {
      */
     public static long returnNotificationFrequency(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(SETTINGS, Activity.MODE_PRIVATE);
-        return prefs.getInt(NOTIFICATION_FREQUENCY, 900000);
+        return prefs.getInt(NOTIFICATION_FREQUENCY, 15);
     }
 
     /**
