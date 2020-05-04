@@ -7,8 +7,8 @@
     <string name="notification_next">Next Notification In: %1$sm %2$ss</string>
     <string name="settings_language">Language</string>
     <string name="settings_notifications_sound">Notification Sounds</string>
-    <string name="settings_notifications_min">15 min</string>
-    <string name="settings_notifications_max">120 min</string>
+    <string name="settings_notifications_min">15min</string>
+    <string name="settings_notifications_max">120min</string>
     <string name="settings_notifications_frequency">Notification Frequency</string>
     <string name="language_english" translatable="false">English</string>
     <string name="language_finnish" translatable="false">Suomi</string>
@@ -41,4 +41,5 @@
     <string name="appendix_water">" ml"</string>
     <string name="appendix_exercise">" min"</string>
     <string name="appendix_food">kcal</string>
+    <string name="notification_frequency">Notification Frequency: %1$smin</string>
 </resources>

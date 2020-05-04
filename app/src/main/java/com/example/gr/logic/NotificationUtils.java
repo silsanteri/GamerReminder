@@ -55,13 +55,13 @@ public class NotificationUtils {
      */
     public void startNotifications(Context context) {
         // GETS NOTIFICATION DELAY VARIABLE FROM SHAREDPREFS
-        //long notificationDelay = MathUtils.minutesToMilliseconds(SharedPrefsUtils.returnNotificationFrequency(context));
-        long notificationDelay = 60 * 1000; //todo remove test
-
+        int notificationDelay = MathUtils.minutesToMilliseconds(SharedPrefsUtils.returnNotificationFrequency(context));
+        long notificationFirst = System.currentTimeMillis() + notificationDelay;
+        // CREATES NOTIFICATION
         createNotification(context);
-        // START REPEATING NOTIFICATIONS
+        // STARTS REPEATING NOTIFICATIONS
         this.alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis(),
+                notificationFirst,
                 notificationDelay,
                 this.pendingIntent);
     }
@@ -127,7 +127,6 @@ public class NotificationUtils {
      * Creates a full notification.
      *
      * @param context
-     * @return Notification
      */
     public void createNotification(Context context) {
         // GETS RAW NOTIFICATION

@@ -6,8 +6,8 @@
     <string name="notification_next">Seuraava Ilmoitus: %1$sm %2$ss</string>
     <string name="settings_language">Kieli</string>
     <string name="settings_notifications_sound">Ilmoitusten Äänet</string>
-    <string name="settings_notifications_min">15 min</string>
-    <string name="settings_notifications_max">120 min</string>
+    <string name="settings_notifications_min">15min</string>
+    <string name="settings_notifications_max">120min</string>
     <string name="settings_notifications_frequency">Ilmoitusten Aikaväli</string>
     <string name="cancel">PERUUTA</string>
     <string name="dialog_add_message">Aseta lisättävä määrä</string>
@@ -36,4 +36,5 @@
     <string name="appendix_water">ml</string>
     <string name="appendix_exercise">min</string>
     <string name="appendix_food">kcal</string>
+    <string name="notification_frequency">Ilmoitusten Aikaväli: %1$smin</string>
 </resources>

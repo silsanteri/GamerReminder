@@ -28,7 +28,7 @@ public class HistoryPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragments;
     private List<String> titles;
 
-    // todo change userData to helper
+    // todo move to UserDataHelper in later versions
     public HistoryPagerAdapter(FragmentManager supportFragmentManager, UserData userData, Context context) {
         super(supportFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 

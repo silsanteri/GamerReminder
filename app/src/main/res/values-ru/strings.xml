@@ -5,8 +5,8 @@
     <string name="notification_next">Следующее уведомление через: %1$sм %2$sс</string>
     <string name="add_calories">Добавить калории</string>
     <string name="settings_language">Язык</string>
-    <string name="settings_notifications_min">15 мин</string>
-    <string name="settings_notifications_max">120 мин</string>
+    <string name="settings_notifications_min">15мин</string>
+    <string name="settings_notifications_max">120мин</string>
     <string name="settings_notifications_frequency">Частота уведомлений</string>
     <string name="settings_notifications_sound">Звук уведомления</string>
     <string name="cancel">Отмена</string>
@@ -36,4 +36,5 @@
     <string name="appendix_water">мл</string>
     <string name="appendix_exercise">мин</string>
     <string name="appendix_food">ккал</string>
+    <string name="notification_frequency">Частота уведомлений: %1$sмин</string>
 </resources>

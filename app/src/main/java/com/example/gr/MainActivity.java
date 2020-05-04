@@ -1,10 +1,5 @@
 package com.example.gr;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,8 +13,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.gr.logic.ItemType;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.gr.logic.DialogHandler;
+import com.example.gr.logic.ItemType;
 import com.example.gr.logic.LocaleUtils;
 import com.example.gr.logic.MotivationalTextGenerator;
 import com.example.gr.logic.NotificationUtils;
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
     private TextView txt_total_water;
     private TextView txt_total_exer;
     private TextView txt_game_mode_activated;
-    private TextView txt_notification_next;
+    private TextView txt_notification_frequency;
     private TextView txt_game_mode_disabled;
 
     // OBJECTS
@@ -103,9 +103,8 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
      */
     private void setUpViews() {
         Log.d(TAG, "setUpViews");
-        // todo set relevant time
-        ((TextView) findViewById(R.id.txt_notification_next))
-                .setText(getString(R.string.notification_next, "04", "20"));
+        ((TextView) findViewById(R.id.txt_notification_frequency))
+                .setText(getString(R.string.notification_frequency, Long.toString(SharedPrefsUtils.returnNotificationFrequency(this))));
 
         // set motivational text
         ((TextView) findViewById(R.id.txt_motivational)).setText(textGenerator.getRandomText());
@@ -113,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
         // set game mode texts
         this.txt_game_mode_activated = findViewById(R.id.txt_game_mode_activated);
         this.txt_game_mode_disabled = findViewById(R.id.txt_game_mode_disabled);
-        this.txt_notification_next = findViewById(R.id.txt_notification_next);
+        this.txt_notification_frequency = findViewById(R.id.txt_notification_frequency);
 
         // set up buttons
         this.btn_exercise = findViewById(R.id.btn_add_exercise);
@@ -287,6 +286,7 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
      */
     public void activateGameMode(View view) {
         if (this.gamemodeActive) {
+            Log.d(TAG, "activateGameMode: OFF");
             // IF GAME MODE WAS ACTIVE WHEN CLICKED
             this.gamemodeActive = false;
             // SAVES THE NEW GAMEMODE STATUS TO SHAREDPREFS
@@ -296,6 +296,7 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
             // STOPS THE REPEATING NOTIFICATIONS
             notificationUtils.stopNotifications();
         } else {
+            Log.d(TAG, "activateGameMode: ON");
             // IF GAME MODE WAS NOT ACTIVE WHEN CLICKED
             this.gamemodeActive = true;
             // SAVES THE NEW GAMEMODE STATUS TO SHAREDPREFS
@@ -312,14 +313,16 @@ public class MainActivity extends AppCompatActivity implements DialogHandler {
      */
     private void setGameModeUI() {
         if (this.gamemodeActive) {
+            ((TextView) findViewById(R.id.txt_notification_frequency))
+                    .setText(getString(R.string.notification_frequency, Long.toString(SharedPrefsUtils.returnNotificationFrequency(this))));
             this.btn_game_mode.setBackgroundColor(getResources().getColor(R.color.colorActivated));
             this.txt_game_mode_activated.setVisibility(View.VISIBLE);
-            this.txt_notification_next.setVisibility(View.VISIBLE);
+            this.txt_notification_frequency.setVisibility(View.VISIBLE);
             this.txt_game_mode_disabled.setVisibility(View.INVISIBLE);
         } else {
             this.btn_game_mode.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             this.txt_game_mode_activated.setVisibility(View.INVISIBLE);
-            this.txt_notification_next.setVisibility(View.INVISIBLE);
+            this.txt_notification_frequency.setVisibility(View.INVISIBLE);
             this.txt_game_mode_disabled.setVisibility(View.VISIBLE);
         }
     }

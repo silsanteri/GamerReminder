@@ -1,6 +1,7 @@
 package com.example.gr.logic;
 
 import android.content.Context;
+
 import com.example.gr.R;
 
 /**
@@ -34,6 +35,17 @@ public enum ItemType {
                 return context.getString(R.string.calories).toLowerCase();
             default:
                 return context.getString(R.string.drink).toLowerCase();
+        }
+    }
+
+    public int getMaxValue() {
+        switch (this) {
+            case EXERCISE:
+                return 1440;
+            case FOOD:
+                return 10000;
+            default:
+                return 10000;
         }
     }
 }

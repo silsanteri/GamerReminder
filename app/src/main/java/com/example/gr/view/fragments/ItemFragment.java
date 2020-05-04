@@ -90,7 +90,7 @@ public class ItemFragment extends Fragment {
      * @param inflater           LayoutInflater
      * @param container          ViewGroup
      * @param savedInstanceState
-     * @return
+     * @return LayoutInflater
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

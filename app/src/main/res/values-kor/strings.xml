@@ -36,4 +36,5 @@
     <string name="appendix_water">ml</string>
     <string name="appendix_exercise">분</string>
     <string name="appendix_food">kcal</string>
+    <string name="notification_frequency">알림 빈도: %1$s분</string>
 </resources>
