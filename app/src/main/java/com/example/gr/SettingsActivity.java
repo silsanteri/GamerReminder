@@ -1,17 +1,16 @@
 package com.example.gr;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gr.logic.LocaleUtils;
 import com.example.gr.logic.SharedPrefsUtils;
@@ -107,7 +106,6 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         // FINDS THE LANGUAGEBUTTONS
-        //TODO TURN NOT SELECTED LANGUAGE BUTTONS TO DIFFERENT COLOR(GRAY?)
         this.btn_language_en = findViewById(R.id.buttonEnglish);
         this.btn_language_fi = findViewById(R.id.buttonFinnish);
         this.btn_language_kor = findViewById(R.id.buttonKorean);
@@ -122,6 +120,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         // set notification checkbox
         CheckBox checkBox = findViewById(R.id.notification_sound);
+        checkBox.setEnabled(true);
         checkBox.setChecked(SharedPrefsUtils.returnNotificationSound(this));
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -132,6 +131,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         // set notification frequency slider
         Slider slider = findViewById(R.id.slider);
+        slider.setEnabled(true);
         slider.setValue((float) SharedPrefsUtils.returnNotificationFrequency(this));
         slider.addOnChangeListener(new Slider.OnChangeListener() {
             @Override
@@ -139,6 +139,11 @@ public class SettingsActivity extends AppCompatActivity {
                 SharedPrefsUtils.saveNotificationFrequency(SettingsActivity.this, (int) value);
             }
         });
+        // set notification settings unchangeable if game mode is active
+        if (SharedPrefsUtils.returnGameModeStatus(this)) {
+            checkBox.setEnabled(false);
+            slider.setEnabled(false);
+        }
     }
 
     /**

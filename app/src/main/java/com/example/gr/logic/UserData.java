@@ -143,7 +143,7 @@ public class UserData {
      * @return String current date.
      */
     private String getDate() {
-        // TODO MOVE TO UserDataHelper
+        // todo move to UserDataHelper in later versions
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
@@ -156,7 +156,7 @@ public class UserData {
      * @return List<Pair><String, Integer>>
      */
     public List<Pair<String, Integer>> getAllValues(ItemType type) {
-        // TODO MOVE TO UserDataHelper
+        // todo move to UserDataHelper in later versions
         final List<Pair<String, Integer>> list = database.getAllPairedValues(type);
         if (list != null) {
             Collections.reverse(list);
@@ -171,7 +171,7 @@ public class UserData {
      * @return List<Integer>
      */
     public List<Integer> getAllValuesPlain(ItemType type) {
-        // TODO MOVE TO UserDataHelper
+        // todo move to UserDataHelper in later versions
         final List<Integer> list = database.getAllValues(type);
         if (list != null) {
             Collections.reverse(list);
@@ -183,7 +183,7 @@ public class UserData {
      * Saves all current values to database.
      */
     public void addDBData() {
-        // TODO MOVE TO UserDataHelper
+        // todo move to UserDataHelper in later versions
         database.addData(this.date, returnWater(), returnFood(), returnExercise());
     }
 
@@ -194,7 +194,7 @@ public class UserData {
      * @return int
      */
     public int getValueByType(ItemType type) {
-        // TODO MOVE TO UserDataHelper
+        // todo move to UserDataHelper in later versions
         switch (type) {
             case FOOD:
                 return returnFood();
@@ -214,7 +214,7 @@ public class UserData {
      * @return int
      */
     public int getLimitByType(ItemType type) {
-        // TODO MOVE TO UserDataHelper
+        // todo move to UserDataHelper in later versions
         switch (type) {
             case FOOD:
             case WATER:
@@ -234,7 +234,10 @@ public class UserData {
      * @param newValue Value to update
      */
     public void editItem(ItemType type, String date, int newValue) {
-        // TODO MOVE TO UserDataHelper
+        // todo move to UserDataHelper in later versions
+        if (newValue > type.getMaxValue()) {
+            newValue = type.getMaxValue();
+        }
         database.updateItemValue(type, date, newValue);
     }
 
@@ -242,7 +245,7 @@ public class UserData {
      * Deletes all data from database and inserts current day with empty values.
      */
     public void deleteAllData() {
-        // TODO MOVE TO UserDataHelper
+        // todo move to UserDataHelper in later versions
         database.deleteData();
         database.addData(this.date, 0, 0, 0);
     }

@@ -45,7 +45,7 @@ https://stackoverflow.com/questions/4533320/android-clickable-layout
                 android:layout_weight=".25"
                 android:lines="1"
                 android:text="@string/language_english"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonFinnish"
@@ -57,7 +57,7 @@ https://stackoverflow.com/questions/4533320/android-clickable-layout
                 android:layout_weight=".25"
                 android:lines="1"
                 android:text="@string/language_finnish"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonKorean"
@@ -68,7 +68,7 @@ https://stackoverflow.com/questions/4533320/android-clickable-layout
                 android:layout_weight=".25"
                 android:lines="1"
                 android:text="@string/language_korean"
-                android:textSize="12sp" />
+                android:textSize="13sp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonRussian"
@@ -78,7 +78,7 @@ https://stackoverflow.com/questions/4533320/android-clickable-layout
                 android:layout_weight=".25"
                 android:lines="1"
                 android:text="@string/language_russian"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -113,7 +113,8 @@ https://stackoverflow.com/questions/4533320/android-clickable-layout
             android:valueFrom="15"
             android:valueTo="120"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_frequency" />
+            app:layout_constraintTop_toBottomOf="@id/txt_frequency"
+            android:enabled="true" />
 
         <TextView
             android:id="@+id/txt_min"
@@ -144,7 +145,8 @@ https://stackoverflow.com/questions/4533320/android-clickable-layout
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/language_container" />
+        app:layout_constraintTop_toBottomOf="@+id/language_container"
+        android:enabled="true" />
 
     <Button
         android:id="@+id/btn_sources"

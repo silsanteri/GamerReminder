@@ -7,6 +7,7 @@ import android.os.Build;
 
 /**
  * Class that contains notification scripts.
+ * Extends Application.
  *
  * @author Santeri Silvennoinen (@silsanteri)
  * @version 1.0 04/2020
